@@ -1,8 +1,8 @@
 import { View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
-import { ScrollView } from 'react-native-web';
-import { useState } from 'react/cjs/react.development';
+import { ScrollView } from 'react-native';
+import { useState } from 'react';
 import medFetch from '../Actions/fetch';
 import { loadPost } from '../Screens/Post';
  const PostItem = (props) => {

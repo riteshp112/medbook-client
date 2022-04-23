@@ -12,16 +12,15 @@ import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { createPost } from '../Actions/sendPostAction';
 import getUser from '../Actions/getUser';
-import { useEffect } from 'react/cjs/react.production.min';
-// import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react';
 
 const   Home=(props)=> {
   const [createPostVisible,setCreatePostVisible]=useState(false)
   const [content, setContent] = useState(<Post />);
-  const [user, setUser] = useState({abc:'abc'});
+  const [user, setUser] = useState(false);
   const [SignedUp, setSignedup] = useState(false);
   const [post,setPost]=useState("")
-  // useEffect(()=>getUser().then(item=>{setUser(JSON.parse(item))}),[])
+  useEffect(()=>getUser().then(item=>{setUser(JSON.parse(item))}),[])
   const home = () => { //console.debug("homePress")
     setContent(<Post />)
   }
