@@ -12,7 +12,8 @@ import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { createPost } from '../Actions/sendPostAction';
 import getUser from '../Actions/getUser';
-import { useEffect } from 'react/cjs/react.development';
+import { useEffect } from 'react/cjs/react.production.min';
+// import { useEffect } from 'react/cjs/react.development';
 
 const   Home=(props)=> {
   const [createPostVisible,setCreatePostVisible]=useState(false)
