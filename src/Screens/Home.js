@@ -18,10 +18,10 @@ import { useEffect } from 'react/cjs/react.production.min';
 const   Home=(props)=> {
   const [createPostVisible,setCreatePostVisible]=useState(false)
   const [content, setContent] = useState(<Post />);
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState({abc:abc});
   const [SignedUp, setSignedup] = useState(false);
   const [post,setPost]=useState("")
-  useEffect(()=>getUser().then(item=>{setUser(JSON.parse(item))}),[])
+  // useEffect(()=>getUser().then(item=>{setUser(JSON.parse(item))}),[])
   const home = () => { //console.debug("homePress")
     setContent(<Post />)
   }
