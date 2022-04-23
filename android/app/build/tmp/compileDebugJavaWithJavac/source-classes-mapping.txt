@@ -1,0 +1,14 @@
+com/riteshp112/medbook/MainApplication.java
+ com.riteshp112.medbook.MainApplication
+ com.riteshp112.medbook.MainApplication$1
+com/riteshp112/medbook/ReactNativeFlipper.java
+ com.riteshp112.medbook.ReactNativeFlipper
+ com.riteshp112.medbook.ReactNativeFlipper$1
+ com.riteshp112.medbook.ReactNativeFlipper$2
+ com.riteshp112.medbook.ReactNativeFlipper$2$1
+com/riteshp112/medbook/MainActivity.java
+ com.riteshp112.medbook.MainActivity
+com/riteshp112/medbook/BuildConfig.java
+ com.riteshp112.medbook.BuildConfig
+com/facebook/react/PackageList.java
+ com.facebook.react.PackageList
