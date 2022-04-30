@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 import moment from 'moment';
 import { TouchableOpacity } from 'react-native';
-import CrossPlatformIcon from 'react-native-cross-platform-icons';
+// import CrossPlatformIcon from 'react-native-cross-platform-icons';
 export const RecordItem = (props) => {
   const d = new Date(props.date)
   const {deleteRecords,index,setRecords}=props;
@@ -12,7 +12,8 @@ export const RecordItem = (props) => {
        <TouchableOpacity style={{paddingTop:5}} onPress={()=>{
          deleteRecords(index,setRecords)
        }}>
-        <CrossPlatformIcon name='trash' size={20}></CrossPlatformIcon>
+        <Text>&#129520;</Text>
+        {/* <CrossPlatformIcon name='trash' size={20}></CrossPlatformIcon> */}
        </TouchableOpacity>
       </View>
       <Text style={{ fontSize: 25 }}>{props.type}</Text>
