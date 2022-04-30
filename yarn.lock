@@ -4599,6 +4599,11 @@
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
 
+"react-native-cross-platform-icons@^1.0.5":
+  "integrity" "sha1-Jt4B0R439nEqynx6HFX7LreI0vI="
+  "resolved" "https://registry.npmjs.org/react-native-cross-platform-icons/-/react-native-cross-platform-icons-1.0.5.tgz"
+  "version" "1.0.5"
+
 "react-native-web@0.17.1":
   "integrity" "sha512-lUnn+2O8ynQ6/gJKylSxm7DLi2vHw6AujdDV1+LSa8Epe1bYFJNUcJTEhJf0jNYUFGOujzMtuG8Mkz3HdWTkag=="
   "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.17.1.tgz"
