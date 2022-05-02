@@ -16,13 +16,17 @@ import { useEffect } from 'react';
 
 const   Home=(props)=> {
   const [createPostVisible,setCreatePostVisible]=useState(false)
-  const [content, setContent] = useState(<Post />);
   const [user, setUser] = useState(false);
+  const [content, setContent] = useState();
   const [SignedUp, setSignedup] = useState(false);
   const [post,setPost]=useState("")
-  useEffect(()=>getUser().then(item=>{setUser(JSON.parse(item))}),[])
+  useEffect(()=>getUser().then(item=>{
+  setUser(JSON.parse(item))
+  console.log(JSON.parse(item))
+  setContent(<Post user={JSON.parse(item)}></Post>)}),[])
+  
   const home = () => { //console.debug("homePress")
-    setContent(<Post />)
+    setContent(<Post user={user} />)
   }
   const recordpress = () => {//console.debug("recordpress")
     setContent(<Record />)
@@ -93,7 +97,7 @@ const   Home=(props)=> {
           <Image source={{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
           </Image>
         </View>
-        <Login setUser={setUser} signup={setSignedup} />
+        <Login setUser={setUser} signup={setSignedup} setContent={setContent} />
       </View>
     )
   else

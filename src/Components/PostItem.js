@@ -11,7 +11,13 @@ import { comment, dislike, like, logo, send } from '../Icons';
   const {item,PostItems,setPostItems,setModalVisible}=props;
   const [newComment,setNewComment]=useState("")
   const [showComments,setShowComments]=useState(false)
-  let commentComponent=item.comments && item?.comments?.map((item)=><Text>{item}</Text>) ||[]
+  let commentComponent=item.comments && item?.comments?.map((item)=>
+  <View style={{flexDirection:'row',}}>
+    <Text style={{color:'blue'}}>{item.user}</Text>
+    <Text style={{paddingLeft:15}}>{item.comment}</Text>
+  </View>
+  ) ||[]
+  console.log(props)
   return (
     <View style={{backgroundColor:'yellow', borderWidth:10, borderColor:'cyan',marginTop: 4 ,marginBottom:4,padding:10,borderRadius:20,}}>
       <Text style={{ fontSize: 20, color: 'blue',paddingBottom:16 }}>
@@ -25,20 +31,23 @@ import { comment, dislike, like, logo, send } from '../Icons';
       style={{height:75,width:'100%',resizeMode:'contain'}}>
       </Image>
       <View style={{flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center',marginTop:10}}>
-      <TouchableOpacity onPress={()=>{medFetch({
-        type:'update',
-        table:'post',
-        id:item?._id,
-        changes:{likes:item?.likes+1}
-      })
-      setTimeout(() => {
-        loadPost(setPostItems, setModalVisible, PostItems)        
-      }, 500); 
+      <TouchableOpacity onPress={()=>{
+        if(!(item?.likers.find((item)=>item===props.currentUser?._id))){
+          medFetch({
+            type:'update',
+            table:'post',
+            id:item?._id,
+            changes:{likers:[...item?.likers,props?.currentUser?._id]}
+          })
+        setTimeout(() => {
+          loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
+        }, 500);
+        } 
       }}>
         <View style={{flex:1,flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',}}>
         <Image source={like} style={{height:15,width:15}}></Image>
       {/* <CrossPlatformIcon name='thumbs-up'size={15}></CrossPlatformIcon> */}
-      <Text style={{marginLeft:10,}}>{item?.likes}</Text>
+      <Text style={{marginLeft:10,}}>{item?.likers.length}</Text>
       </View>
       </TouchableOpacity> 
       <TouchableOpacity onPress={()=>{
@@ -47,23 +56,27 @@ import { comment, dislike, like, logo, send } from '../Icons';
       <View style={{paddingLeft:20,flex:1,flexDirection:'row',justifyContent:'center',alignContent:'center',alignItems:'center',}}>
         {/* <CrossPlatformIcon name='chatbubbles'size={15}></CrossPlatformIcon> */}
         <Image source={comment} style={{height:20,width:20}}></Image>
-        <Text style={{marginLeft:10,}}>{item?.comments.length}</Text>
+        <Text style={{marginLeft:10,}}>{item?.comments?.length}</Text>
       </View>     
       </TouchableOpacity>
-     <TouchableOpacity onPress={()=>{medFetch({
-        type:'update',
-        table:'post',
-        id:item?._id,
-        changes:{dislikes:item?.dislikes+1}
-      })
-      setTimeout(() => {
-        loadPost(setPostItems, setModalVisible, PostItems)        
-      }, 500); 
+     <TouchableOpacity onPress={()=>{
+       console.log(props)
+       if(!(item?.dislikers.find((item)=>item==props?.currentUser?._id))){
+        medFetch({
+          type:'update',
+          table:'post',
+          id:item?._id,
+          changes:{dislikers:[...item?.dislikers,props?.currentUser?._id]}
+        })
+        setTimeout(() => {
+          loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
+        }, 500);
+        } 
       }}>
       <View style={{flex:1,flexDirection:'row',marginLeft:20, justifyContent:'center',alignContent:'center',alignItems:'center',}}>
       <Image source={dislike} style={{width:15,height:15}}></Image>
       {/* <CrossPlatformIcon name='thumbs-down' size={15}></CrossPlatformIcon> */}
-      <Text style={{marginLeft:10}}>{item?.dislikes}</Text>
+      <Text style={{marginLeft:10}}>{item?.dislikers.length}</Text>
       </View>     
       </TouchableOpacity>   
        </View>
@@ -81,11 +94,11 @@ import { comment, dislike, like, logo, send } from '../Icons';
         type:'update',
         table:'post',
         id:item?._id,
-        changes:{comments:[...item?.comments,newComment]}
+        changes:{comments:[...item?.comments,{comment:newComment,user:props?.currentUser?.username}]}
       })
       setNewComment("")
       setTimeout(() => {
-        loadPost(setPostItems, setModalVisible, PostItems)        
+        loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
       }, 500); 
       }}
       style={{alignSelf:'center'}}>

@@ -1,8 +1,9 @@
-import { View, Image, TextInput, Text, Button, Modal } from "react-native";
+import { View, TextInput, Text, Button, Modal } from "react-native";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TouchableOpacity } from "react-native";
 import medFetch from "../Actions/fetch";
+import Post from "./Post";
 const Login = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUserName] = useState("");
@@ -15,7 +16,8 @@ const Login = props => {
       alert("Invalid Username Or Password")
     else{
       AsyncStorage.setItem("locuser",JSON.stringify(result[0]))
-      props.setUser(result[0])
+      props?.setUser(result[0])
+      props.setContent(<Post></Post>)
     }
   })};
   return (
