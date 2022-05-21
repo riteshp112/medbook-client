@@ -12,7 +12,7 @@ export const RecordItem = (props) => {
        <TouchableOpacity style={{paddingTop:5}} onPress={()=>{
          deleteRecords(index,setRecords)
        }}>
-        <Image source={deleteIcon} style={{height:24,width:24}}></Image>
+        <Image source={deleteIcon} style={{height:24,width:24,padding:10}}></Image>
         {/* <CrossPlatformIcon name='trash' size={20}></CrossPlatformIcon> */}
        </TouchableOpacity>
       </View>
