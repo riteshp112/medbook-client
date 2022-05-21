@@ -7,8 +7,10 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setdob] = useState("");
-  const saveUser = ()=> {
-    medFetch({ type: 'insert', table: 'testcol', data: { name, username, password, gender, dob }})
+  const saveUser = ({signsuccess})=> {
+    medFetch({ type: 'insert', table: 'testcol', data: { name, username, password, gender, dob }});
+    alert("SignUp Sucessfull");
+    signsuccess(false);
   }
   return (
     <View>
@@ -35,7 +37,7 @@ const SignUp = (props) => {
         if(value.length==2 || value.length==5)
           value=value+'/'
         setdob(value)}} placeholder={"DD/MM/YYYY"} ></TextInput>
-      <Button title={"Sign UP"} onPress={saveUser}></Button>
+      <Button title={"Sign UP"} onPress={()=>{saveUser({signsuccess:props.signsuccess})}}></Button>
       <View style={{flexDirection:'row',marginTop:16,justifyContent:'center'}}>
         <Text style={{marginTop:10}}>Already have a Account? </Text>
         <Button title={'Login'} onPress={()=>props.signsuccess(false)}></Button>

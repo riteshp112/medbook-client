@@ -30,7 +30,7 @@ export default class Doctors extends Component {
             height: 45,
             top: 40,
             width: "100%",
-            fontSize: 24,
+            fontSize: 20,
             color: "black",
             textAlignVertical: "bottom"
           }}
