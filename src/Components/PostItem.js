@@ -19,18 +19,18 @@ import { comment, dislike, like, logo, send } from '../Icons';
   ) ||[]
   console.log(props)
   return (
-    <View style={{backgroundColor:'yellow', borderWidth:10, borderColor:'cyan',marginTop: 4 ,marginBottom:4,padding:10,borderRadius:20,}}>
+    <View style={{ backgroundColor:'lightgrey',padding:10,borderBottomWidth:1,borderBottomColor:'skyblue'}}>
       <Text style={{ fontSize: 20, color: 'blue',paddingBottom:16 }}>
         {item?.use}
       </Text>
       <Text style={{ fontSize: 15 ,paddingBottom:16 }}>
         {item?.post}
       </Text>
-      <Image source={logo}
+      {/* <Image source={logo}
       //{{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} 
       style={{height:75,width:'100%',resizeMode:'contain'}}>
-      </Image>
-      <View style={{flexDirection:'row',flex:1,alignItems:'center',justifyContent:'center',marginTop:10}}>
+      </Image> */}
+      <View style={{flexDirection:'row' ,flex:1,alignItems:'center',justifyContent:'center',marginTop:10}}>
       <TouchableOpacity onPress={()=>{
         if(!(item?.likers.find((item)=>item===props.currentUser?._id))){
           medFetch({

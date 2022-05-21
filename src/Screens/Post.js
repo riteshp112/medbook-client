@@ -45,7 +45,7 @@ const Post = (props) => {
           borderRadius: 20,
           padding: 35,
           top: 200,
-          color: 'blue',
+          color: 'cyan',
           textAlign: 'center',
           alignItems: "center",
           shadowColor: "#000",
@@ -54,7 +54,7 @@ const Post = (props) => {
             width: 0,
             height: 2
           }
-        }}> Loading</Text>
+        }}> Loading...</Text>
       </Modal>
     </ScrollView>
 

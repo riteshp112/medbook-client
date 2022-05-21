@@ -7,8 +7,7 @@ export const RecordItem = (props) => {
   const d = new Date(props.date)
   const {deleteRecords,index,setRecords}=props;
   return (
-    
-    <View style={{backgroundColor:'yellow', borderWidth:10, borderColor:'cyan',marginTop: 4 ,marginBottom:4,padding:10,borderRadius:20,}}>
+    <View style={{backgroundColor:'yellow',padding:10,borderBottomWidth:1,borderBottomColor:'skyblue'}}>
      <View style={{position:'absolute',right:10}}>
        <TouchableOpacity style={{paddingTop:5}} onPress={()=>{
          deleteRecords(index,setRecords)

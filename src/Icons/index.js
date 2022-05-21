@@ -3,7 +3,7 @@ const like =require('./like.png')
 const dislike=require('./dislike.png')
 const comment=require('./chat.png')
 const send=require('./submit.png')
-const deleteIcon=require('./delete.svg')
+const deleteIcon=require('./delete.png')
 export {
     logo,
     like,

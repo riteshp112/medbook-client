@@ -40,7 +40,7 @@ const   Home=(props)=> {
   if (user)
     return (
       <SafeAreaView style={{ flexDirection: 'column',height:'100%',width:'100%',position:'absolute',top:0,left:0,overflow:'hidden'}}>
-        <View style={{height:75, backgroundColor: 'lightblue', alignItems: 'center',justifyContent:'center' }}>
+        <View style={{height:75, backgroundColor: 'lightblue', alignItems: 'center',justifyContent:'center',borderBottomColor:'skyblue',borderBottomWidth:1}}>
           <Image source={{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
           </Image>
         </View>

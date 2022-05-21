@@ -25,22 +25,22 @@ const Login = props => {
       <TextInput
         onChangeText={value => setUserName(value)}
         placeholder={"Username or Email"}
-        style={{ borderWidth: 2 }}
+        style={{ borderWidth: 2 ,marginBottom:4}}
       ></TextInput>
       <TextInput
         onChangeText={value => setPassword(value)}
         placeholder={"Password"}
         secureTextEntry={true}
-        style={{ borderWidth: 2, marginTop: 2 }}
+        style={{ borderWidth: 2, marginBottom:4 }}
       ></TextInput>
-      <TouchableOpacity
+      <TouchableOpacity style={{marginBottom:4}}
         onPress={() => {
           alert("Send an e-mail at riteshp112@gmail.com to recover your account.");
         }}
       >
         <Text> Forget Password?</Text>
       </TouchableOpacity>
-      <TouchableOpacity
+      <TouchableOpacity style={{marginBottom:4}}
         onPress={() => {
           props.signup(true);
         }}
