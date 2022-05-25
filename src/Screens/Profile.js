@@ -5,7 +5,6 @@ import { Dimensions } from "react-native";
 import { Pressable } from "react-native";
 import Post from "./Post";
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import getUser from "../Actions/getUser";
 const logout = (setUser) => {
   AsyncStorage.setItem("locuser", "false");
   setUser(false);

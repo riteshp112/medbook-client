@@ -20,7 +20,7 @@ const SignUp = (props) => {
       <Text>Username</Text>
       <TextInput style={{ borderWidth: 2, marginTop: 2, height: 25 }} onChangeText={(value) => setUserName(value)}>
       </TextInput>
-      <Text>Passworrd</Text>
+      <Text>Password</Text>
       <TextInput style={{ borderWidth: 2, marginTop: 2, height: 25 }} onChangeText={(value) => setPassword(value)}>
       </TextInput>
       <Text>Gender</Text>
@@ -37,7 +37,12 @@ const SignUp = (props) => {
         if(value.length==2 || value.length==5)
           value=value+'/'
         setdob(value)}} placeholder={"DD/MM/YYYY"} ></TextInput>
-      <Button title={"Sign UP"} onPress={()=>{saveUser({signsuccess:props.signsuccess})}}></Button>
+      <Button title={"Sign UP"} onPress={()=>{
+        if(password.length>=8)
+          saveUser({signsuccess:props.signsuccess});
+        else
+          alert("Password length must be greater than 8 characters.")
+        }}></Button>
       <View style={{flexDirection:'row',marginTop:16,justifyContent:'center'}}>
         <Text style={{marginTop:10}}>Already have a Account? </Text>
         <Button title={'Login'} onPress={()=>props.signsuccess(false)}></Button>

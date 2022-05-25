@@ -1,7 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import { SafeAreaView, Text, View, ScrollView, Dimensions, Button, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, View,  Button, Image, TouchableOpacity } from 'react-native';
 import Post from './Post';
 import Record from './Record';
 import { Login } from './Login';
@@ -57,7 +55,7 @@ const   Home=(props)=> {
           </TouchableOpacity>
         </View>
         <Modal visible={createPostVisible} animationType='slide' transparent={true}>
-          <View style={{borderWidth:10,borderColor:'orange', borderRadius:10, backgroundColor:'grey', bottom:100,position:'absolute',height:220,width:'100%'}}>
+          <View style={{borderWidth:5, borderRadius:10, backgroundColor:'grey', bottom:100,position:'absolute',height:220,width:'100%'}}>
             
             <TextInput multiline={true} style={{ backgroundColor:'yellow',minHeight:150,}} onChangeText={(value)=>{setPost(value)}}>
           </TextInput>

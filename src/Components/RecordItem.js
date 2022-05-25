@@ -8,11 +8,11 @@ export const RecordItem = (props) => {
   const {deleteRecords,index,setRecords}=props;
   return (
     <View style={{backgroundColor:'yellow',padding:10,borderBottomWidth:1,borderBottomColor:'skyblue'}}>
-     <View style={{position:'absolute',right:10}}>
-       <TouchableOpacity style={{paddingTop:5}} onPress={()=>{
+     <View style={{position:'absolute',right:0,height:34,width:34,}}>
+       <TouchableOpacity style={{padding:10}} onPress={()=>{
          deleteRecords(index,setRecords)
        }}>
-        <Image source={deleteIcon} style={{height:24,width:24,padding:10}}></Image>
+        <Image source={deleteIcon} style={{height:24,width:24,}}></Image>
         {/* <CrossPlatformIcon name='trash' size={20}></CrossPlatformIcon> */}
        </TouchableOpacity>
       </View>

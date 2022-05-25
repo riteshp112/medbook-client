@@ -6,7 +6,7 @@ import { useState } from 'react';
 import medFetch from '../Actions/fetch';
 // import CrossPlatformIcon from 'react-native-cross-platform-icons';
 import { loadPost } from '../Screens/Post';
-import { comment, dislike, like, logo, send } from '../Icons';
+import { comment, dislike, like, send } from '../Icons';
  const PostItem = (props) => {
   const {item,PostItems,setPostItems,setModalVisible}=props;
   const [newComment,setNewComment]=useState("")

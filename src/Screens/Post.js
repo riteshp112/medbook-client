@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Modal, Text } from "react-native"
+import { Modal, Text } from "react-native"
 import { ScrollView } from "react-native";
 import medFetch from "../Actions/fetch";
 //import PostItem from "./PostItem"

@@ -1,4 +1,4 @@
-import React, { Component, useRef, useState } from "react";
+import React, { Component} from "react";
 import { Text, TextInput, View } from "react-native";
 import { Platform } from "react-native";
 import WebView from "react-native-webview";
