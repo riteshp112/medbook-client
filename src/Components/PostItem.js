@@ -23,7 +23,7 @@ import { comment, dislike, like, send } from '../Icons';
       <Text style={{ fontSize: 20, color: 'blue',paddingBottom:16 }}>
         {item?.use}
       </Text>
-      <Text style={{ fontSize: 15 ,paddingBottom:16 }}>
+      <Text style={{ fontSize: 15 ,paddingBottom:16,fontFamily:'AvenirNext' }}>
         {item?.post}
       </Text>
       {/* <Image source={logo}

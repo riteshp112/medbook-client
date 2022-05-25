@@ -22,15 +22,18 @@ const Profile = props => {
         </View>
       </View>   
       <Modal animationType="slide" transparent={true} visible={profileVisible}>
-        <View style={styles.centeredView}>
+        <View style={{...styles.centeredView}}>
+          <View //style={{borderWidth:1,width:'80%'}}
+          >
+          <Text style={{color:'brown',fontSize:16,alignSelf:'center'}}>My Profile</Text>
           <View style={(styles.modalView, { alignItems: "flex-start" })}>
             <Text style={{ fontSize: 20, color: 'brown' }}>Name: {user.name}</Text>
             <Text style={{ fontSize: 20, color: 'brown' }}>Username: {user.username}</Text>
             <Text style={{ fontSize: 20, color: 'brown' }}>Gender: {user.gender}</Text>
             <Text style={{ fontSize: 20, color: 'brown' }}>DOB: {user.dob}</Text>
-            <View>
+            <View style={{alignSelf:'center'}}>
               <Pressable
-                style={[styles.button, styles.buttonClose]}
+                style={[styles.button, styles.buttonClose,{marginLeft:0}]}
                 onPress={() => {
                   setProfileVisible(false);
                 }}
@@ -38,6 +41,7 @@ const Profile = props => {
                 <Text style={styles.textStyle}> OK </Text>
               </Pressable>
             </View>
+          </View>
           </View>
         </View>
       </Modal>

@@ -55,9 +55,9 @@ const   Home=(props)=> {
           </TouchableOpacity>
         </View>
         <Modal visible={createPostVisible} animationType='slide' transparent={true}>
-          <View style={{borderWidth:5, borderRadius:10, backgroundColor:'grey', bottom:100,position:'absolute',height:220,width:'100%'}}>
+          <View style={{borderWidth:5, borderRadius:10, backgroundColor:'#fff', bottom:100,position:'absolute',height:220,width:'100%'}}>
             
-            <TextInput multiline={true} style={{ backgroundColor:'yellow',minHeight:150,}} onChangeText={(value)=>{setPost(value)}}>
+            <TextInput multiline={true} style={{minHeight:150}} onChangeText={(value)=>{setPost(value)}}>
           </TextInput>
           <View style={{flexDirection:'row'}}>
           <View style={{flex:1,padding:10}}><Button title='Post' onPress={()=>{createPost({use:user.username,post:post}),

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button } from 'react-native';
 import medFetch from '../Actions/fetch';
@@ -7,11 +8,24 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setdob] = useState("");
+  const [result,setResult]=useState([]);
   const saveUser = ({signsuccess})=> {
-    medFetch({ type: 'insert', table: 'testcol', data: { name, username, password, gender, dob }});
-    alert("SignUp Sucessfull");
-    signsuccess(false);
-  }
+    medFetch({type:'select',table:'testcol',condition:{username},limit:1}).then(response=>response.json()).then(json=>{
+      console.log(json.response)
+      if(json.response.length!=0)
+        alert("Username Already Exists");
+    else
+    {
+      medFetch({ type: 'insert', table: 'testcol', data: { name, username, password, gender, dob }});
+      alert("SignUp Sucessfull");
+      signsuccess(false);
+    }
+  })
+}
+  const checkUserName=(userName)=>{
+    
+      
+    };
   return (
     <View>
       <Text>Name:</Text>
@@ -38,10 +52,18 @@ const SignUp = (props) => {
           value=value+'/'
         setdob(value)}} placeholder={"DD/MM/YYYY"} ></TextInput>
       <Button title={"Sign UP"} onPress={()=>{
-        if(password.length>=8)
-          saveUser({signsuccess:props.signsuccess});
-        else
+          if(name.length==0)
+          alert("Name can't be empty.")
+          else if(username.length<6)
+          alert("Username must contain at least 6 characters")
+          else if(password.length<8)
           alert("Password length must be greater than 8 characters.")
+          else if(gender.length==0)
+          alert("Please select gender.")
+          else if(moment(dob).isValid()==false)
+          alert("Invalid date of birth.")
+          else
+          saveUser({signsuccess:props.signsuccess});
         }}></Button>
       <View style={{flexDirection:'row',marginTop:16,justifyContent:'center'}}>
         <Text style={{marginTop:10}}>Already have a Account? </Text>
