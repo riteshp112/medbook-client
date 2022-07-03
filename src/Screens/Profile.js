@@ -25,7 +25,7 @@ const Profile = props => {
         <View style={{...styles.centeredView}}>
           <View //style={{borderWidth:1,width:'80%'}}
           >
-          <Text style={{color:'brown',fontSize:16,alignSelf:'center'}}>My Profile</Text>
+          {/* <Text style={{color:'brown',fontSize:16,alignSelf:'center'}}>My Profile</Text> */}
           <View style={(styles.modalView, { alignItems: "flex-start" })}>
             <Text style={{ fontSize: 20, color: 'brown' }}>Name: {user.name}</Text>
             <Text style={{ fontSize: 20, color: 'brown' }}>Username: {user.username}</Text>

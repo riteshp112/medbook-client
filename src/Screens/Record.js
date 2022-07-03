@@ -56,7 +56,7 @@ export default () => {
             <View style={styles.modalView} >
               <Picker style={{ width: 250 }} onValueChange={(itemValue, itemIndex) => setType(itemValue)}>
                 <Picker.Item value="Choose Record Type" label="Choose Record Type" />
-                <Picker.Item label="Glucoge Level" value="Glucoge Level" />
+                <Picker.Item label="Blood Sugar Level" value="Blood Sugar Level" />
                 <Picker.Item label="Blood Pressure" value="Blood Pressure" />
                 <Picker.Item label="Temperature" value="Temperature" />
               </Picker>
