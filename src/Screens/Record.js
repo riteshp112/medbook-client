@@ -1,41 +1,62 @@
 import { useState } from 'react';
-import {  Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
 import { Picker } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 import { RecordItem } from '../Components/RecordItem';
+import { jsonToCSV } from 'react-native-csv';
+import fs from 'react-native-file-manager'
 const donePressed = async (type, val) => {
-  let records = await AsyncStorage.getItem("records") 
+  let records = await AsyncStorage.getItem("records")
   if (records == null || records == undefined)
     records = "[]"
   records = JSON.parse(records)
-  records.push({type,val,date: new Date()})
-  await AsyncStorage.setItem("records",JSON.stringify(records))
+  records.push({ type, val, date: new Date() })
+  await AsyncStorage.setItem("records", JSON.stringify(records))
 }
-const reloadRecords = async (setRecords,deleteRecords) => {
-  let locRecords = await AsyncStorage.getItem("records")
+const reloadRecords = async (setRecords, deleteRecords) => {
+  let locRecords = await AsyncStorage.getItem("records");
   if (locRecords == null || locRecords == undefined)
     locRecords = "[]"
-  locRecords = JSON.parse(locRecords)
-  let temp1 = []
+  locRecords = JSON.parse(locRecords);
+  let temp1 = [];
   for (let i = 0; i < locRecords.length; i++) {
-    let temp = locRecords[i]
-    temp1.push([<RecordItem key={i} index={i} setRecords={setRecords} deleteRecords={deleteRecords} type={temp.type} val={temp.val} date={temp.date}></RecordItem>])
+    let temp = locRecords[i];
+    temp1.push([<RecordItem key={i} index={i} setRecords={setRecords} deleteRecords={deleteRecords} type={temp.type} val={temp.val} date={temp.date}></RecordItem>]);
   }
-  setRecords(temp1)
+  setRecords(temp1);
 }
-const deleteRecords= async (index,setRecords)=>{
+const downloadRecords=async()=>{
+  let records=await AsyncStorage.getItem("records");
+  records=JSON.parse(records);
+  records= jsonToCSV(records);
+  console.log(records,typeof(records))
+
+  var RNFS = require('react-native-fs');
+
+var path = RNFS.ExternalDirectoryPath + '/records.csv';
+
+// write the file
+RNFS.writeFile("/storage/emulated/0/Download/records.csv", records, 'utf8')
+  .then((success) => {
+    alert("File Downloaded Succesfuly")
+  })
+  .catch((err) => {
+    console.log("Error",err.message);
+  });
+}
+const deleteRecords = async (index, setRecords) => {
   let locRecords = await AsyncStorage.getItem("records")
   if (locRecords == null || locRecords == undefined)
     locRecords = "[]"
   locRecords = JSON.parse(locRecords)
-  let newRecords=[]
-  for(let i=0;i<locRecords.length;i++)
-    if(i!==index)
+  let newRecords = []
+  for (let i = 0; i < locRecords.length; i++)
+    if (i !== index)
       newRecords.push(locRecords[i])
-  await AsyncStorage.setItem("records",JSON.stringify(newRecords))
-  reloadRecords(setRecords,deleteRecords)
+  await AsyncStorage.setItem("records", JSON.stringify(newRecords))
+  reloadRecords(setRecords, deleteRecords)
   // setRecords(newRecords)
 }
 export default () => {
@@ -43,8 +64,9 @@ export default () => {
   const [val, setVal] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [records, setRecords] = useState([]);
+
   return (
-    <View onLayout={() => reloadRecords(setRecords,deleteRecords )} style={{ flex:1,flexDirection: 'column' }}>
+    <View onLayout={() => reloadRecords(setRecords, deleteRecords)} style={{ flex: 1, flexDirection: 'column' }}>
       <ScrollView style={{ flex: 1 }}>
         {records}
         <Modal
@@ -68,7 +90,7 @@ export default () => {
                   style={[styles.button, styles.buttonClose]}
                   onPress={async () => {
                     await donePressed(type, val)
-                    reloadRecords(setRecords,deleteRecords)
+                    reloadRecords(setRecords, deleteRecords)
                     setModalVisible(!modalVisible)
                   }}
                 >
@@ -86,8 +108,16 @@ export default () => {
           </View>
         </Modal>
       </ScrollView>
-      <Button title={"Add New Record"} onPress={() => setModalVisible(true)}>
-      </Button>
+      <View style={{ flexDirection: 'row', alignSelf: 'center' }}>
+        <View style={{ flex: 1, marginRight:10,marginLeft:10}}>
+          <Button title={"Add New Record"} onPress={() => setModalVisible(true)}></Button>
+        </View>
+        <View style={{marginLeft:10,marginRight:10}}>
+      <Button title={"Download"} onPress={() => { downloadRecords();}}>      
+            </Button>
+          
+        </View>
+      </View>
     </View>
   )
 

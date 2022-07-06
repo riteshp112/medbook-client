@@ -13,11 +13,9 @@ import getUser from '../Actions/getUser';
 import { useEffect } from 'react';
 
 const   Home=(props)=> {
-  const [createPostVisible,setCreatePostVisible]=useState(false)
   const [user, setUser] = useState(false);
   const [content, setContent] = useState();
   const [SignedUp, setSignedup] = useState(false);
-  const [post,setPost]=useState("")
   useEffect(()=>getUser().then(item=>{
   setUser(JSON.parse(item))
   console.log(JSON.parse(item))
@@ -45,32 +43,6 @@ const   Home=(props)=> {
         <View style={{flex:1}} >
           {content}
         </View>
-        <View style={{ alignItems: 'flex-end', marginRight: 10 }}>
-          <TouchableOpacity onPress={()=>{
-            getUser().then((data)=>console.log(data))
-            setCreatePostVisible(true)}}
-           style={{ position: 'absolute', backgroundColor: 'skyblue', width: 50, height: 50, alignItems: 'center', justifyContent: 'center', borderRadius: 25, bottom: 10, }}>
-
-            <Text style={{fontSize:20}}>+</Text>
-          </TouchableOpacity>
-        </View>
-        <Modal visible={createPostVisible} animationType='slide' transparent={true}>
-          <View style={{borderWidth:5, borderRadius:10, backgroundColor:'#fff', bottom:100,position:'absolute',height:220,width:'100%'}}>
-            
-            <TextInput multiline={true} style={{minHeight:150}} onChangeText={(value)=>{setPost(value)}}>
-          </TextInput>
-          <View style={{flexDirection:'row'}}>
-          <View style={{flex:1,padding:10}}><Button title='Post' onPress={()=>{createPost({use:user.username,post:post}),
-        setCreatePostVisible(false)}}>
-          </Button>
-          </View>
-          <View style={{flex:1,padding:10}}>
-            <Button title='Cancel' onPress={()=>{ setCreatePostVisible(false) }}>
-          </Button>
-          </View>
-          </View>
-          </View>
-        </Modal>
         <View style={{ height: 50, backgroundColor: 'lightgreen', flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity onPress={home} style={{ flex: 1, alignItems: 'center', fontSize: 15 }}>
             <Text style={{ fontSize: 20 }}>&#127968;</Text>
