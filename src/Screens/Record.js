@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Button, Modal, Pressable, StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+
+import { Alert, Button, Modal, PermissionsAndroid, Pressable, StyleSheet, Text, View } from 'react-native'
 import { Picker } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TextInput } from 'react-native';
@@ -7,6 +9,7 @@ import { ScrollView } from 'react-native';
 import { RecordItem } from '../Components/RecordItem';
 import { jsonToCSV } from 'react-native-csv';
 import fs from 'react-native-file-manager'
+import DownloadRecords from '../Actions/downloadRecods';
 const donePressed = async (type, val) => {
   let records = await AsyncStorage.getItem("records")
   if (records == null || records == undefined)
@@ -27,7 +30,31 @@ const reloadRecords = async (setRecords, deleteRecords) => {
   }
   setRecords(temp1);
 }
+const requestFilesPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      {
+        title: "Medbook Wants To Access Your Files",
+        message:
+          "Medbook wants to access your files " +
+          "so you can save your records.",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK"
+      }
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      alert("You can save your Records");
+    } else {
+      alert("Files permission denied");
+    }
+  } catch (err) {
+    console.warn(err);
+  }
+};
 const downloadRecords=async()=>{
+  
   let records=await AsyncStorage.getItem("records");
   records=JSON.parse(records);
   records= jsonToCSV(records);
@@ -35,15 +62,26 @@ const downloadRecords=async()=>{
 
   var RNFS = require('react-native-fs');
 
-var path = RNFS.ExternalDirectoryPath + '/records.csv';
+var path = RNFS.DownloadDirectoryPath + '/records.csv';
 
 // write the file
-RNFS.writeFile("/storage/emulated/0/Download/records.csv", records, 'utf8')
+RNFS.writeFile(path, records, 'utf8')
   .then((success) => {
     alert("File Downloaded Succesfuly")
   })
   .catch((err) => {
-    console.log("Error",err.message);
+    Alert.alert("Permissions required","Please provide file write permissions to save records."+err,[
+      {
+        text:'Ask Me Later',
+      },
+      {
+        text:"OK",
+        onPress:requestFilesPermission
+      },
+      {
+        text:"Cancel"
+      }
+    ])
   });
 }
 const deleteRecords = async (index, setRecords) => {
@@ -59,7 +97,7 @@ const deleteRecords = async (index, setRecords) => {
   reloadRecords(setRecords, deleteRecords)
   // setRecords(newRecords)
 }
-export default () => {
+const Record= () => {
   const [type, setType] = useState("");
   const [val, setVal] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
@@ -69,6 +107,7 @@ export default () => {
     <View onLayout={() => reloadRecords(setRecords, deleteRecords)} style={{ flex: 1, flexDirection: 'column' }}>
       <ScrollView style={{ flex: 1 }}>
         {records}
+      
         <Modal
           animationType="slide"
           transparent={true}
@@ -113,8 +152,7 @@ export default () => {
           <Button title={"Add New Record"} onPress={() => setModalVisible(true)}></Button>
         </View>
         <View style={{marginLeft:10,marginRight:10}}>
-      <Button title={"Download"} onPress={() => { downloadRecords();}}>      
-            </Button>
+      <DownloadRecords/>
           
         </View>
       </View>
@@ -167,3 +205,4 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+export default Record;
