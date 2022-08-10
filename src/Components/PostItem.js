@@ -19,19 +19,11 @@ import { comment, dislike, like, send } from '../Icons';
   ) ||[]
   console.log(props)
   return (
-<<<<<<< HEAD
-    <View style={{ backgroundColor:'lightgrey',padding:10,borderBottomWidth:1,borderBottomColor:'skyblue'}}>
-      <Text style={{ fontSize: 20, color: 'blue',paddingBottom:16 }}>
-        {item?.use}
-      </Text>
-      <Text style={{ fontSize: 15 ,paddingBottom:16,fontFamily:'AvenirNext' }}>
-=======
     <View style={{padding:10,borderBottomWidth:1,borderBottomColor:'skyblue'}}>
       <Text style={{ fontSize: 20, color: 'blue',paddingBottom:16 }}>
         {item?.use}
       </Text>
       <Text style={{ fontSize: 15 ,paddingBottom:16, }}>
->>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
         {item?.post}
       </Text>
       {/* <Image source={logo}
@@ -48,7 +40,7 @@ import { comment, dislike, like, send } from '../Icons';
             changes:{likers:[...item?.likers,props?.currentUser?._id]}
           })
         setTimeout(() => {
-          loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
+          loadPost(setPostItems, setModalVisible, [],props?.currentUser)        
         }, 500);
         } 
       }}>
@@ -77,7 +69,7 @@ import { comment, dislike, like, send } from '../Icons';
           changes:{dislikers:[...item?.dislikers,props?.currentUser?._id]}
         })
         setTimeout(() => {
-          loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
+          loadPost(setPostItems, setModalVisible, [],props?.currentUser)        
         }, 500);
         } 
       }}>
@@ -106,7 +98,7 @@ import { comment, dislike, like, send } from '../Icons';
       })
       setNewComment("")
       setTimeout(() => {
-        loadPost(setPostItems, setModalVisible, PostItems,props?.currentUser)        
+        loadPost(setPostItems, setModalVisible, [],props?.currentUser)        
       }, 500); 
       }}
       style={{alignSelf:'center'}}>
