@@ -2,6 +2,10 @@
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <item name="android:textColor">@android:color/black</item>
     <item name="android:editTextStyle">@style/ResetEditText</item>
+<<<<<<< HEAD
+=======
+    <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+>>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
   </style>

@@ -5,6 +5,10 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+<<<<<<< HEAD
+=======
+    "userInterfaceStyle": "light",
+>>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -17,7 +21,12 @@
       "**/*"
     ],
     "ios": {
+<<<<<<< HEAD
       "supportsTablet": true
+=======
+      "supportsTablet": true,
+      "bundleIdentifier": "com.riteshp112.medbook"
+>>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
     },
     "android": {
       "adaptiveIcon": {

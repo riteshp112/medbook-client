@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import React from 'react';
+<<<<<<< HEAD
 
 import { Alert, Button, Modal, PermissionsAndroid, Pressable, StyleSheet, Text, View } from 'react-native'
 import { Picker } from 'react-native';
+=======
+import { Alert, Button, Modal, PermissionsAndroid, Pressable, StyleSheet, Text, View } from 'react-native'
+>>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 import { RecordItem } from '../Components/RecordItem';
 import { jsonToCSV } from 'react-native-csv';
+<<<<<<< HEAD
 import fs from 'react-native-file-manager'
 import DownloadRecords from '../Actions/downloadRecods';
+=======
+import DownloadRecords from '../Actions/downloadRecods';
+import {Picker} from "@react-native-picker/picker"
+>>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
 const donePressed = async (type, val) => {
   let records = await AsyncStorage.getItem("records")
   if (records == null || records == undefined)
