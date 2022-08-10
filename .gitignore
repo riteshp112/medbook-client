@@ -8,10 +8,6 @@ npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
-<<<<<<< HEAD
-=======
-web-build/
->>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
 
 # macOS
 .DS_Store
@@ -72,13 +68,6 @@ buck-out/
 
 # Expo
 .expo/
-<<<<<<< HEAD
 dist/
 
 # @end expo-cli
-=======
-web-build/
-dist/
-
-# @end expo-cli
->>>>>>> efaeedf873d4f120b5686c7e47f3c9ea6e6557c4
