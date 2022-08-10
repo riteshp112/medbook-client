@@ -8,6 +8,10 @@
   "orientation": "portrait",
   "related_applications": [
     {
+      "platform": "itunes",
+      "id": "com.riteshp112.medbook"
+    },
+    {
       "platform": "play",
       "url": "http://play.google.com/store/apps/details?id=com.riteshp112.medbook",
       "id": "com.riteshp112.medbook"
