@@ -22,10 +22,6 @@ const SignUp = (props) => {
     }
   })
 }
-  const checkUserName=(userName)=>{
-    
-      
-    };
   return (
     <View>
       <Text>Name:</Text>

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View,  Button, Image, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Text, View, Image, TouchableOpacity } from 'react-native';
 import Post from './Post';
 import Record from './Record';
 import { Login } from './Login';
 import SignUp from './SignUp';
 import Doc from './Doc';
 import Profile from './Profile'
-import { Modal } from 'react-native';
-import { TextInput } from 'react-native';
-import { createPost } from '../Actions/sendPostAction';
 import getUser from '../Actions/getUser';
 import { useEffect } from 'react';
+import { logo } from '../Icons';
 
-const   Home=(props)=> {
+const   Home= (props)=> {
+  console.log(getUser())
   const [user, setUser] = useState(false);
   const [content, setContent] = useState();
   const [SignedUp, setSignedup] = useState(false);
@@ -37,7 +36,10 @@ const   Home=(props)=> {
     return (
       <SafeAreaView style={{ flexDirection: 'column',height:'100%',width:'100%',position:'absolute',top:0,left:0,overflow:'hidden'}}>
         <View style={{height:75, backgroundColor: 'lightblue', alignItems: 'center',justifyContent:'center',borderBottomColor:'skyblue',borderBottomWidth:1}}>
-          <Image source={{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
+          <Image source=
+          // {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} 
+          {logo}
+          style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
           </Image>
         </View>
         <View style={{flex:1}} >
@@ -57,14 +59,16 @@ const   Home=(props)=> {
             <Text style={{ fontSize: 20 }}> &#129520;</Text>
           </TouchableOpacity>
         </View>
-
       </SafeAreaView>
     );
   else if (SignedUp == false)
     return (
       <View style={{ flexDirection: 'column' }}>
         <View style={{ height: 75, backgroundColor: 'lightblue', alignItems: 'center' }}>
-          <Image source={{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
+          <Image source=
+          // {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} 
+          {logo}
+          style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
           </Image>
         </View>
         <Login setUser={setUser} signup={setSignedup} setContent={setContent} />
@@ -74,7 +78,10 @@ const   Home=(props)=> {
     return (
       <View style={{ flexDirection: 'column' }}>
         <View style={{ height: 75, backgroundColor: 'lightblue', alignItems: 'center' }}>
-          <Image source={{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
+          <Image source=
+          // {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}} 
+          {logo}
+          style={{width:"100%",height:"100%",resizeMode:'stretch'}}>
           </Image>
         </View>
         <SignUp signsuccess={setSignedup} />
