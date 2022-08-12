@@ -16,7 +16,10 @@ var _index = require('../index');
 
 
 
+
 var _flow = require('../plugins/flow');
+
+
 
 
 
@@ -786,6 +789,9 @@ function parseClassMemberWithIsStatic(
     // The so-called parsed name would have been "get/set": get the real name.
     parseClassPropertyName(classContextId);
     parseClassMethod(memberStart, /* isConstructor */ false);
+  } else if (token.contextualKeyword === _keywords.ContextualKeyword._accessor && !_util.isLineTerminator.call(void 0, )) {
+    parseClassPropertyName(classContextId);
+    parseClassProperty();
   } else if (_util.isLineTerminator.call(void 0, )) {
     // an uninitialized class property (due to ASI, since we don't otherwise recognize the next token)
     parseClassProperty();
@@ -915,6 +921,11 @@ function parseClassSuper() {
 function parseExportDefaultExpression() {
   if (_base.isTypeScriptEnabled) {
     if (_typescript.tsTryParseExportDefaultExpression.call(void 0, )) {
+      return;
+    }
+  }
+  if (_base.isFlowEnabled) {
+    if (_flow.flowTryParseExportDefaultExpression.call(void 0, )) {
       return;
     }
   }
@@ -1053,14 +1064,21 @@ function shouldParseExportDeclaration() {
         break;
       }
     }
-
-    _expression.parseIdentifier.call(void 0, );
-    _base.state.tokens[_base.state.tokens.length - 1].identifierRole = _tokenizer.IdentifierRole.ExportAccess;
-    if (_util.eatContextual.call(void 0, _keywords.ContextualKeyword._as)) {
-      _expression.parseIdentifier.call(void 0, );
-    }
+    parseExportSpecifier();
   }
 } exports.parseExportSpecifiers = parseExportSpecifiers;
+
+function parseExportSpecifier() {
+  if (_base.isTypeScriptEnabled) {
+    _typescript.tsParseExportSpecifier.call(void 0, );
+    return;
+  }
+  _expression.parseIdentifier.call(void 0, );
+  _base.state.tokens[_base.state.tokens.length - 1].identifierRole = _tokenizer.IdentifierRole.ExportAccess;
+  if (_util.eatContextual.call(void 0, _keywords.ContextualKeyword._as)) {
+    _expression.parseIdentifier.call(void 0, );
+  }
+}
 
 // Parses import declaration.
 
@@ -1070,8 +1088,8 @@ function shouldParseExportDeclaration() {
     return;
   }
   if (_base.isTypeScriptEnabled && _util.isContextual.call(void 0, _keywords.ContextualKeyword._type)) {
-    const lookahead = _tokenizer.lookaheadType.call(void 0, );
-    if (lookahead === _types.TokenType.name) {
+    const lookahead = _tokenizer.lookaheadTypeAndKeyword.call(void 0, );
+    if (lookahead.type === _types.TokenType.name && lookahead.contextualKeyword !== _keywords.ContextualKeyword._from) {
       // One of these `import type` cases:
       // import type T = require('T');
       // import type A from 'A';
@@ -1082,7 +1100,7 @@ function shouldParseExportDeclaration() {
       }
       // If this is an `import type...from` statement, then we already ate the
       // type token, so proceed to the regular import parser.
-    } else if (lookahead === _types.TokenType.star || lookahead === _types.TokenType.braceL) {
+    } else if (lookahead.type === _types.TokenType.star || lookahead.type === _types.TokenType.braceL) {
       // One of these `import type` cases, in which case we can eat the type token
       // and proceed as normal:
       // import type * as A from 'A';
@@ -1158,6 +1176,10 @@ function parseImportSpecifiers() {
 }
 
 function parseImportSpecifier() {
+  if (_base.isTypeScriptEnabled) {
+    _typescript.tsParseImportSpecifier.call(void 0, );
+    return;
+  }
   if (_base.isFlowEnabled) {
     _flow.flowParseImportSpecifier.call(void 0, );
     return;

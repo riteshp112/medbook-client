@@ -9,6 +9,7 @@ var _elideImportEquals = require('../util/elideImportEquals'); var _elideImportE
 
 
 var _getDeclarationInfo = require('../util/getDeclarationInfo'); var _getDeclarationInfo2 = _interopRequireDefault(_getDeclarationInfo);
+var _getImportExportSpecifierInfo = require('../util/getImportExportSpecifierInfo'); var _getImportExportSpecifierInfo2 = _interopRequireDefault(_getImportExportSpecifierInfo);
 var _shouldElideDefaultExport = require('../util/shouldElideDefaultExport'); var _shouldElideDefaultExport2 = _interopRequireDefault(_shouldElideDefaultExport);
 
 
@@ -31,8 +32,9 @@ var _Transformer = require('./Transformer'); var _Transformer2 = _interopRequire
      reactHotLoaderTransformer,
      enableLegacyBabel5ModuleInterop,
      isTypeScriptTransformEnabled,
+     preserveDynamicImport,
   ) {
-    super();this.rootTransformer = rootTransformer;this.tokens = tokens;this.importProcessor = importProcessor;this.nameManager = nameManager;this.reactHotLoaderTransformer = reactHotLoaderTransformer;this.enableLegacyBabel5ModuleInterop = enableLegacyBabel5ModuleInterop;this.isTypeScriptTransformEnabled = isTypeScriptTransformEnabled;CJSImportTransformer.prototype.__init.call(this);CJSImportTransformer.prototype.__init2.call(this);CJSImportTransformer.prototype.__init3.call(this);;
+    super();this.rootTransformer = rootTransformer;this.tokens = tokens;this.importProcessor = importProcessor;this.nameManager = nameManager;this.reactHotLoaderTransformer = reactHotLoaderTransformer;this.enableLegacyBabel5ModuleInterop = enableLegacyBabel5ModuleInterop;this.isTypeScriptTransformEnabled = isTypeScriptTransformEnabled;this.preserveDynamicImport = preserveDynamicImport;CJSImportTransformer.prototype.__init.call(this);CJSImportTransformer.prototype.__init2.call(this);CJSImportTransformer.prototype.__init3.call(this);;
     this.declarationInfo = isTypeScriptTransformEnabled
       ? _getDeclarationInfo2.default.call(void 0, tokens)
       : _getDeclarationInfo.EMPTY_DECLARATION_INFO;
@@ -114,6 +116,11 @@ var _Transformer = require('./Transformer'); var _Transformer2 = _interopRequire
    */
    processImport() {
     if (this.tokens.matches2(_types.TokenType._import, _types.TokenType.parenL)) {
+      if (this.preserveDynamicImport) {
+        // Bail out, only making progress for this one token.
+        this.tokens.copyToken();
+        return;
+      }
       this.tokens.replaceToken("Promise.resolve().then(() => require");
       const contextId = this.tokens.currentToken().contextId;
       if (contextId == null) {
@@ -269,8 +276,13 @@ var _Transformer = require('./Transformer'); var _Transformer2 = _interopRequire
       return false;
     }
     if (this.tokens.matches2(_types.TokenType._export, _types.TokenType._default)) {
-      this.processExportDefault();
       this.hadDefaultExport = true;
+      if (this.tokens.matches3(_types.TokenType._export, _types.TokenType._default, _types.TokenType._enum)) {
+        // Flow export default enums need some special handling, so handle them
+        // in that tranform rather than this one.
+        return false;
+      }
+      this.processExportDefault();
       return true;
     }
     this.hadNamedExport = true;
@@ -737,17 +749,13 @@ var _Transformer = require('./Transformer'); var _Transformer2 = _interopRequire
         break;
       }
 
-      const localName = this.tokens.identifierName();
-      let exportedName;
-      this.tokens.removeToken();
-      if (this.tokens.matchesContextual(_keywords.ContextualKeyword._as)) {
+      const specifierInfo = _getImportExportSpecifierInfo2.default.call(void 0, this.tokens);
+      while (this.tokens.currentIndex() < specifierInfo.endIndex) {
         this.tokens.removeToken();
-        exportedName = this.tokens.identifierName();
-        this.tokens.removeToken();
-      } else {
-        exportedName = localName;
       }
-      if (!this.shouldElideExportedIdentifier(localName)) {
+      if (!specifierInfo.isType && !this.shouldElideExportedIdentifier(specifierInfo.leftName)) {
+        const localName = specifierInfo.leftName;
+        const exportedName = specifierInfo.rightName;
         const newLocalName = this.importProcessor.getIdentifierReplacement(localName);
         exportStatements.push(`exports.${exportedName} = ${newLocalName || localName};`);
       }

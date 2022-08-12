@@ -482,37 +482,68 @@ function readToken_plus_min(code) {
   }
 }
 
-// '<>'
-function readToken_lt_gt(code) {
+function readToken_lt() {
   const nextChar = _base.input.charCodeAt(_base.state.pos + 1);
 
-  if (nextChar === code) {
-    const size =
-      code === _charcodes.charCodes.greaterThan && _base.input.charCodeAt(_base.state.pos + 2) === _charcodes.charCodes.greaterThan
-        ? 3
-        : 2;
-    if (_base.input.charCodeAt(_base.state.pos + size) === _charcodes.charCodes.equalsTo) {
-      finishOp(_types.TokenType.assign, size + 1);
+  if (nextChar === _charcodes.charCodes.lessThan) {
+    if (_base.input.charCodeAt(_base.state.pos + 2) === _charcodes.charCodes.equalsTo) {
+      finishOp(_types.TokenType.assign, 3);
       return;
     }
-    // Avoid right-shift for things like Array<Array<string>>.
-    if (code === _charcodes.charCodes.greaterThan && _base.state.isType) {
-      finishOp(_types.TokenType.greaterThan, 1);
-      return;
-    }
-    finishOp(_types.TokenType.bitShift, size);
+    // This still might be two instances of <, e.g. the TS type argument
+    // expression f<<T>() => void>() , but parse as left shift for now and we'll
+    // retokenize if necessary. We can't use isType for this case because we
+    // don't know yet if we're in a type.
+    finishOp(_types.TokenType.bitShiftL, 2);
     return;
   }
 
   if (nextChar === _charcodes.charCodes.equalsTo) {
-    // <= | >=
+    // <=
     finishOp(_types.TokenType.relationalOrEqual, 2);
-  } else if (code === _charcodes.charCodes.lessThan) {
+  } else {
     finishOp(_types.TokenType.lessThan, 1);
+  }
+}
+
+function readToken_gt() {
+  if (_base.state.isType) {
+    // Avoid right-shift for things like `Array<Array<string>>` and
+    // greater-than-or-equal for things like `const a: Array<number>=[];`.
+    finishOp(_types.TokenType.greaterThan, 1);
+    return;
+  }
+
+  const nextChar = _base.input.charCodeAt(_base.state.pos + 1);
+
+  if (nextChar === _charcodes.charCodes.greaterThan) {
+    const size = _base.input.charCodeAt(_base.state.pos + 2) === _charcodes.charCodes.greaterThan ? 3 : 2;
+    if (_base.input.charCodeAt(_base.state.pos + size) === _charcodes.charCodes.equalsTo) {
+      finishOp(_types.TokenType.assign, size + 1);
+      return;
+    }
+    finishOp(_types.TokenType.bitShiftR, size);
+    return;
+  }
+
+  if (nextChar === _charcodes.charCodes.equalsTo) {
+    // >=
+    finishOp(_types.TokenType.relationalOrEqual, 2);
   } else {
     finishOp(_types.TokenType.greaterThan, 1);
   }
 }
+
+/**
+ * Called after `as` expressions in TS; we're switching from a type to a
+ * non-type context, so a > token may actually be >= .
+ */
+ function rescan_gt() {
+  if (_base.state.type === _types.TokenType.greaterThan) {
+    _base.state.pos -= 1;
+    readToken_gt();
+  }
+} exports.rescan_gt = rescan_gt;
 
 function readToken_eq_excl(code) {
   // '=!'
@@ -534,7 +565,12 @@ function readToken_question() {
   // '?'
   const nextChar = _base.input.charCodeAt(_base.state.pos + 1);
   const nextChar2 = _base.input.charCodeAt(_base.state.pos + 2);
-  if (nextChar === _charcodes.charCodes.questionMark && !_base.state.isType) {
+  if (
+    nextChar === _charcodes.charCodes.questionMark &&
+    // In Flow (but not TypeScript), ??string is a valid type that should be
+    // tokenized as two individual ? tokens.
+    !(_base.isFlowEnabled && _base.state.isType)
+  ) {
     if (nextChar2 === _charcodes.charCodes.equalsTo) {
       // '??='
       finishOp(_types.TokenType.assign, 3);
@@ -695,8 +731,11 @@ function readToken_question() {
       return;
 
     case _charcodes.charCodes.lessThan:
+      readToken_lt();
+      return;
+
     case _charcodes.charCodes.greaterThan:
-      readToken_lt_gt(code);
+      readToken_gt();
       return;
 
     case _charcodes.charCodes.equalsTo:
@@ -751,9 +790,26 @@ function readRegexp() {
   finishToken(_types.TokenType.regexp);
 }
 
-// Read an integer. We allow any valid digit, including hex digits, plus numeric separators, and
-// stop at any other character.
+/**
+ * Read a decimal integer. Note that this can't be unified with the similar code
+ * in readRadixNumber (which also handles hex digits) because "e" needs to be
+ * the end of the integer so that we can properly handle scientific notation.
+ */
 function readInt() {
+  while (true) {
+    const code = _base.input.charCodeAt(_base.state.pos);
+    if ((code >= _charcodes.charCodes.digit0 && code <= _charcodes.charCodes.digit9) || code === _charcodes.charCodes.underscore) {
+      _base.state.pos++;
+    } else {
+      break;
+    }
+  }
+}
+
+function readRadixNumber() {
+  _base.state.pos += 2; // 0x
+
+  // Walk to the end of the number, allowing hex digits.
   while (true) {
     const code = _base.input.charCodeAt(_base.state.pos);
     if (
@@ -767,29 +823,14 @@ function readInt() {
       break;
     }
   }
-}
-
-function readRadixNumber() {
-  let isBigInt = false;
-  const start = _base.state.pos;
-
-  _base.state.pos += 2; // 0x
-  readInt();
 
   const nextChar = _base.input.charCodeAt(_base.state.pos);
   if (nextChar === _charcodes.charCodes.lowercaseN) {
     ++_base.state.pos;
-    isBigInt = true;
-  } else if (nextChar === _charcodes.charCodes.lowercaseM) {
-    _util.unexpected.call(void 0, "Invalid decimal", start);
-  }
-
-  if (isBigInt) {
     finishToken(_types.TokenType.bigint);
-    return;
+  } else {
+    finishToken(_types.TokenType.num);
   }
-
-  finishToken(_types.TokenType.num);
 }
 
 // Read an integer, octal integer, or floating-point number.

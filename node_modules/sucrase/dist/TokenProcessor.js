@@ -55,6 +55,10 @@ var _isAsyncOperation = require('./util/isAsyncOperation'); var _isAsyncOperatio
     return this.identifierNameForToken(this.tokens[index]);
   }
 
+  identifierNameAtRelativeIndex(relativeIndex) {
+    return this.identifierNameForToken(this.tokenAtRelativeIndex(relativeIndex));
+  }
+
   identifierName() {
     return this.identifierNameForToken(this.currentToken());
   }

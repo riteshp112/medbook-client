@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 // @react-native-async-storage/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-community/netinfo
+import com.reactnativecommunity.netinfo.NetInfoPackage;
+// @react-native-picker/picker
+import com.reactnativecommunity.picker.RNCPickerPackage;
 // expo
 import expo.modules.ExpoModulesPackage;
 // react-native-file-manager
@@ -67,6 +71,8 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
+      new NetInfoPackage(),
+      new RNCPickerPackage(),
       new ExpoModulesPackage(),
       new ReactFSPackage(),
       new RNFSPackage(),
