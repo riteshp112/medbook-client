@@ -25,7 +25,6 @@ const Home = (props) => {
     () =>
       getUser().then((item) => {
         setUser(JSON.parse(item));
-        console.log(JSON.parse(item));
         setContent(<Post user={JSON.parse(item)}></Post>);
         setLoading(false);
       }),
@@ -33,19 +32,15 @@ const Home = (props) => {
   );
 
   const home = () => {
-    //console.debug("homePress")
     setContent(<Post user={user} />);
   };
   const recordpress = () => {
-    //console.debug("recordpress")
     setContent(<Record />);
   };
   const Docpress = () => {
-    //console.debug("recordpress")
     setContent(<Doc />);
   };
   const propress = () => {
-    //console.debug("propress")
     setContent(<Profile setUser={setUser} user={user} />);
   };
   if (loading) {
@@ -75,8 +70,7 @@ const Home = (props) => {
           }}
         >
           <Image
-            source=// {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}}
-            {logo}
+            source={logo}
             style={{ width: "100%", height: "100%", resizeMode: "stretch" }}
           ></Image>
         </View>
@@ -127,8 +121,7 @@ const Home = (props) => {
           }}
         >
           <Image
-            source=// {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}}
-            {logo}
+            source={logo}
             style={{ width: "100%", height: "100%", resizeMode: "stretch" }}
           ></Image>
         </View>
@@ -146,8 +139,7 @@ const Home = (props) => {
           }}
         >
           <Image
-            source=// {{uri:"https://raw.githubusercontent.com/riteshp112/Responsive-Resume/master/assets/img/logo.png"}}
-            {logo}
+            source={logo}
             style={{ width: "100%", height: "100%", resizeMode: "stretch" }}
           ></Image>
         </View>
