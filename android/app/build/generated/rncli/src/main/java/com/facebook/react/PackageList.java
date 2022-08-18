@@ -23,6 +23,10 @@ import expo.modules.ExpoModulesPackage;
 import com.reactfs.ReactFSPackage;
 // react-native-fs
 import com.rnfs.RNFSPackage;
+// react-native-safe-area-context
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
+// react-native-screens
+import com.swmansion.rnscreens.RNScreensPackage;
 // react-native-webview
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 
@@ -76,6 +80,8 @@ public class PackageList {
       new ExpoModulesPackage(),
       new ReactFSPackage(),
       new RNFSPackage(),
+      new SafeAreaContextPackage(),
+      new RNScreensPackage(),
       new RNCWebViewPackage()
     ));
   }

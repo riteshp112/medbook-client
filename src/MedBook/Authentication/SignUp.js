@@ -1,40 +1,34 @@
 import moment from "moment";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Picker,
-  Button,
-} from "react-native";
-import medFetch from "../Actions/fetch";
+import { StyleSheet, Text, TextInput, View, Button, ToastAndroid } from "react-native";
+import medFetch from "../../Actions/medFetchAction";
+import { Picker } from "@react-native-picker/picker";
+import SimpleToast from "react-native-simple-toast";
 const SignUp = (props) => {
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setdob] = useState("");
-  const saveUser = ({ signsuccess }) => {
-    medFetch({
+  const saveUser = async () => {
+    const json = await medFetch({
       type: "select",
       table: "testcol",
       condition: { username },
       limit: 1,
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        if (json.response.length != 0) alert("Username Already Exists");
-        else {
-          medFetch({
-            type: "insert",
-            table: "testcol",
-            data: { name, username, password, gender, dob },
-          });
-          alert("SignUp Sucessfull");
-          signsuccess(false);
-        }
+    });
+    console.log(json);
+    if (json?.response.length != 0) 
+        SimpleToast.show("Username Already Exists")
+    else {
+      medFetch({
+        type: "insert",
+        table: "testcol",
+        data: { name, username, password, gender, dob },
       });
+      SimpleToast.show("Sign Up Success")
+      props?.navigation.navigate("login")
+    }
   };
   return (
     <View>
@@ -69,7 +63,7 @@ const SignUp = (props) => {
           if (value.length == 2 || value.length == 5) value = value + "/";
           setdob(value);
         }}
-        placeholder={"DD/MM/YYYY"}
+        placeholder={"MM/DD/YYYY"}
       ></TextInput>
       <Button
         title={"Sign UP"}
@@ -95,7 +89,7 @@ const SignUp = (props) => {
         <Text style={{ marginTop: 10 }}>Already have a Account? </Text>
         <Button
           title={"Login"}
-          onPress={() => props.signsuccess(false)}
+          onPress={() => props?.navigation.navigate("login")}
         ></Button>
       </View>
     </View>

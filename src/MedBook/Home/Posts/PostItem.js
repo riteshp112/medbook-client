@@ -1,17 +1,22 @@
-import { View, Text, Image } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { TextInput } from "react-native";
-import { ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useState } from "react";
-import medFetch from "../Actions/fetch";
-import { loadPost } from "../Screens/Post";
-import { comment, dislike, like, send } from "../Icons";
-const PostItem = (props) => {
-  const { item, setPostItems, setModalVisible } = props;
+import medFetch from "../../../Actions/medFetchAction";
+import { comment, dislike, like, send } from "../../../Images";
+import getUser from "../../../Actions/getUserAction";
+const PostItem = ({ item }) => {
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
+  const user = getUser();
+
   let commentComponent =
-    (item.comments &&
+    (item?.comments &&
       item?.comments?.map((item) => (
         <View style={{ flexDirection: "row" }}>
           <Text style={{ color: "blue" }}>{item.user}</Text>
@@ -19,11 +24,13 @@ const PostItem = (props) => {
         </View>
       ))) ||
     [];
+
   return (
     <View
       style={{
         padding: 10,
         borderBottomWidth: 1,
+        backgroundColor: "#ffffff",
         borderBottomColor: "skyblue",
       }}
     >
@@ -42,16 +49,14 @@ const PostItem = (props) => {
       >
         <TouchableOpacity
           onPress={() => {
-            if (!item?.likers.find((item) => item === props.currentUser?._id)) {
+            if (!item?.likers.find((item) => item === user?._id)) {
               medFetch({
                 type: "update",
                 table: "post",
                 id: item?._id,
-                changes: { likers: [...item?.likers, props?.currentUser?._id] },
+                changes: { likers: [...item?.likers, user?._id] },
               });
-              setTimeout(() => {
-                loadPost(setPostItems, setModalVisible, [], props?.currentUser);
-              }, 500);
+              setTimeout(() => {}, 500);
             }
           }}
         >
@@ -65,7 +70,6 @@ const PostItem = (props) => {
             }}
           >
             <Image source={like} style={{ height: 15, width: 15 }}></Image>
-            {/* <CrossPlatformIcon name='thumbs-up'size={15}></CrossPlatformIcon> */}
             <Text style={{ marginLeft: 10 }}>{item?.likers.length}</Text>
           </View>
         </TouchableOpacity>
@@ -84,27 +88,22 @@ const PostItem = (props) => {
               alignItems: "center",
             }}
           >
-            {/* <CrossPlatformIcon name='chatbubbles'size={15}></CrossPlatformIcon> */}
             <Image source={comment} style={{ height: 20, width: 20 }}></Image>
             <Text style={{ marginLeft: 10 }}>{item?.comments?.length}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            if (
-              !item?.dislikers.find((item) => item == props?.currentUser?._id)
-            ) {
+            if (!item?.dislikers.find((item) => item == user?._id)) {
               medFetch({
                 type: "update",
                 table: "post",
                 id: item?._id,
                 changes: {
-                  dislikers: [...item?.dislikers, props?.currentUser?._id],
+                  dislikers: [...item?.dislikers, user?._id],
                 },
               });
-              setTimeout(() => {
-                loadPost(setPostItems, setModalVisible, [], props?.currentUser);
-              }, 500);
+              setTimeout(() => {}, 500);
             }
           }}
         >
@@ -119,7 +118,6 @@ const PostItem = (props) => {
             }}
           >
             <Image source={dislike} style={{ width: 15, height: 15 }}></Image>
-            {/* <CrossPlatformIcon name='thumbs-down' size={15}></CrossPlatformIcon> */}
             <Text style={{ marginLeft: 10 }}>{item?.dislikers.length}</Text>
           </View>
         </TouchableOpacity>
@@ -157,20 +155,13 @@ const PostItem = (props) => {
                         ...item?.comments,
                         {
                           comment: newComment,
-                          user: props?.currentUser?.username,
+                          user: user?.username,
                         },
                       ],
                     },
                   });
                 setNewComment("");
-                setTimeout(() => {
-                  loadPost(
-                    setPostItems,
-                    setModalVisible,
-                    [],
-                    props?.currentUser
-                  );
-                }, 500);
+                setTimeout(() => {}, 500);
               }}
               style={{ alignSelf: "center" }}
             >
@@ -186,4 +177,5 @@ const PostItem = (props) => {
     </View>
   );
 };
+
 export default PostItem;

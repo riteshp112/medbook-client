@@ -2,24 +2,22 @@ import { View, TextInput, Text, Button, Modal } from "react-native";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TouchableOpacity } from "react-native";
-import medFetch from "../Actions/fetch";
-import Post from "./Post";
+import medFetch from "../../Actions/medFetchAction";
 const Login = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const loginPressed = () => {
-    let result;
-    medFetch({type:'select',table:'testcol',condition:{username, password },limit:1}).then(data=>data.json()).then(json=>{result=json.response  
+  const {navigation} =props;
+  const loginPressed = async () => {
+    let {response:result}= await medFetch({type:'select',table:'testcol',condition:{username, password },limit:1});  
     setModalVisible(false)
     if(result.length==0)
       alert("Invalid Username Or Password")
     else{
       AsyncStorage.setItem("locuser",JSON.stringify(result[0]))
-      props?.setUser(result[0])
-      props.setContent(<Post></Post>)
+      navigation.navigate("home-tabs")
     }
-  })};
+  }
   return (
     <View>
       <TextInput
@@ -42,7 +40,7 @@ const Login = props => {
       </TouchableOpacity>
       <TouchableOpacity style={{marginBottom:4}}
         onPress={() => {
-          props.signup(true);
+          navigation.navigate("signup")
         }}
       >
         <Text> Sign Up</Text>
