@@ -24,7 +24,6 @@ const AddNewChat = (props) => {
         limit: 30,
       });
       setUser(response);
-      console.log(user);
       response.map((item) => {
         items.push(
           <Picker.Item

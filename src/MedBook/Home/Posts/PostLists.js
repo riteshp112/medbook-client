@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
@@ -8,7 +9,7 @@ const PostList = (props) => {
   const [posts, setPosts] = useState();
   const [postLength, setPostLength] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-
+  const isFocused= useIsFocused();
   useEffect(async () => {
     setIsLoading(true);
     const json = await medFetch({
@@ -17,10 +18,9 @@ const PostList = (props) => {
       condition: {},
       limit: postLength,
     });
-    console.log(json);
     setPosts(json?.response);
     setIsLoading(false);
-  }, [postLength]);
+  }, [postLength,isFocused]);
 
   return (
     <View

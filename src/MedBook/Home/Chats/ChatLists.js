@@ -16,12 +16,12 @@ const ChatList = (props) => {
   useEffect(() => {
     (async () => {
       setLoading(true);
-      const {response:threads} = await medFetch({
+      const {response:threads ={}} = await medFetch({
         type: "select",
         table: "threads",
         condition:  {$or:[{"sender.username":user?.username},{"receiver.username":user?.username}]},
         limit: limit,
-      });
+      }) || {};
       setThreads(threads);
       setLoading(false);
     })();

@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PermissionsAndroid, ToastAndroid } from "react-native";
 import { jsonToCSV } from "react-native-csv";
-import Toast from 'react-native-simple-toast';
+import Toast from "./toastAction";
 
 export const addNewRecordAction=async (item)=>{
     let records= await AsyncStorage.getItem("records") || "[]";

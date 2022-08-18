@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View, Button, ToastAndroid } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
-import Toast from "react-native-simple-toast";
+import Toast from "../../Actions/toastAction";
 const SignUp = (props) => {
   const [name, setName] = useState("");
   const [username, setUserName] = useState("");
@@ -17,9 +17,8 @@ const SignUp = (props) => {
       condition: { username },
       limit: 1,
     });
-    console.log(json);
     if (json?.response.length != 0) 
-        SimpleToast.show("Username Already Exists",2000)
+        Toast.show("Username Already Exists",2000)
     else {
       medFetch({
         type: "insert",
