@@ -19,14 +19,14 @@ const SignUp = (props) => {
     });
     console.log(json);
     if (json?.response.length != 0) 
-        SimpleToast.show("Username Already Exists")
+        SimpleToast.show("Username Already Exists",2)
     else {
       medFetch({
         type: "insert",
         table: "testcol",
         data: { name, username, password, gender, dob },
       });
-      SimpleToast.show("Sign Up Success")
+      SimpleToast.show("Sign Up Successful",2)
       props?.navigation.navigate("login")
     }
   };
