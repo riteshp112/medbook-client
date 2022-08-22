@@ -3,19 +3,22 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TouchableOpacity } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
+import React from "react";
+
 const Login = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const {navigation} =props;
   const loginPressed = async () => {
+    // @ts-ignore
     let {response:result}= await medFetch({type:'select',table:'testcol',condition:{username, password },limit:1});  
     setModalVisible(false)
     if(result.length==0)
       alert("Invalid Username Or Password")
     else{
       AsyncStorage.setItem("locuser",JSON.stringify(result[0]))
-      navigation.navigate("home-tabs")
+      navigation.navigate("SideMenu")
     }
   }
   return (

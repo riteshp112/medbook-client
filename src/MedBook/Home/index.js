@@ -1,9 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import ChatScreens from "./Chats";
 import HomeTabs from "./HomeTabs";
 import ProfileScreens from "./MyProfile";
 import PostScreens from "./Posts";
 import RecordScreens from "./Records";
+import SideBar from "./SideMenuDrawer";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +17,7 @@ const HomeScreens = () => {
       {ChatScreens()}
       {RecordScreens()}
       {ProfileScreens()}
-      <Stack.Screen name="home-tabs" component={HomeTabs} options={{header:()=>null}}/>
+      <Stack.Screen name ="SideMenu" component={SideBar} options={{header:()=>null}}/>
     </Stack.Group>
   );
 };

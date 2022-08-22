@@ -10,7 +10,9 @@ import { useState } from "react";
 import medFetch from "../../../Actions/medFetchAction";
 import { comment, dislike, like, send } from "../../../Images";
 import getUser from "../../../Actions/getUserAction";
-const PostItem = ({ item }) => {
+import React from "react";
+
+const PostItem = ({ item, navigation }) => {
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const user = getUser();
@@ -34,9 +36,18 @@ const PostItem = ({ item }) => {
         borderBottomColor: "skyblue",
       }}
     >
-      <Text style={{ fontSize: 20, color: "blue", paddingBottom: 16 }}>
-        {item?.use}
-      </Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("my-profile", {
+            fromPost: true,
+            username: item?.use,
+          });
+        }}
+      >
+        <Text style={{ fontSize: 20, color: "blue", paddingBottom: 16 }}>
+          {item?.use}
+        </Text>
+      </TouchableOpacity>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
       <View
         style={{

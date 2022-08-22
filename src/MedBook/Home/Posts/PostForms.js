@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
 import getUser from "../../../Actions/getUserAction";
-
+import React from "react";
 const AddNewPost = ({navigation}) => {
   const [post, setPost] = useState();
   const user = getUser();
   
   return (
     <View style={{ backgroundColor: "#ffffff",}}>
-      <Text style={{ fontWeight: "semibold", color:'blue',padding: 8, paddingTop:void 0,fontSize: 16 }}>
+      <Text style={{ fontWeight: "500", color:'blue',padding: 8, paddingTop:void 0,fontSize: 16 }}>
         {" "}
         {user?.name}
       </Text>

@@ -4,6 +4,7 @@ import { ActivityIndicator, FlatList, View } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
 import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 import PostItem from "./PostItem";
+import React from "react";
 
 const PostList = (props) => {
   const [posts, setPosts] = useState();
@@ -38,7 +39,7 @@ const PostList = (props) => {
     >
       <FlatList
         data={posts}
-        renderItem={(props)=><PostItem {...props}/>}
+        renderItem={({item})=><PostItem item={item} {...props}/>}
         keyExtractor={(item) => item?._id}
         onEndReachedThreshold={0.5}
         onEndReached={() => {

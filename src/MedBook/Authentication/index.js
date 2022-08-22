@@ -3,6 +3,7 @@ import LogoTitle from "../../Components/LogoTitle";
 import Authenticator from "./Authenticator";
 import { Login } from "./Login";
 import SignUp from "./SignUp";
+import React from "react";
 
 const Stack = createNativeStackNavigator();
 
