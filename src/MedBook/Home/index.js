@@ -17,7 +17,7 @@ const HomeScreens = () => {
       {ChatScreens()}
       {RecordScreens()}
       {ProfileScreens()}
-      <Stack.Screen name ="SideMenu" component={SideBar} options={{header:()=>null}}/>
+      <Stack.Screen name ="SideMenu" component={SideBar} options={{header:()=>null,}}/>
     </Stack.Group>
   );
 };

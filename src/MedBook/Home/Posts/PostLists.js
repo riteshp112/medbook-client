@@ -9,39 +9,28 @@ import React from "react";
 const PostList = (props) => {
   const [posts, setPosts] = useState();
   const [postLength, setPostLength] = useState(10);
-  const [isLoading, setIsLoading] = useState(false);
-  const isFocused= useIsFocused();
-  useEffect(async () => {
-    setIsLoading(true);
-    const json = await medFetch({
-      type: "select",
-      table: "post",
-      condition: {},
-      limit: postLength,
-    });
-    setPosts(json?.response);
-    setIsLoading(false);
-  }, [postLength,isFocused]);
+  const [isLoading, setIsLoading] = useState();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const json = await medFetch({
+        type: "select",
+        table: "post",
+        condition: {},
+        limit: postLength,
+      });
+      setIsLoading(false);
+      setPosts(json?.response);
+    })();
+  }, [postLength, isFocused]);
 
   return (
-    <View
-      style={{
-        flexGrow: 1,
-        flexDirection: "column",
-        height: "100%",
-        width: "100%",
-        position: "absolute",
-        top: 0,
-        left: 0,
-        overflow: "hidden",
-        justifyContent: "center",
-      }}
-    >
+    <View style={{ flex: 1 ,justifyContent: "center"}}>
       <FlatList
         data={posts}
-        renderItem={({item})=><PostItem item={item} {...props}/>}
+        renderItem={({ item }) => <PostItem item={item} {...props} />}
         keyExtractor={(item) => item?._id}
-        onEndReachedThreshold={0.5}
         onEndReached={() => {
           setPostLength((prev) => prev + 5);
         }}
