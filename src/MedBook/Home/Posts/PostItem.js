@@ -12,11 +12,12 @@ import { comment, dislike, like, send } from "../../../Images";
 import getUser from "../../../Actions/getUserAction";
 import React from "react";
 
-const PostItem = ({ item, navigation }) => {
+const PostItem = ({ item, navigation, setPostLength }) => {
+  const user = getUser();
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
-  const user = getUser();
-
+  const [isLiked, setIsLiked] = useState(item.likers.indexOf(user?._id) !== -1);
+  console.log(user, item,isLiked);
   let commentComponent =
     (item?.comments &&
       item?.comments?.map((item) => (
@@ -59,15 +60,17 @@ const PostItem = ({ item, navigation }) => {
         }}
       >
         <TouchableOpacity
-          onPress={() => {
+          disabled={isLiked}
+          onPress={async () => {
             if (!item?.likers.find((item) => item === user?._id)) {
-              medFetch({
+              await medFetch({
                 type: "update",
                 table: "post",
                 id: item?._id,
-                changes: { likers: [...item?.likers, user?._id] },
+                changes: { $push: { likers: user?._id } },
               });
-              setTimeout(() => {}, 500);
+              setPostLength((prev) => prev + 1);
+              setIsLiked(true);
             }
           }}
         >
@@ -104,17 +107,19 @@ const PostItem = ({ item, navigation }) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
             if (!item?.dislikers.find((item) => item == user?._id)) {
-              medFetch({
+              await medFetch({
                 type: "update",
                 table: "post",
                 id: item?._id,
                 changes: {
-                  dislikers: [...item?.dislikers, user?._id],
+                  $push: {
+                    dislikers: user?._id,
+                  },
                 },
               });
-              setTimeout(() => {}, 500);
+              setPostLength((prev) => prev + 1);
             }
           }}
         >
@@ -155,24 +160,23 @@ const PostItem = ({ item, navigation }) => {
               }}
             ></TextInput>
             <TouchableOpacity
-              onPress={() => {
+              onPress={async () => {
                 newComment &&
-                  medFetch({
+                  (await medFetch({
                     type: "update",
                     table: "post",
                     id: item?._id,
                     changes: {
-                      comments: [
-                        ...item?.comments,
-                        {
+                      $push: {
+                        comments: {
                           comment: newComment,
                           user: user?.username,
                         },
-                      ],
+                      },
                     },
-                  });
+                  }));
                 setNewComment("");
-                setTimeout(() => {}, 500);
+                setPostLength((prev) => prev + 1);
               }}
               style={{ alignSelf: "center" }}
             >

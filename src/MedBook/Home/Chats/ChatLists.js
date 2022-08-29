@@ -5,6 +5,8 @@ import FloatingActionComponent from "../../../Components/FloatingActionComponent
 import medFetch from "../../../Actions/medFetchAction";
 import getUser from "../../../Actions/getUserAction";
 import ChatItem from "./ChatItems";
+import React from "react";
+
 const ChatList = (props) => {
   const info = props;
   const [threads, setThreads] = useState([]);

@@ -29,7 +29,7 @@ const PostList = (props) => {
     <View style={{ flex: 1 ,justifyContent: "center"}}>
       <FlatList
         data={posts}
-        renderItem={({ item }) => <PostItem item={item} {...props} />}
+        renderItem={({ item }) => <PostItem item={item} {...props} setPostLength={setPostLength}/>}
         keyExtractor={(item) => item?._id}
         onEndReached={() => {
           setPostLength((prev) => prev + 5);
