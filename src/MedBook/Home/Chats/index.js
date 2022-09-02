@@ -15,10 +15,14 @@ const ChatScreens = () => {
       <Stack.Screen
         name="add-new-chat"
         component={AddNewChat}
-        options={{ presentation: "transparentModal" }}
+        options={{ presentation: "transparentModal", headerShown: false }}
       />
       <Stack.Screen name="chat-list" component={ChatList} />
-      <Stack.Screen name="Chat-Details" component={ChatDetails} />
+      <Stack.Screen
+        name="Chat-Details"
+        component={ChatDetails}
+        options={{ title: "Chat " }}
+      />
     </Stack.Group>
   );
 };

@@ -13,7 +13,7 @@ const PostScreens = () => {
       <Stack.Screen
         name="add-new-post"
         component={AddNewPost}
-        options={{ presentation: "transparentModal" ,title: "Add new post" , contentStyle:{}, }}
+        options={{ presentation: "transparentModal" ,title: "Add new post" , contentStyle:{}, headerShown:false}}
       />
       <Stack.Screen name="post-list" component={PostList} />
     </Stack.Group>

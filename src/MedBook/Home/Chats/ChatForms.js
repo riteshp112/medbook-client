@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ActivityIndicator, Button, TextInput, View } from "react-native";
 import getUser from "../../../Actions/getUserAction";
 import medFetch from "../../../Actions/medFetchAction";
-
+import React from "react";
 
 const AddNewChat = (props) => {
   const [query, setQuery] = useState("");
@@ -37,9 +37,16 @@ const AddNewChat = (props) => {
       setLoading(false);
     })();
   }, [query]);
-  
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 8 }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        padding: 8,
+        backgroundColor: "rgba(28,53,32,0.09)",
+      }}
+    >
       <View
         style={{
           backgroundColor: "#ffffff",
@@ -70,7 +77,13 @@ const AddNewChat = (props) => {
         >
           {pickerItems}
         </Picker>
-        {loading ? <ActivityIndicator style={{position: "absolute",alignSelf: "center"}}></ActivityIndicator> : void 0}
+        {loading ? (
+          <ActivityIndicator
+            style={{ position: "absolute", alignSelf: "center" }}
+          ></ActivityIndicator>
+        ) : (
+          void 0
+        )}
         <View
           style={{
             paddingTop: 8,
@@ -96,9 +109,7 @@ const AddNewChat = (props) => {
               props?.navigation?.goBack();
             }}
           />
-          <Button
-            title="Cancel"
-            onPress={()=>props?.navigation?.goBack()}/>
+          <Button title="Cancel" onPress={() => props?.navigation?.goBack()} />
         </View>
       </View>
     </View>

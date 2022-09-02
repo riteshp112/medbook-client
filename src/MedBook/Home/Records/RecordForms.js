@@ -2,12 +2,20 @@ import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import { addNewRecordAction } from "../../../Actions/recordActions";
+import React from "react";
 
 const AddNewRecord = ({ navigation }) => {
   const [item, setItem] = useState();
-  
+
   return (
-    <View style={{ flex: 1, justifyContent: "center", padding: 8 }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        padding: 8,
+        backgroundColor: "rgba(28,53,32,0.09)",
+      }}
+    >
       <View
         style={{
           backgroundColor: "#ffffff",
