@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, View, Button, ToastAndroid } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
-import Toast from "../../Actions/toastAction";
+import {useToast} from "react-native-fast-toast";
 const SignUp = (props) => {
   const [name, setName] = useState("");
+  // const Toast =useToast()
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
@@ -18,14 +19,14 @@ const SignUp = (props) => {
       limit: 1,
     });
     if (json?.response.length != 0) 
-        Toast.show("Username Already Exists",2000)
+        toast.show("Username Already Exists",{type: "danger", duration:1500})
     else {
       medFetch({
         type: "insert",
         table: "testcol",
         data: { name, username, password, gender, dob },
       });
-      Toast.show("Sign Up Successful",2000)
+      toast.show("Sign Up Successful",{type:'success',duration:1500})
       props?.navigation.navigate("login")
     }
   };
@@ -44,6 +45,7 @@ const SignUp = (props) => {
       <Text>Password</Text>
       <TextInput
         style={{ borderWidth: 2, marginTop: 2, height: 25 }}
+        secureTextEntry={true}
         onChangeText={(value) => setPassword(value)}
       ></TextInput>
       <Text>Gender</Text>
@@ -67,15 +69,15 @@ const SignUp = (props) => {
       <Button
         title={"Sign UP"}
         onPress={() => {
-          if (name.length == 0) alert("Name can't be empty.");
+          if (name.length == 0) toast.show("Name can't be empty.",{type:'warning',duration:2000});
           else if (username.length < 6)
-            alert("Username must contain at least 6 characters");
+            toast.show("Username must contain at least 6 characters",{type:'warning',duration:2000});
           else if (password.length < 8)
-            alert("Password length must be greater than 8 characters.");
-          else if (gender.length == 0) alert("Please select gender.");
+            toast.show("Password length must be greater than 8 characters.",{type:'warning',duration:2000});
+          else if (gender.length == 0) toast.show("Please select gender.",{type:'warning',duration:2000});
           else if (moment(dob).isValid() == false)
-            alert("Invalid date of birth.");
-          else saveUser({ signsuccess: props.signsuccess });
+            toast.show("Invalid date of birth.",{type:'warning',duration:2000});
+          else saveUser();
         }}
       ></Button>
       <View

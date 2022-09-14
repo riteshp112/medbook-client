@@ -2,10 +2,12 @@ import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { Button, TextInput, View } from "react-native";
 import { addNewRecordAction } from "../../../Actions/recordActions";
+// import {useToast } from "react-native-fast-toast";
 import React from "react";
 
 const AddNewRecord = ({ navigation }) => {
   const [item, setItem] = useState();
+  // const Toast =useToast();
 
   return (
     <View
@@ -64,6 +66,7 @@ const AddNewRecord = ({ navigation }) => {
             title="Add"
             onPress={() => {
               addNewRecordAction({ ...item, date: new Date() });
+              toast.show("Record Added Successfully",{type:"success",duration:2000})
               navigation.goBack();
             }}
           ></Button>

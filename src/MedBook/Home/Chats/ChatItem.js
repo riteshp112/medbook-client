@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text, View } from "react-native";
 import React from "react";
-import getUser from "../../../Actions/getUserAction";
+import { getUser } from "../../Authentication/Authenticator";
 
 const ChatComponent = ({ item }) => {
   const user = getUser();

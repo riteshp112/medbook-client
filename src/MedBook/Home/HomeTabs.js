@@ -5,7 +5,7 @@ import ProfileDetail from "./MyProfile/ProfileDetails";
 import PostList from "./Posts/PostLists";
 import RecordList from "./Records/RecordLists";
 import React from "react";
-import getUser from "../../Actions/getUserAction";
+import { getUser } from "../Authentication/Authenticator";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 

@@ -1,9 +1,9 @@
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Button, TextInput, View } from "react-native";
-import getUser from "../../../Actions/getUserAction";
 import medFetch from "../../../Actions/medFetchAction";
 import React from "react";
+import { getUser } from "../../Authentication/Authenticator";
 
 const AddNewChat = (props) => {
   const [query, setQuery] = useState("");

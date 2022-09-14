@@ -1,15 +1,22 @@
 import { View } from "react-native";
-import getUser from "../../Actions/getUserAction";
 import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+let user = void 0;
+
+export const getUser = () => {
+  return user;
+};
+
 const Authenticator = ({ navigation }) => {
-  const user = getUser();
-  setTimeout(() => {
-    if (user?.name) {
+  AsyncStorage.getItem("locuser").then((res) => {
+    if (res) {
+      user = JSON.parse(res);
       navigation.navigate("SideMenu");
     } else {
       navigation.navigate("login");
     }
-  },0);
+  });
   return <View></View>;
 };
 export default Authenticator;

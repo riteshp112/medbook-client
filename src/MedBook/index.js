@@ -4,7 +4,6 @@ import { NavigationContainer,DarkTheme, DefaultTheme } from "@react-navigation/n
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AuthenticationScreens from "./Authentication";
 import HomeScreens from "./Home";
-import LogoTitle from "../Components/LogoTitle";
 const Stack = createNativeStackNavigator();
 
 const MainApp = () => {

@@ -1,9 +1,9 @@
 import { ActivityIndicator, Image, Text, View } from "react-native";
-import getUser from "../../../Actions/getUserAction";
 import { deleteIcon } from "../../../Images";
 import React, { useEffect, useState } from "react";
 import medFetch from "../../../Actions/medFetchAction";
 import { useIsFocused } from "@react-navigation/native";
+import { getUser } from "../../Authentication/Authenticator";
 
 const ProfileDetail = ({ route, navigation }) => {
   const { username } = route?.params || {};
@@ -28,7 +28,7 @@ const ProfileDetail = ({ route, navigation }) => {
       }
       setLoading(false);
     })();
-  }, [isFocused, username, locuser]);
+  }, [isFocused, username]);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#ffffff", }}>

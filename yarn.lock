@@ -9523,6 +9523,11 @@
     "@types/papaparse" "^5.2.5"
     "papaparse" "^5.3.0"
 
+"react-native-fast-toast@^3.0.1":
+  "integrity" "sha512-ugCcVQ2C09ZUlxPZSG0f89Mb8wzvbgOyVHIbUxIbAr01jr77DWFOEgiG1Z4v9FH/O/mm6mZjmJPEIAqvN0ck0Q=="
+  "resolved" "https://registry.npmjs.org/react-native-fast-toast/-/react-native-fast-toast-3.0.1.tgz"
+  "version" "3.0.1"
+
 "react-native-file-manager@^1.1.1":
   "integrity" "sha512-l/8T18s1DYYcnGTMXueyzi9zCiHIqtjAb4dif8sGBvD4YFnKuY2/NXdzJX/G+pvSk4fLlA6AMCV1/p1q+tiSdw=="
   "resolved" "https://registry.npmjs.org/react-native-file-manager/-/react-native-file-manager-1.1.1.tgz"

@@ -3,9 +3,9 @@ import { ActivityIndicator, FlatList, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 import medFetch from "../../../Actions/medFetchAction";
-import getUser from "../../../Actions/getUserAction";
 import ChatItem from "./ChatItems";
 import React from "react";
+import { getUser } from "../../Authentication/Authenticator";
 
 const ChatList = (props) => {
   const info = props;
@@ -33,7 +33,7 @@ const ChatList = (props) => {
       setThreads(threads);
       setLoading(false);
     })();
-  }, [limit, isFocused,user]);
+  }, [limit, isFocused]);
 
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>

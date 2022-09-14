@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
-import getUser from "../../../Actions/getUserAction";
+// import {useToast } from "react-native-fast-toast";
 import React from "react";
+import { getUser } from "../../Authentication/Authenticator";
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState();
   const user = getUser();
-
+  // const Toast = useToast()
   return (
     <View style={{ flex: 1, justifyContent: "center",backgroundColor:'rgba(28,53,32,0.09)'}}>
       <View style={{ backgroundColor: "#ffffff",borderRadius:4 }}>
@@ -70,6 +71,7 @@ const AddNewPost = ({ navigation }) => {
                 post: post,
               });
               setPost("");
+              toast.show("Post Added Successfully",{type:"success",duration:2000})
               navigation.goBack();
             }}
           ></Button>

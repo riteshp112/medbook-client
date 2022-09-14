@@ -11,7 +11,7 @@ import { FlatList } from "react-native";
 import ChatComponent from "./ChatItem";
 import { send } from "../../../Images";
 import medFetch from "../../../Actions/medFetchAction";
-import getUser from "../../../Actions/getUserAction";
+import { getUser } from "../../Authentication/Authenticator";
 
 const ChatDetails = ({ route }) => {
   const { item } = route?.params;

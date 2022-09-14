@@ -5,7 +5,7 @@ const Toast = {
     if (true || Platform.OS === "web") {
       alert(message);
     } else {
-    //   SimpleToast.show(message, duration);
+    //   Simpletoast.show(message, duration);
     }
   },
 };

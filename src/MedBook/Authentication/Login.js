@@ -4,18 +4,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { TouchableOpacity } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import React from "react";
-
+// import {useToast } from "react-native-fast-toast";
 const Login = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const {navigation} =props;
+  // const Toast =useToast()
   const loginPressed = async () => {
     // @ts-ignore
     let {response:result}= await medFetch({type:'select',table:'testcol',condition:{username, password },limit:1});  
     setModalVisible(false)
     if(result.length==0)
-      alert("Invalid Username Or Password")
+      toast.show("Invalid Username Or Password",{type:'danger',duration:2000})
     else{
       AsyncStorage.setItem("locuser",JSON.stringify(result[0]))
       navigation.navigate("SideMenu")
@@ -36,7 +37,7 @@ const Login = props => {
       ></TextInput>
       <TouchableOpacity style={{marginBottom:4}}
         onPress={() => {
-          alert("Send an e-mail at riteshp112@gmail.com to recover your account.");
+          toast.show("Send an email at riteshp112@gmail.com to recover your account.",{type:'normal',duration:4000});
         }}
       >
         <Text> Forget Password?</Text>

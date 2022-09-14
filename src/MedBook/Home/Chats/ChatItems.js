@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import getUser from "../../../Actions/getUserAction";
 import React from "react";
+import { getUser } from "../../Authentication/Authenticator";
 
 const ChatItem = ({ item ,navigation}) => {
   const user = getUser();

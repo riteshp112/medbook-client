@@ -48,10 +48,10 @@ const requestFilesPermission = async () => {
     var path = RNFS.ExternalStorageDirectoryPath + "/records.csv";
     RNFS.writeFile(path, records, "utf8")
       .then(() => {
-        Toast.show("Records saved successfully",2000);
+        toast.show("Records saved successfully",2000);
     })
       .catch((err) => {
-        Toast.show (err.message,2);
+        toast.show (err.message,2);
         requestFilesPermission();
       });
   };

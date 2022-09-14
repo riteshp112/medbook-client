@@ -9,8 +9,8 @@ import {
 import { useState } from "react";
 import medFetch from "../../../Actions/medFetchAction";
 import { comment, dislike, like, send } from "../../../Images";
-import getUser from "../../../Actions/getUserAction";
 import React from "react";
+import { getUser } from "../../Authentication/Authenticator";
 
 const PostItem = ({ item, navigation, setPostLength }) => {
   const user = getUser();
