@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
@@ -12,24 +13,27 @@ const PostList = (props) => {
   const [isLoading, setIsLoading] = useState();
   const isFocused = useIsFocused();
   useEffect(() => {
-    (async () => {
+    if (isFocused) {
       setIsLoading(true);
-      const json = await medFetch({
+      medFetch({
         type: "select",
         table: "post",
         condition: {},
         limit: postLength,
+      }).then(({ response } = {}) => {
+        setIsLoading(false);
+        setPosts(response);
       });
-      setIsLoading(false);
-      setPosts(json?.response);
-    })();
+    }
   }, [postLength, isFocused]);
 
   return (
-    <View style={{ flex: 1 ,justifyContent: "center"}}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       <FlatList
         data={posts}
-        renderItem={({ item }) => <PostItem item={item} {...props} setPostLength={setPostLength}/>}
+        renderItem={({ item }) => (
+          <PostItem item={item} {...props} setPostLength={setPostLength} />
+        )}
         keyExtractor={(item) => item?._id}
         onEndReached={() => {
           setPostLength((prev) => prev + 5);
@@ -45,6 +49,7 @@ const PostList = (props) => {
         }}
         text="+"
         {...props}
+        position="flex-end"
       />
     </View>
   );

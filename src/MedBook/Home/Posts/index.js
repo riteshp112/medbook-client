@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddNewPost from "./PostForms";
 import PostItem from "./PostItem";
 import PostList from "./PostLists";
+import React from "react";
 
 const Stack = createNativeStackNavigator();
 

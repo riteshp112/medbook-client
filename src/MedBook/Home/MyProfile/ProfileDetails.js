@@ -8,34 +8,31 @@ import { getUser } from "../../Authentication/Authenticator";
 const ProfileDetail = ({ route, navigation }) => {
   const { username } = route?.params || {};
   const [user, setUser] = useState();
-  const locuser = getUser();
   const isFocused = useIsFocused();
-  console.log(locuser);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState();
   console.log(route);
   useEffect(() => {
-    (async () => {
-      if (username) {
-        const { response: user } = await medFetch({
-          type: "select",
-          table: "testcol",
-          condition: { username: username },
-          limit: 1,
-        });
-        setUser(user[0]);
-      } else {
-        setUser(locuser);
-      }
-      setLoading(false);
-    })();
-  }, [isFocused, username]);
+    if (username) {
+      setLoading(true);
+      medFetch({
+        type: "select",
+        table: "testcol",
+        condition: { username: username },
+        limit: 1,
+      }).then(({ response }) => {
+        setUser(response[0]);
+        setLoading(false)
+      });
+    }
+    setUser(getUser());
+  }, [isFocused]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#ffffff", }}>
+    <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
       {loading ? (
         <ActivityIndicator></ActivityIndicator>
       ) : (
-        <View style={{ alignSelf: "center" ,padding: 20}}>
+        <View style={{ alignSelf: "center", padding: 20 }}>
           <Image
             source={deleteIcon}
             style={{

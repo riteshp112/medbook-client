@@ -1,7 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
-import { Appearance, View } from "react-native";
-import Mode from "../Appearance/Appearance";
 import Logout from "../Authentication/Logout";
 import Settings from "../Settings/Settings";
 import ChatList from "./Chats/ChatLists";

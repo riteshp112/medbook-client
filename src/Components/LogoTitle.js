@@ -1,3 +1,4 @@
+import React from "react";
 import { Image } from "react-native";
 import { logo } from "../Images";
 

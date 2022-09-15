@@ -14,16 +14,15 @@ const AddNewRecord = ({ navigation }) => {
       style={{
         flex: 1,
         justifyContent: "center",
-        padding: 8,
         backgroundColor: "rgba(28,53,32,0.09)",
       }}
     >
       <View
         style={{
           backgroundColor: "#ffffff",
-          borderWidth: 2,
-          borderColor: "lightgray",
-          padding: 4,
+          borderRadius: 4,
+          width: "95%",
+          alignSelf: "center",
         }}
       >
         <Picker
@@ -66,7 +65,10 @@ const AddNewRecord = ({ navigation }) => {
             title="Add"
             onPress={() => {
               addNewRecordAction({ ...item, date: new Date() });
-              toast.show("Record Added Successfully",{type:"success",duration:2000})
+              toast.show("Record Added Successfully", {
+                type: "success",
+                duration: 2000,
+              });
               navigation.goBack();
             }}
           ></Button>

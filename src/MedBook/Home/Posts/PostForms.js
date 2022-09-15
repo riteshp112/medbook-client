@@ -9,8 +9,21 @@ const AddNewPost = ({ navigation }) => {
   const user = getUser();
   // const Toast = useToast()
   return (
-    <View style={{ flex: 1, justifyContent: "center",backgroundColor:'rgba(28,53,32,0.09)'}}>
-      <View style={{ backgroundColor: "#ffffff",borderRadius:4 }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "rgba(28,53,32,0.09)",
+      }}
+    >
+      <View
+        style={{
+          backgroundColor: "#ffffff",
+          borderRadius: 4,
+          width: "95%",
+          alignSelf: "center",
+        }}
+      >
         <Text
           style={{
             fontWeight: "500",
@@ -56,11 +69,9 @@ const AddNewPost = ({ navigation }) => {
         </View>
         <View
           style={{
-            width: "95%",
-            alignSelf: "center",
             paddingTop: 8,
             flexDirection: "row",
-            justifyContent: "flex-end",
+            justifyContent: "space-evenly",
           }}
         >
           <Button
@@ -71,7 +82,10 @@ const AddNewPost = ({ navigation }) => {
                 post: post,
               });
               setPost("");
-              toast.show("Post Added Successfully",{type:"success",duration:2000})
+              toast.show("Post Added Successfully", {
+                type: "success",
+                duration: 2000,
+              });
               navigation.goBack();
             }}
           ></Button>

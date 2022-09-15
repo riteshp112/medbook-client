@@ -16,23 +16,23 @@ const ChatList = (props) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    (async () => {
+    if (isFocused) {
       setLoading(true);
-      const { response: threads = {} } =
-        (await medFetch({
-          type: "select",
-          table: "threads",
-          condition: {
-            $or: [
-              { "sender.username": user?.username || "1234" },
-              { "receiver.username": user?.username || "1234" },
-            ],
-          },
-          limit: limit,
-        })) || {};
-      setThreads(threads);
-      setLoading(false);
-    })();
+      medFetch({
+        type: "select",
+        table: "threads",
+        condition: {
+          $or: [
+            { "sender.username": user?.username || "1234" },
+            { "receiver.username": user?.username || "1234" },
+          ],
+        },
+        limit: limit,
+      }).then(({ response } = {}) => {
+        setThreads(response);
+        setLoading(false);
+      });
+    }
   }, [limit, isFocused]);
 
   return (
@@ -43,13 +43,17 @@ const ChatList = (props) => {
         onEndReached={() => {
           setLimit((prev) => prev + 5);
         }}
+        keyExtractor={(item) => item?._id}
+        showsVerticalScrollIndicator={false}
       ></FlatList>
       {loading ? <ActivityIndicator style={{ alignSelf: "center" }} /> : void 0}
       <FloatingActionComponent
+        {...props}
         text={"+"}
         onPress={() => {
           props?.navigation?.navigate("add-new-chat");
         }}
+        position="flex-end"
       ></FloatingActionComponent>
     </View>
   );

@@ -1,3 +1,4 @@
+import React from "react";
 import { Image, Modal } from "react-native";
 
 const ActivityIndicator = (props) => {
@@ -11,7 +12,6 @@ const ActivityIndicator = (props) => {
     <Modal
       animationType={animationType}
       transparent={transparent}
-      loadingIcon={loadingIcon}
       visible={modalVisible}
     >
       <Image

@@ -24,7 +24,7 @@ const AddNewChat = (props) => {
         limit: 30,
       });
       setUser(response);
-      response.map((item) => {
+      response?.map((item) => {
         items.push(
           <Picker.Item
             key={item?._id}
@@ -43,17 +43,15 @@ const AddNewChat = (props) => {
       style={{
         flex: 1,
         justifyContent: "center",
-        padding: 8,
         backgroundColor: "rgba(28,53,32,0.09)",
       }}
     >
       <View
         style={{
           backgroundColor: "#ffffff",
-          borderWidth: 2,
-          borderColor: "lightgray",
-          padding: 4,
-          justifyContent: "center",
+          borderRadius: 4,
+          width: "95%",
+          alignSelf: "center",
         }}
       >
         <TextInput

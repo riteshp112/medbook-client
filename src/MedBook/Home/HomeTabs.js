@@ -13,10 +13,10 @@ const HomeTabs = () => {
   const user= getUser();
   return (
     <Tab.Navigator screenOptions={{ header: () => null }}>
-      <Tab.Screen name="Posts" component={PostList} />
+      <Tab.Screen name="Posts" component={PostList} options={{tabBarBadge:'+10'}}/>
       <Tab.Screen name="Chat" component={ChatList} />
       <Tab.Screen name="Records" component={RecordList} />
-      <Tab.Screen name="Profile" component={ProfileDetail} initialParams ={{username:user?.username}}/>
+      <Tab.Screen name="Profile" component={ProfileDetail} />
     </Tab.Navigator>
   );
 };

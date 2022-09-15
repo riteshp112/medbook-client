@@ -1,7 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import ChatScreens from "./Chats";
-import HomeTabs from "./HomeTabs";
 import ProfileScreens from "./MyProfile";
 import PostScreens from "./Posts";
 import RecordScreens from "./Records";

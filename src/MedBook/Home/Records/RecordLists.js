@@ -18,24 +18,23 @@ const RecordList = (props) => {
       setRecords(records);
     })();
   }, [isFocused]);
-  
+
   return (
-    <View style={{ flex: 1, flexDirection: "column" }}>
+    <View style={{ flex: 1, justifyContent: "center" , overflow:'hidden'}}>
       <FlatList
         data={records}
         renderItem={(props) => (
           <RecordItem {...props} {...parentProps} func={setRecords} />
         )}
+        keyExtractor={(item)=> item?.date}
+        showsVerticalScrollIndicator={false}
       ></FlatList>
-      <View style={{ flexDirection: "row", alignSelf: "center" }}>
-        <View style={{ marginLeft: 10, marginRight: 10 }}>
-          <DownloadRecords {...props} records={records} />
-        </View>
-      </View>
+      <DownloadRecords records={records} />
       <FloatingAction
         {...props}
         text="+"
         onPress={() => props?.navigation?.navigate("add-new-record")}
+        position="flex-end"
       ></FloatingAction>
     </View>
   );

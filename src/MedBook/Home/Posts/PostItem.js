@@ -17,7 +17,6 @@ const PostItem = ({ item, navigation, setPostLength }) => {
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
   const [isLiked, setIsLiked] = useState(item.likers.indexOf(user?._id) !== -1);
-  console.log(user, item,isLiked);
   let commentComponent =
     (item?.comments &&
       item?.comments?.map((item) => (
