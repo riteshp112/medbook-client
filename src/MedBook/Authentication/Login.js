@@ -1,9 +1,12 @@
+// @ts-nocheck
 import { View, TextInput, Text, Button, Modal } from "react-native";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import React from "react";
+import ActivityIndicator from "../../Components/ActivityIndicator";
+import { loadingIcon } from "../../Images";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -13,6 +16,7 @@ const Login = (props) => {
   // const Toast =useToast()
   const loginPressed = async () => {
     // @ts-ignore
+    setModalVisible(true);
     let { response: result } =
       (await medFetch({
         type: "select",
@@ -49,9 +53,12 @@ const Login = (props) => {
         style={{ marginBottom: 4 }}
         onPress={() => {
           toast.show(
-            "Send an email at riteshp112@gmail.com to recover your account.",
+            "Sending OTP !",
             { type: "normal", duration: 4000 }
           );
+          navigation.navigate('otp-screen',{
+            email: username,
+          })
         }}
       >
         <Text> Forget Password?</Text>
@@ -67,38 +74,14 @@ const Login = (props) => {
       <Button
         title={"Sign In"}
         onPress={() => {
-          setModalVisible(true);
           loginPressed();
         }}
       ></Button>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        style={{}}
-      >
-        <Text
-          style={{
-            margin: 20,
-            backgroundColor: "white",
-            borderRadius: 20,
-            padding: 35,
-            top: 200,
-            color: "blue",
-            textAlign: "center",
-            alignItems: "center",
-            shadowColor: "#000",
-            fontSize: 45,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-          }}
-        >
-          {" "}
-          Please Wait{" "}
-        </Text>
-      </Modal>
+      <ActivityIndicator
+        containerStyle={{ height: "100%", backgroundColor: "rgba(1,1,0,0.1)" }}
+        modalVisible={modalVisible}
+        loadingIcon={loadingIcon}
+      />
     </View>
   );
 };

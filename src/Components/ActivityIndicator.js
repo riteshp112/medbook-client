@@ -1,12 +1,14 @@
 import React from "react";
-import { Image, Modal } from "react-native";
+import { Image, Modal, View } from "react-native";
 
 const ActivityIndicator = (props) => {
   const {
-    animationType = "slide",
+    animationType,
     transparent = true,
     modalVisible,
     loadingIcon,
+    iconStyle,
+    containerStyle,
   } = props;
   return (
     <Modal
@@ -14,10 +16,12 @@ const ActivityIndicator = (props) => {
       transparent={transparent}
       visible={modalVisible}
     >
-      <Image
-        source={loadingIcon}
-        style={{ top: 250, height: 50, width: 50, left: 150 }}
-      ></Image>
+      <View style={{ ...containerStyle }}>
+        <Image
+          source={loadingIcon}
+          style={{ top: 250, height: 50, width: 50, left: 150, ...iconStyle }}
+        ></Image>
+      </View>
     </Modal>
   );
 };

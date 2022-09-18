@@ -3,7 +3,7 @@ import { Image } from "react-native";
 import { logo } from "../Images";
 
 
-const LogoTitle = ({options}) => {
+const LogoTitle = () => {
   return (
     <Image
       source={logo}
