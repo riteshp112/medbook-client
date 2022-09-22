@@ -52,11 +52,7 @@ const Login = (props) => {
       <TouchableOpacity
         style={{ marginBottom: 4 }}
         onPress={() => {
-          toast.show(
-            "Sending OTP !",
-            { type: "normal", duration: 4000 }
-          );
-          navigation.navigate('otp-screen',{
+          navigation.navigate('search-account',{
             email: username,
           })
         }}
