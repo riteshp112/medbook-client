@@ -10,10 +10,11 @@ const NewPassword = ({ route, navigation }) => {
   return (
     <View>
       <TextInput
-        placeholder={"Enter New OTP"}
+        placeholder={"Enter New Password"}
         value={password1}
         onChangeText={(val) => setpassword1(val)}
         autoFocus={true}
+        secureTextEntry={true}
         onBlur={() => {
           if (password1.length < 8) {
             toast.show("Password must be greater than 8 characters", {
@@ -29,8 +30,9 @@ const NewPassword = ({ route, navigation }) => {
         }}
       ></TextInput>
       <TextInput
-        placeholder={"Confirm New OTP"}
+        placeholder={"Confirm New Password"}
         value={password2}
+        secureTextEntry={true}
         onChangeText={(val) => setpassword2(val)}
         onBlur={() => {
           if (password1 !== password2) {
@@ -42,7 +44,7 @@ const NewPassword = ({ route, navigation }) => {
         }}
         style={{
           height: 30,
-          paddingTop: 8,
+          marginTop: 8,
           borderWidth: 1,
           backgroundColor: "lightgray",
         }}
@@ -51,7 +53,7 @@ const NewPassword = ({ route, navigation }) => {
         title={" Update Password"}
         onPress={async () => {
           if (password1.length >= 8 && password1 == password2) {
-            await medFetch({
+            const { response } = await medFetch({
               type: "update",
               table: "testcol",
               id: user._id,
@@ -61,7 +63,7 @@ const NewPassword = ({ route, navigation }) => {
               type: "success",
               duration: 2000,
             });
-            navigation.navigate("authenticator");
+            if (response?.modified_count) navigation.navigate("authenticator");
           }
         }}
       />
