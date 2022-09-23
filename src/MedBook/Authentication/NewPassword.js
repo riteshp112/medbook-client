@@ -57,7 +57,7 @@ const NewPassword = ({ route, navigation }) => {
               type: "update",
               table: "testcol",
               id: user._id,
-              changes: { password: password1 },
+              changes: { $set:{password: password1 }},
             });
             toast.show("Password Updated Successfully", {
               type: "success",
