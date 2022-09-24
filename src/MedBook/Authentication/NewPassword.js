@@ -60,19 +60,20 @@ const NewPassword = ({ route, navigation }) => {
               changes: { $set: { password: password1 } },
             });
             if (response?.matched_count) {
-              if (response?.modified_count)
-                {navigation.navigate("authenticator");
+              if (response?.modified_count) {
                 toast.show("Password Updated Successfully", {
                   type: "success",
                   duration: 2000,
-                });}
-              else{
+                })
+                navigation.navigate("authenticator");
+              }
+              else {
                 toast.show("New password can't be same as old password.", {
                   type: "danger",
                   duration: 2000,
                 });
               }
-              }
+            }
           }
         }}
       />
