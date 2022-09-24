@@ -57,13 +57,22 @@ const NewPassword = ({ route, navigation }) => {
               type: "update",
               table: "testcol",
               id: user._id,
-              changes: { $set:{password: password1 }},
+              changes: { $set: { password: password1 } },
             });
-            toast.show("Password Updated Successfully", {
-              type: "success",
-              duration: 2000,
-            });
-            if (response?.modified_count) navigation.navigate("authenticator");
+            if (response?.matched_count) {
+              if (response?.modified_count)
+                {navigation.navigate("authenticator");
+                toast.show("Password Updated Successfully", {
+                  type: "success",
+                  duration: 2000,
+                });}
+              else{
+                toast.show("New password can't be same as old password.", {
+                  type: "danger",
+                  duration: 2000,
+                });
+              }
+              }
           }
         }}
       />
