@@ -72,6 +72,7 @@ const ChatDetails = ({ route }) => {
         <TouchableOpacity
           onPress={async () => {
             setMessage("");
+            console.log(item)
             await medFetch({
               type: "update",
               id: item._id,

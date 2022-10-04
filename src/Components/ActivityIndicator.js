@@ -16,10 +16,10 @@ const ActivityIndicator = (props) => {
       transparent={transparent}
       visible={modalVisible}
     >
-      <View style={{ ...containerStyle }}>
+      <View style={{ justifyContent: 'center', alignItems: 'center', ...containerStyle }}>
         <Image
           source={loadingIcon}
-          style={{ top: 250, height: 50, width: 50, left: 150, ...iconStyle }}
+          style={{ height: 50, width: 50, ...iconStyle }}
         ></Image>
       </View>
     </Modal>

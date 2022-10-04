@@ -1,6 +1,6 @@
 import { ActivityIndicator, Image, Text, View } from "react-native";
-import { deleteIcon } from "../../../Images";
 import React, { useEffect, useState } from "react";
+import { defaultAvatar } from "../../../Images/index"
 import medFetch from "../../../Actions/medFetchAction";
 import { useIsFocused } from "@react-navigation/native";
 import { getUser } from "../../Authentication/Authenticator";
@@ -34,13 +34,15 @@ const ProfileDetail = ({ route, navigation }) => {
       ) : (
         <View style={{ alignSelf: "center", padding: 20 }}>
           <Image
-            source={deleteIcon}
+            source={defaultAvatar}
             style={{
               height: 60,
               width: 60,
               borderRadius: 30,
               alignSelf: "center",
-              backgroundColor: "lightgray",
+              borderWidth:1,
+              borderColor: "black"
+              // backgroundColor: "lightgray",
             }}
           ></Image>
           <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>

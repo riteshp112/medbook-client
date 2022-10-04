@@ -4,7 +4,6 @@ import { getUser } from "../../Authentication/Authenticator";
 
 const ChatComponent = ({ item }) => {
   const user = getUser();
-  console.log(user);
   return (
     <View
       style={[
@@ -15,7 +14,7 @@ const ChatComponent = ({ item }) => {
         style={[
           item?.sender?.username == user?.username
             ? { alignSelf: "flex-end", backgroundColor: "lightgreen" }
-            : { alignItems: "flex-start", backgroundColor: "lightpink" },
+            : { alignItems: "flex-start", backgroundColor: "lightblue" },
           {width:200,padding:8,borderRadius:8},
         ]}
       >

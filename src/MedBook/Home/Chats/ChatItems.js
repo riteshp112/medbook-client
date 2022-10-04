@@ -8,7 +8,7 @@ const ChatItem = ({ item ,navigation}) => {
   return (
     <TouchableOpacity onPress={()=>{
         navigation.navigate("Chat-Details",{
-            item
+            item:item
         })
 
     }}> 

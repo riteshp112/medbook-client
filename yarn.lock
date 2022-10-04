@@ -9523,6 +9523,11 @@
     "@types/papaparse" "^5.2.5"
     "papaparse" "^5.3.0"
 
+"react-native-device-info@^10.2.0":
+  "integrity" "sha512-7VycjFGaLKIZLDwCxSK5cWZdDOGqz3QxdGF57B/a4bW3gkrUFa5Gf0v7fUR9YL/VBJM0UwDiDH7pR9hkMQt+vw=="
+  "resolved" "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.2.0.tgz"
+  "version" "10.2.0"
+
 "react-native-fast-toast@^3.0.1":
   "integrity" "sha512-ugCcVQ2C09ZUlxPZSG0f89Mb8wzvbgOyVHIbUxIbAr01jr77DWFOEgiG1Z4v9FH/O/mm6mZjmJPEIAqvN0ck0Q=="
   "resolved" "https://registry.npmjs.org/react-native-fast-toast/-/react-native-fast-toast-3.0.1.tgz"
