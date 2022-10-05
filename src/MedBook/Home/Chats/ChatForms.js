@@ -8,21 +8,20 @@ import { getUser } from "../../Authentication/Authenticator";
 const AddNewChat = (props) => {
   const [query, setQuery] = useState("");
   const [pickerItems, setPickerItems] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [userIndex, setUserIndex] = useState();
   const sender = getUser();
 
   useEffect(() => {
     const items = [];
-    (async () => {
-      setLoading(true);
-      let { response } = await medFetch({
-        type: "select",
-        table: "testcol",
-        condition: { name: { $regex: "^" + query, $options: "i" } },
-        limit: 30,
-      });
+    setLoading(true);
+    medFetch({
+      type: "select",
+      table: "testcol",
+      condition: { name: { $regex: "^" + query, $options: "i" } },
+      limit: 30,
+    }).then(({ response }) => {
       setUser(response);
       response?.map((item) => {
         items.push(
@@ -35,7 +34,7 @@ const AddNewChat = (props) => {
       });
       setPickerItems(items);
       setLoading(false);
-    })();
+    })
   }, [query]);
 
   return (

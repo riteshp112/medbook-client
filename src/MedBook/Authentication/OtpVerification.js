@@ -1,10 +1,11 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import sendMailAction from "../../Actions/sendMailAction";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
+import { signUpStyle } from "./SignUp";
 
 const validateOtp = async ({ inputOtp, navigation, user, setModalVisible }) => {
   setModalVisible(true);
@@ -51,19 +52,14 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
   }, []);
 
   return (
-    <View>
-      <Text> Enter the otp send to {user.email}</Text>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
       <TextInput
         value={inputOtp}
         onChangeText={(val) => {
           setInputOtp(val);
         }}
-        style={{
-          height: 30,
-          width: "100%",
-          borderWidth: 1,
-          backgroundColor: "lightgray",
-        }}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        placeholder={`Enter the otp send to ${user.email}`}
       ></TextInput>
       <Button
         title="Validate"

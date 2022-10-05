@@ -19,6 +19,8 @@ import com.reactnativecommunity.netinfo.NetInfoPackage;
 import com.reactnativecommunity.picker.RNCPickerPackage;
 // expo
 import expo.modules.ExpoModulesPackage;
+// react-native-device-info
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 // react-native-file-manager
 import com.reactfs.ReactFSPackage;
 // react-native-fs
@@ -82,6 +84,7 @@ public class PackageList {
       new NetInfoPackage(),
       new RNCPickerPackage(),
       new ExpoModulesPackage(),
+      new RNDeviceInfo(),
       new ReactFSPackage(),
       new RNFSPackage(),
       new RNGestureHandlerPackage(),

@@ -7,6 +7,8 @@ import medFetch from "../../Actions/medFetchAction";
 import React from "react";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
+import { signUpStyle } from "./SignUp";
+import { validateEmail } from "../../Utils/appUtility";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,12 +18,26 @@ const Login = (props) => {
   // const Toast =useToast()
   const loginPressed = async () => {
     // @ts-ignore
+    let condition = {}
+    if (validateEmail(username)) {
+      condition = {
+        email: username,
+        password
+      }
+    }
+    else {
+      condition = {
+        username,
+        password
+      }
+
+    }
     setModalVisible(true);
     let { response: result } =
       (await medFetch({
         type: "select",
         table: "testcol",
-        condition: { username, password },
+        condition,
         limit: 1,
       })) || {};
     setModalVisible(false);
@@ -37,22 +53,22 @@ const Login = (props) => {
     }
   };
   return (
-    <View>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}
-        style={{ borderWidth: 2, marginBottom: 4 }}
+        style={signUpStyle.formTextInputStyle}
       ></TextInput>
       <TextInput
         onChangeText={(value) => setPassword(value)}
         placeholder={"Password"}
         secureTextEntry={true}
-        style={{ borderWidth: 2, marginBottom: 4 }}
+        style={signUpStyle.formTextInputStyle}
       ></TextInput>
       <TouchableOpacity
         style={{ marginBottom: 4 }}
         onPress={() => {
-          navigation.navigate('search-account',{
+          navigation.navigate('search-account', {
             email: username,
           })
         }}

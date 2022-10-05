@@ -1,23 +1,17 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Button, TextInput, View, StyleSheet } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
-
-const validateEmail = (email) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
-};
+import { validateEmail } from "../../Utils/appUtility";
+import { signUpStyle } from "./SignUp";
 
 const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
   let condition;
   if (validateEmail(email)) {
     condition = {
-      email: "email",
+      email,
     };
   } else {
     condition = {
@@ -32,30 +26,32 @@ const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
     limit: 1,
   });
   setModalVisible(false);
-  if (response.length) {
-    if (response[0].email) {
-      toast.show("Sending OTP !", { type: "normal", duration: 4000 });
-      navigation.navigate("otp-screen", { user: response[0]});
+  if (response) {
+    if (response.length) {
+      if (response[0].email) {
+        toast.show("Sending OTP !", { type: "normal", duration: 4000 });
+        navigation.navigate("otp-screen", { user: response[0] });
+      } else {
+        toast.show("There is no email associated with your account.", {
+          type: "danger",
+          duration: 5000,
+        });
+      }
     } else {
-      toast.show("There is no email associated with your account.", {
-        type: "danger",
-        duration: 5000,
-      });
+      toast.show("No such user Found.", { type: "danger", duration: 3000 });
     }
-  } else {
-    toast.show("No such user Found.", { type: "danger", duration: 3000 });
   }
 };
 const SearchAccount = (props) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View>
-      <Text>Enter Your Email Or Username To Find Your Account</Text>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
       <TextInput
         value={email}
         onChangeText={(value) => setEmail(value)}
-        style={{ height: 30, backgroundColor: "lightgray", borderWidth: 1 }}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        placeholder={"Enter Your Email Or Username To Find Your Account"}
       ></TextInput>
       <Button
         title={"Send Otp"}
@@ -64,7 +60,7 @@ const SearchAccount = (props) => {
       <ActivityIndicator
         modalVisible={modalVisible}
         loadingIcon={loadingIcon}
-        containerStyle={{backgroundColor:'rgba(1,1,1,0.1)',flex:1}}
+        containerStyle={{ backgroundColor: 'rgba(1,1,1,0.1)', flex: 1 }}
       />
     </View>
   );

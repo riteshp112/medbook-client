@@ -7,12 +7,13 @@ import {
   TextInput,
   View,
   Button,
-  ToastAndroid,
 } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
+import { validateEmail } from "../../Utils/appUtility";
+
 const SignUp = (props) => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,6 +21,8 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setdob] = useState("");
+  const [email, setEmail] = useState("");
+
   const saveUser = async () => {
     setLoading(true);
     const { response } = await medFetch({
@@ -47,35 +50,49 @@ const SignUp = (props) => {
     setLoading(false);
   };
   return (
-    <View>
-      <Text>Name:</Text>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
       <TextInput
-        style={{ borderWidth: 2, marginTop: 2, height: 25 }}
+        style={signUpStyle.formTextInputStyle}
+        placeholder={"Name"}
         onChangeText={(value) => setName(value)}
       ></TextInput>
-      <Text>Username</Text>
       <TextInput
-        style={{ borderWidth: 2, marginTop: 2, height: 25 }}
-        onChangeText={(value) => setUserName(value)}
+        style={signUpStyle.formTextInputStyle}
+        placeholder={"Email"}
+        onChangeText={(value) => setEmail(value)}
       ></TextInput>
-      <Text>Password</Text>
       <TextInput
-        style={{ borderWidth: 2, marginTop: 2, height: 25 }}
+        style={signUpStyle.formTextInputStyle}
+        onChangeText={(value) => setUserName(value)}
+        placeholder={email ? email.split('@')[0] : "Username"}
+      ></TextInput>
+      <TextInput
+        style={signUpStyle.formTextInputStyle}
         secureTextEntry={true}
         onChangeText={(value) => setPassword(value)}
+        placeholder={"Password"}
       ></TextInput>
-      <Text>Gender</Text>
-      <Picker onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
-        <Picker.Item value="" label="Select Your Gender"></Picker.Item>
-        <Picker.Item value="M" label="M"></Picker.Item>
-        <Picker.Item value="F" label="F"></Picker.Item>
-      </Picker>
-      <Text>Dob</Text>
+      <View style={signUpStyle.formPickerStyle}>
+        <Picker onValueChange={(itemValue, itemIndex) => {
+          setGender(itemValue)
+        }} value={gender}
+          style={{ left: -8, color: gender == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
+        >
+          <Picker.Item value="" label="Select Your Gender" enabled={false}></Picker.Item>
+          <Picker.Item value="M" label="Male"></Picker.Item>
+          <Picker.Item value="F" label="Female"></Picker.Item>
+          <Picker.Item value="L" label="Lesbian"></Picker.Item>
+          <Picker.Item value="G" label="Gay"></Picker.Item>
+          <Picker.Item value="B" label="Bisexual"></Picker.Item>
+          <Picker.Item value="T" label="Transgender"></Picker.Item>
+          <Picker.Item value="Q" label="Queer"></Picker.Item>
+        </Picker>
+      </View>
       <TextInput
         value={dob}
         keyboardType={"numbers-and-punctuation"}
         maxLength={10}
-        style={{ borderWidth: 2, marginTop: 2, height: 25 }}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
         onChangeText={(value) => {
           if (value.length == 2 || value.length == 5) value = value + "/";
           setdob(value);
@@ -90,6 +107,12 @@ const SignUp = (props) => {
               type: "warning",
               duration: 2000,
             });
+          else if (!validateEmail(email)) {
+            toast.show("Email not valid !", {
+              type: "warning",
+              duration: 2000,
+            });
+          }
           else if (username.length < 6)
             toast.show("Username must contain at least 6 characters", {
               type: "warning",
@@ -100,7 +123,7 @@ const SignUp = (props) => {
               type: "warning",
               duration: 2000,
             });
-          else if (gender.length == 0)
+          else if (!gender || gender.length == 0)
             toast.show("Please select gender.", {
               type: "warning",
               duration: 2000,
@@ -135,12 +158,30 @@ const SignUp = (props) => {
   );
 };
 
-const styles = StyleSheet.create({
+export const signUpStyle = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
+  formTextInputStyle: {
+    borderWidth: 1,
+    marginTop: 2,
+    height: 45,
+    borderRadius: 4,
+    borderColor: 'lightgray',
+    backgroundColor: '#ebedf0',
+    paddingLeft: 8
+  },
+  formPickerStyle: {
+    borderWidth: 1,
+    marginTop: 2,
+    height: 45,
+    borderRadius: 4,
+    borderColor: 'lightgray',
+    backgroundColor: '#ebedf0',
+    justifyContent: 'center',
+  }
 });
 export default SignUp;
