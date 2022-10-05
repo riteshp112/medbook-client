@@ -75,7 +75,8 @@ const SignUp = (props) => {
       <View style={signUpStyle.formPickerStyle}>
         <Picker onValueChange={(itemValue, itemIndex) => {
           setGender(itemValue)
-        }} value={gender}
+        }}
+          value={gender}
           style={{ left: -8, color: gender == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
         >
           <Picker.Item value="" label="Select Your Gender" enabled={false}></Picker.Item>

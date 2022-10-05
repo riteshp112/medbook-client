@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthenticationScreens = () => {
   return (
-    <Stack.Group screenOptions={{ header: LogoTitle }}>
+    <Stack.Group screenOptions={{ header: (props) => <LogoTitle {...props} iconStyle={{backgroundColor:'#ffffff'}}/> }}>
       <Stack.Screen
         name="authenticator"
         options={{ header: () => null }}

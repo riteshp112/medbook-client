@@ -4,11 +4,13 @@ import { Button, TextInput, View } from "react-native";
 import { addNewRecordAction } from "../../../Actions/recordActions";
 // import {useToast } from "react-native-fast-toast";
 import React from "react";
+import { signUpStyle } from "../../Authentication/SignUp";
 
 const AddNewRecord = ({ navigation }) => {
-  const [item, setItem] = useState();
-  // const Toast =useToast();
-
+  const [item, setItem] = useState({
+    type: "",
+    val: ""
+  });
   return (
     <View
       style={{
@@ -25,29 +27,26 @@ const AddNewRecord = ({ navigation }) => {
           alignSelf: "center",
         }}
       >
-        <Picker
-          selectedValue={item?.type}
+        <View
+        style={signUpStyle.formPickerStyle}><Picker
           onValueChange={(itemValue) => {
             setItem({ ...item, type: itemValue });
           }}
-          style={{ backgroundColor: "", marginTop: 8, width: 230 }}
+          value={item?.type}
+          style={{ left: -8, color: item.type == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
         >
           <Picker.Item
             label="Choose Record Type"
-            value="Choose Record Type"
+            value=""
             enabled={false}
           />
           <Picker.Item label="Blood Sugar Level" value="Blood Sugar Level" />
           <Picker.Item label="Blood Pressure" value="Blood Pressure" />
           <Picker.Item label="Temperature" value="Temperature" />
         </Picker>
+        </View>
         <TextInput
-          style={{
-            backgroundColor: "#fff2f2f2",
-            borderRadius: 4,
-            marginTop: 4,
-            height: 32,
-          }}
+          style={signUpStyle.formTextInputStyle}
           onChangeText={(value) => setItem({ ...item, val: value })}
           placeholder="Enter Value"
         ></TextInput>

@@ -14,7 +14,7 @@ const medFetch = async (body) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: decodeURI(JSON.stringify(body)),
     });
     res = await res?.json();
     return res;

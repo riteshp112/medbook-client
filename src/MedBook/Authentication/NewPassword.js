@@ -1,14 +1,15 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { Button, TextInput, View } from "react-native";
+import { Button, TextInput, View , StyleSheet} from "react-native";
 import medFetch from "../../Actions/medFetchAction";
+import { signUpStyle } from "./SignUp";
 
 const NewPassword = ({ route, navigation }) => {
   const [password1, setpassword1] = useState("");
   const [password2, setpassword2] = useState("");
   const { user } = route.params;
   return (
-    <View>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
       <TextInput
         placeholder={"Enter New Password"}
         value={password1}
@@ -23,11 +24,7 @@ const NewPassword = ({ route, navigation }) => {
             });
           }
         }}
-        style={{
-          height: 30,
-          borderWidth: 1,
-          backgroundColor: "lightgray",
-        }}
+        style={signUpStyle.formTextInputStyle}
       ></TextInput>
       <TextInput
         placeholder={"Confirm New Password"}
@@ -42,12 +39,7 @@ const NewPassword = ({ route, navigation }) => {
             });
           }
         }}
-        style={{
-          height: 30,
-          marginTop: 8,
-          borderWidth: 1,
-          backgroundColor: "lightgray",
-        }}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
       ></TextInput>
       <Button
         title={" Update Password"}

@@ -1,16 +1,17 @@
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Button, TextInput, View } from "react-native";
+import { ActivityIndicator, Button, StyleSheet, TextInput, View } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
 import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
+import { signUpStyle } from "../../Authentication/SignUp";
 
 const AddNewChat = (props) => {
   const [query, setQuery] = useState("");
   const [pickerItems, setPickerItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
-  const [userIndex, setUserIndex] = useState();
+  const [userIndex, setUserIndex] = useState(-1);
   const sender = getUser();
 
   useEffect(() => {
@@ -53,27 +54,26 @@ const AddNewChat = (props) => {
           alignSelf: "center",
         }}
       >
+
         <TextInput
-          style={{
-            backgroundColor: "#fff2f2f2",
-            borderRadius: 4,
-            marginTop: 4,
-            height: 32,
-          }}
+          style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
           onChangeText={(itemValue) => {
             setQuery(itemValue);
           }}
           placeholder={"Search Friends"}
         ></TextInput>
-        <Picker
-          selectedValue={user?.[userIndex]?.name}
-          onValueChange={(item, index) => {
-            setUserIndex(index);
-          }}
-          style={{ backgroundColor: "", marginTop: 8, width: 230 }}
-        >
-          {pickerItems}
-        </Picker>
+        <View
+          style={signUpStyle.formPickerStyle}>
+          <Picker
+            selectedValue={user?.[userIndex]?.name}
+            onValueChange={(item, index) => {
+              setUserIndex(index);
+            }}
+            style={{ left: -8, color: userIndex == -1 ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
+            >
+            {pickerItems}
+          </Picker>
+        </View>
         {loading ? (
           <ActivityIndicator
             style={{ position: "absolute", alignSelf: "center" }}

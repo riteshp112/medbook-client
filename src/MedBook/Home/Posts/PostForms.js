@@ -51,7 +51,6 @@ const AddNewPost = ({ navigation }) => {
         <View
           style={{
             backgroundColor: "#fff2f2",
-            //   padding:16,
             borderWidth: 1,
             borderRadius: 4,
             width: "95%",

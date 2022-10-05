@@ -1,17 +1,18 @@
 import {
   ActivityIndicator,
   Image,
-  Text,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
   View,
+  FlatList
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { FlatList } from "react-native";
 import ChatComponent from "./ChatItem";
-import { send } from "../../../Images";
+import { defaultAvatar, send } from "../../../Images";
 import medFetch from "../../../Actions/medFetchAction";
 import { getUser } from "../../Authentication/Authenticator";
+import { signUpStyle } from "../../Authentication/SignUp";
 
 const ChatDetails = ({ route }) => {
   const { item } = route?.params;
@@ -40,7 +41,6 @@ const ChatDetails = ({ route }) => {
       style={{
         flex: 1,
         backgroundColor: "#ffffff",
-        flexDirection: "column",
       }}
     >
       <FlatList
@@ -52,22 +52,27 @@ const ChatDetails = ({ route }) => {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "center",
-          height: 40,
-          backgroundColor: "lightgray",
-          borderTopRightRadius: 24,
-          borderBottomRightRadius: 24,
+          justifyContent: 'space-between',
+          padding: 8,
         }}
       >
+        <View style={{
+          justifyContent: 'center', paddingRight: 8,
+        }}>
+          <Image source={defaultAvatar} style={{
+            resizeMode: "center",
+            height: 32,
+            width: 32,
+          }}></Image>
+        </View>
         <TextInput
           multiline={true}
           value={message}
-          style={{
-            flex: 1,
-          }}
+          style={StyleSheet.compose(signUpStyle.formTextInputStyle, { flex: 1, height: 32 })}
           onChangeText={(value) => {
             setMessage(value);
           }}
+          placeholder={"Enter Message..."}
         ></TextInput>
         <TouchableOpacity
           onPress={async () => {
@@ -88,17 +93,14 @@ const ChatDetails = ({ route }) => {
             });
             setRefresh((prev) => !prev);
           }}
-          style={{ justifyContent: "center" }}
+          style={{ justifyContent: "center", paddingLeft: 8 }}
         >
           <Image
             source={send}
             style={{
               resizeMode: "center",
-              height: 40,
-              width: 40,
-              backgroundColor: "lightgray",
-              padding: 16,
-              borderRadius: 21,
+              height: 32,
+              width: 32,
             }}
           ></Image>
         </TouchableOpacity>

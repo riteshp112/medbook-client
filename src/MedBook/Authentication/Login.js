@@ -66,7 +66,7 @@ const Login = (props) => {
         style={signUpStyle.formTextInputStyle}
       ></TextInput>
       <TouchableOpacity
-        style={{ marginBottom: 4 }}
+        style={{ marginBottom: 4, marginTop: 4 }}
         onPress={() => {
           navigation.navigate('search-account', {
             email: username,

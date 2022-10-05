@@ -8,8 +8,8 @@ const SettingItem = ({ item }) => {
     <TouchableOpacity onPress={onPress} disabled={!onPress}>
       <View style={{ flexDirection: "row", flex: 1, padding: 12 }}>
         <Image source={icon} style={{ width: 30, height: 30, marginTop: 16 }}></Image>
-        <View style={{ flexDirection: "column", padding: 8 }}>
-          <Text style={{ fontSize: 20, fontWeight: "500", paddingVertical: 4, overflow: 'hidden' }}>
+        <View style={{ flexDirection: "column", padding: 8,  flex:1 }}>
+          <Text style={{ fontSize: 20, fontWeight: "500", paddingVertical: 4, }} numberOfLines={1}>
             {title}
           </Text>
           <Text>{subTitle}</Text>
