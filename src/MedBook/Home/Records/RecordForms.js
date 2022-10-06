@@ -28,22 +28,23 @@ const AddNewRecord = ({ navigation }) => {
         }}
       >
         <View
-        style={signUpStyle.formPickerStyle}><Picker
-          onValueChange={(itemValue) => {
-            setItem({ ...item, type: itemValue });
-          }}
-          value={item?.type}
-          style={{ left: -8, color: item.type == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
-        >
-          <Picker.Item
-            label="Choose Record Type"
-            value=""
-            enabled={false}
-          />
-          <Picker.Item label="Blood Sugar Level" value="Blood Sugar Level" />
-          <Picker.Item label="Blood Pressure" value="Blood Pressure" />
-          <Picker.Item label="Temperature" value="Temperature" />
-        </Picker>
+          style={signUpStyle.formPickerStyle}>
+          <Picker
+            onValueChange={(itemValue) => {
+              setItem({ ...item, type: itemValue });
+            }}
+            selectedValue={item?.type}
+            style={{ left: -8, color: item.type == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
+          >
+            <Picker.Item
+              label="Choose Record Type"
+              value=""
+              enabled={false}
+            />
+            <Picker.Item label="Blood Sugar Level" value="Blood Sugar Level" />
+            <Picker.Item label="Blood Pressure" value="Blood Pressure" />
+            <Picker.Item label="Temperature" value="Temperature" />
+          </Picker>
         </View>
         <TextInput
           style={signUpStyle.formTextInputStyle}
