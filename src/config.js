@@ -9,3 +9,5 @@ mailURL = "http://127.0.0.1:5000/sendMail"; //local
 mailURL = "https://medbook1.herokuapp.com/sendMail"
 
 export { fetchURL, mailURL };
+
+// it will be ok
