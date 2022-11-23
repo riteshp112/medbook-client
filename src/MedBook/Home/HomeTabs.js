@@ -13,7 +13,11 @@ const HomeTabs = () => {
   const user = getUser();
   return (
     <Tab.Navigator screenOptions={{ header: () => null }}>
-      <Tab.Screen name="Posts" component={PostList} options={{ tabBarBadge: '10', tabBarBadgeStyle: { maxWidth: 40 } }} />
+      <Tab.Screen
+        name="Posts"
+        component={PostList}
+        options={{ tabBarBadge: "10", tabBarBadgeStyle: { maxWidth: 40 } }}
+      />
       <Tab.Screen name="Chat" component={ChatList} />
       <Tab.Screen name="Records" component={RecordList} />
       <Tab.Screen name="Profile" component={ProfileDetail} />

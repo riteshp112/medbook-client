@@ -16,7 +16,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
   const user = getUser();
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
-  const [isLiked, setIsLiked] = useState(item.likers.indexOf(user?._id) !== -1);
+  const [isLiked, setIsLiked] = useState(item?.likers?.indexOf(user?._id) !== -1);
   let commentComponent =
     (item?.comments &&
       item?.comments?.map((item) => (
@@ -68,7 +68,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
                 id: item?._id,
                 changes: { $push: { likers: user?._id } },
               });
-              setPostLength((prev) => prev + 1);
+              setPostLength && setPostLength((prev) => prev + 1);
               setIsLiked(true);
             }
           }}
@@ -83,7 +83,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
             }}
           >
             <Image source={like} style={{ height: 15, width: 15 }}></Image>
-            <Text style={{ marginLeft: 10 }}>{item?.likers.length}</Text>
+            <Text style={{ marginLeft: 10 }}>{item?.likers?.length}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -118,7 +118,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
                   },
                 },
               });
-              setPostLength((prev) => prev + 1);
+              setPostLength && setPostLength((prev) => prev + 1);
             }
           }}
         >
@@ -133,7 +133,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
             }}
           >
             <Image source={dislike} style={{ width: 15, height: 15 }}></Image>
-            <Text style={{ marginLeft: 10 }}>{item?.dislikers.length}</Text>
+            <Text style={{ marginLeft: 10 }}>{item?.dislikers?.length}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -175,7 +175,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
                     },
                   }));
                 setNewComment("");
-                setPostLength((prev) => prev + 1);
+                setPostLength && setPostLength((prev) => prev + 1);
               }}
               style={{ alignSelf: "center" }}
             >
