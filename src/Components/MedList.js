@@ -24,9 +24,9 @@ const List = (props) => {
       medFetch({
         ...uri,
         limit: dataLength,
-      }).then(({ response } = {}) => {
+      }).then((data = []) => {
         setIsLoading(false);
-        setData(response);
+        setData(data);
       });
     }
   }, [dataLength, isFocused]);
