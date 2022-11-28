@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  FlatList
+  FlatList,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import ChatComponent from "./ChatItem";
@@ -27,8 +27,7 @@ const ChatDetails = ({ route }) => {
       type: "select",
       table: "threads",
       condition: {
-        "sender.username": item?.sender?.username,
-        "receiver.username": item?.receiver?.username,
+        _id: item._id,
       },
       limit: 1,
     }).then(({ response: thread }) => {
@@ -52,23 +51,32 @@ const ChatDetails = ({ route }) => {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: 'space-between',
+          justifyContent: "space-between",
           padding: 8,
         }}
       >
-        <View style={{
-          justifyContent: 'center', paddingRight: 8,
-        }}>
-          <Image source={defaultAvatar} style={{
-            resizeMode: "center",
-            height: 32,
-            width: 32,
-          }}></Image>
+        <View
+          style={{
+            justifyContent: "center",
+            paddingRight: 8,
+          }}
+        >
+          <Image
+            source={defaultAvatar}
+            style={{
+              resizeMode: "center",
+              height: 32,
+              width: 32,
+            }}
+          ></Image>
         </View>
         <TextInput
           multiline={true}
           value={message}
-          style={StyleSheet.compose(signUpStyle.formTextInputStyle, { flex: 1, height: 32 })}
+          style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+            flex: 1,
+            height: 32,
+          })}
           onChangeText={(value) => {
             setMessage(value);
           }}
@@ -77,10 +85,10 @@ const ChatDetails = ({ route }) => {
         <TouchableOpacity
           onPress={async () => {
             setMessage("");
-            console.log(item)
+            console.log(item);
             await medFetch({
               type: "update",
-              id: item._id,
+              condition: { _id: item._id },
               table: "threads",
               changes: {
                 $push: {

@@ -2,8 +2,9 @@
 import { fetchURL } from "../config";
 import NetworkUtils from "../Utils/NetworkUtility";
 const medFetch = async (body) => {
-  try{const isConnected = await NetworkUtils.isNetworkAvailable();
-  if (!isConnected) {
+  try{
+    const isConnected = await NetworkUtils.isNetworkAvailable();
+  if (!isConnected && false) {
     toast.show("No Internet! Check Your Connection!",{type:'warning',duration:1500});
     return {};
   } 

@@ -5,7 +5,7 @@ import { createPost } from "../../../Actions/createPostAction";
 import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
 const AddNewPost = ({ navigation }) => {
-  const [post, setPost] = useState();
+  const [post, setPost] = useState("");
   const user = getUser();
   // const Toast = useToast()
   return (
@@ -75,6 +75,7 @@ const AddNewPost = ({ navigation }) => {
         >
           <Button
             title="Post"
+            disabled= {!post.length}
             onPress={() => {
               createPost({
                 use: user?.username || "1234",

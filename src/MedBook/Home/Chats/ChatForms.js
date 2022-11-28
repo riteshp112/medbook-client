@@ -1,6 +1,12 @@
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Button, StyleSheet, TextInput, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
 import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
@@ -15,7 +21,13 @@ const AddNewChat = (props) => {
   const sender = getUser();
 
   useEffect(() => {
-    const items = [];
+    const items = [
+      <Picker.Item
+        key={0}
+        label={"Select User"}
+        value={"Select User"}
+      ></Picker.Item>,
+    ];
     setLoading(true);
     medFetch({
       type: "select",
@@ -35,7 +47,7 @@ const AddNewChat = (props) => {
       });
       setPickerItems(items);
       setLoading(false);
-    })
+    });
   }, [query]);
 
   return (
@@ -54,23 +66,28 @@ const AddNewChat = (props) => {
           alignSelf: "center",
         }}
       >
-
         <TextInput
-          style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+          style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+            marginBottom: 2,
+          })}
           onChangeText={(itemValue) => {
             setQuery(itemValue);
           }}
           placeholder={"Search Friends"}
         ></TextInput>
-        <View
-          style={signUpStyle.formPickerStyle}>
+        <View style={signUpStyle.formPickerStyle}>
           <Picker
-            selectedValue={user?.[userIndex]?.name}
+            selectedValue={user?.[userIndex]?.name }
             onValueChange={(item, index) => {
-              setUserIndex(index);
+              setUserIndex(index-1);
             }}
-            style={{ left: -8, color: userIndex == -1 ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
-            >
+            style={{
+              left: -8,
+              color: userIndex == -1 ? "#8e8e8e" : void 0,
+              borderWidth: 0,
+              backgroundColor: "rgba(1,1,1,0)",
+            }}
+          >
             {pickerItems}
           </Picker>
         </View>
@@ -92,14 +109,16 @@ const AddNewChat = (props) => {
           }}
         >
           <Button
+            disabled={userIndex == -1}
             title="Start Chatting"
             onPress={() => {
+              console.log(user, userIndex);
               medFetch({
                 type: "insert",
                 table: "threads",
                 data: {
                   sender: sender,
-                  receiver: user[userIndex],
+                  receiver: user?.[userIndex],
                   chatHistory: [],
                 },
               });

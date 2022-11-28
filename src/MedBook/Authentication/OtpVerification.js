@@ -46,7 +46,7 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
     medFetch({
       type: "update",
       table: "testcol",
-      id: user._id,
+      condition:{_id: user._id},
       changes: { $set: { otp: otp } },
     });
   }, []);

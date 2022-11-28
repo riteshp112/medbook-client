@@ -1,19 +1,24 @@
 // @ts-nocheck
-import { useIsFocused } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, View } from "react-native";
-import medFetch from "../../../Actions/medFetchAction";
-import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 import PostItem from "./PostItem";
 import React from "react";
 import MedList from "../../../Components/MedList";
+import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 
-const PostList = () =>
-  MedList({
+const PostList = MedList(() => {
+  return {
     uri: { type: "select", table: "post", condition: {} },
-    renderItem: ({ item, ...restProps }) => (
-      <PostItem item={item} {...restProps} />
-    ),
-  });
+    renderItem: (props) => <PostItem {...props} />,
+    floatingAction: (props) => {
+      return (
+        <FloatingActionComponent
+          {...props}
+          text="+"
+          onPress={() => props?.navigation?.navigate("add-new-post")}
+          position="flex-end"
+        ></FloatingActionComponent>
+      );
+    },
+  };
+});
 
 export default PostList;

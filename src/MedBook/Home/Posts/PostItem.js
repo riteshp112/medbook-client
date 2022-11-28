@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   View,
   Text,
@@ -8,15 +9,18 @@ import {
 } from "react-native";
 import { useState } from "react";
 import medFetch from "../../../Actions/medFetchAction";
-import { comment, dislike, like, send } from "../../../Images";
+import { comment, dislike, like, send, threeDots } from "../../../Images";
 import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
+import MoreAction from "../../../Components/MoreAction";
 
-const PostItem = ({ item, navigation, setPostLength }) => {
+const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
   const user = getUser();
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
-  const [isLiked, setIsLiked] = useState(item?.likers?.indexOf(user?._id) !== -1);
+  const [isLiked, setIsLiked] = useState(
+    item?.likers?.indexOf(user?._id) !== -1
+  );
   let commentComponent =
     (item?.comments &&
       item?.comments?.map((item) => (
@@ -36,18 +40,27 @@ const PostItem = ({ item, navigation, setPostLength }) => {
         borderBottomColor: "skyblue",
       }}
     >
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("my-profile", {
-            fromPost: true,
-            username: item?.use,
-          });
-        }}
-      >
-        <Text style={{ fontSize: 20, color: "blue", paddingBottom: 16 }}>
-          {item?.use}
-        </Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("my-profile", {
+              fromPost: true,
+              username: item?.use,
+            });
+          }}
+        >
+          <Text style={{ fontSize: 20, color: "blue", paddingBottom: 16 }}>
+            {item?.use}
+          </Text>
+        </TouchableOpacity>
+        <MoreAction
+          actions={[
+            { label: "Edit Post" },
+            { label: "Delete Post" },
+            { label: "Report Post" },
+          ]}
+        ></MoreAction>
+      </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
       <View
         style={{
@@ -65,8 +78,8 @@ const PostItem = ({ item, navigation, setPostLength }) => {
               await medFetch({
                 type: "update",
                 table: "post",
-                id: item?._id,
-                changes: { $push: { likers: user?._id } },
+                condition: { _id: item._id },
+                changes: { $push: { likers: { _id: user?._id } } },
               });
               setPostLength && setPostLength((prev) => prev + 1);
               setIsLiked(true);
@@ -111,10 +124,10 @@ const PostItem = ({ item, navigation, setPostLength }) => {
               await medFetch({
                 type: "update",
                 table: "post",
-                id: item?._id,
+                condition: { _id: item._id },
                 changes: {
                   $push: {
-                    dislikers: user?._id,
+                    dislikers: { _id: user?._id },
                   },
                 },
               });
@@ -164,7 +177,7 @@ const PostItem = ({ item, navigation, setPostLength }) => {
                   (await medFetch({
                     type: "update",
                     table: "post",
-                    id: item?._id,
+                    condition: { _id: item._id },
                     changes: {
                       $push: {
                         comments: {

@@ -48,7 +48,7 @@ const NewPassword = ({ route, navigation }) => {
             const { response } = await medFetch({
               type: "update",
               table: "testcol",
-              id: user._id,
+              condition:{_id: user._id},
               changes: { $set: { password: password1 } },
             });
             if (response?.matched_count) {

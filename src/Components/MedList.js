@@ -1,9 +1,8 @@
 // @ts-nocheck
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import medFetch from "../Actions/medFetchAction";
-import ActivityIndicator from "./ActivityIndicator";
 const List = (props) => {
   const {
     renderItem,
@@ -12,6 +11,7 @@ const List = (props) => {
     renderHeader,
     renderFooter,
     increasePerScroll = 5,
+    floatingAction,
     ...restProps
   } = props;
   const [data, setData] = useState();
@@ -50,12 +50,18 @@ const List = (props) => {
         <ActivityIndicator style={{ alignSelf: "center" }}></ActivityIndicator>
       )}
       {renderFooter ? renderFooter({ ...props, data }) : void 0}
+      {floatingAction ? floatingAction({ ...props, data }) : void 0}
     </View>
   );
 };
 
 const MedList = (props) => {
-  return <List {...props} />;
+  if (typeof props == "function")
+    return (info) => {
+      const newProps = props(info);
+      return <List {...newProps} {...info} />;
+    };
+  return (info) => <List {...props} {...info} />;
 };
 
 export default MedList;
