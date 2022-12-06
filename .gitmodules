@@ -1,0 +1,3 @@
+[submodule "medbook-server"]
+	path = medbook-server
+	url = https://github.com/riteshp112/medbook-server

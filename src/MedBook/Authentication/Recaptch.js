@@ -37,7 +37,7 @@ export default class Recaptcha extends React.Component {
             <View>
                 {
                     Platform.OS == 'web' ?
-                        <><Modal visible={this.state.isModalVisible} transparent={true}>
+                        <><Modal visible={this.state.isModalVisible} transparent={true} >
                             <View style={{ flex: 1, backgroundColor: 'rgba(1,1,1,0.8)', alignItems: 'center' }}>
                                 <RecaptchaWeb
                                     sitekey={siteKey}
