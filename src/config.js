@@ -3,9 +3,11 @@ let fetchURL = "http://127.0.0.1:5000/invoke"; //local
 // fetchURL = "https://riteshp112.pythonanywhere.com/invoke"; //live
 // fetchURL='http://127.0.0.1:2020/invoke'//local-node
 // fetchURL = "https://medbook1.herokuapp.com/invoke"
+fetchURL='https://medbook-server.azurewebsites.net/invoke'
 
 let mailURL = "https://riteshp112.pythonanywhere.com/sendMail"; // live
 mailURL = "http://127.0.0.1:5000/sendMail"; //local
 // mailURL = "https://medbook1.herokuapp.com/sendMail"
+mailURL ="https://medbook-server.azurewebsites.net/sendMail"
 
 export { fetchURL, mailURL };
