@@ -40,8 +40,7 @@
     "react-native-webview": "11.23.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "python":"3.8.0"
+    "@babel/core": "^7.12.9"
   },
   "private": true
 }
