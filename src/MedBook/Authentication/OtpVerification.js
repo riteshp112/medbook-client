@@ -43,12 +43,12 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
       cc: "",
       bcc: "",
     });
-    await medFetch({
+    medFetch({
       type: "update",
       table: "testcol",
       condition: { _id: user._id },
       changes: { $set: { otp: otp } },
-    });
+    }).then((res) => res);
   }, []);
 
   return (
