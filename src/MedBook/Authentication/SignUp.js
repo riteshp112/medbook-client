@@ -19,14 +19,14 @@ const SignUp = (props) => {
 
   const saveUser = async () => {
     setLoading(true);
-    const { response } = await medFetch({
+    const result = await medFetch({
       type: "select",
       table: "testcol",
       condition: { username },
       limit: 1,
     });
-    if (response) {
-      if (response?.length != 0)
+    if (result) {
+      if (result?.length != 0)
         toast.show("Username Already Exists", {
           type: "danger",
           duration: 1500,
