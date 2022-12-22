@@ -30,7 +30,7 @@ const ChatDetails = ({ route }) => {
         _id: item._id,
       },
       limit: 1,
-    }).then(({ response: thread }) => {
+    }).then((thread) => {
       setChatHistory(thread?.[0].chatHistory);
       setIsLoading(false);
     });

@@ -18,28 +18,25 @@ const Login = (props) => {
   // const Toast =useToast()
   const loginPressed = async () => {
     // @ts-ignore
-    let condition = {}
+    let condition = {};
     if (validateEmail(username)) {
       condition = {
         email: username,
-        password
-      }
-    }
-    else {
+        password,
+      };
+    } else {
       condition = {
         username,
-        password
-      }
-
+        password,
+      };
     }
     setModalVisible(true);
-    let { response: result } =
-      (await medFetch({
-        type: "select",
-        table: "testcol",
-        condition,
-        limit: 1,
-      })) || {};
+    let result = await medFetch({
+      type: "select",
+      table: "testcol",
+      condition,
+      limit: 1,
+    });
     setModalVisible(false);
     if (result && result.length > 0) {
       AsyncStorage.setItem("locuser", JSON.stringify(result[0])).then(() =>
@@ -53,7 +50,7 @@ const Login = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}
@@ -68,9 +65,9 @@ const Login = (props) => {
       <TouchableOpacity
         style={{ marginBottom: 4, marginTop: 4 }}
         onPress={() => {
-          navigation.navigate('search-account', {
+          navigation.navigate("search-account", {
             email: username,
-          })
+          });
         }}
       >
         <Text> Forget Password?</Text>

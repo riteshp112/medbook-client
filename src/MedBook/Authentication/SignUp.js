@@ -1,13 +1,7 @@
 // @ts-nocheck
 import moment from "moment";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Button,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
 import ActivityIndicator from "../../Components/ActivityIndicator";
@@ -38,7 +32,7 @@ const SignUp = (props) => {
           duration: 1500,
         });
       else {
-        medFetch({
+        await medFetch({
           type: "insert",
           table: "testcol",
           data: { name, username, password, gender, dob },
@@ -50,7 +44,7 @@ const SignUp = (props) => {
     setLoading(false);
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
@@ -64,7 +58,7 @@ const SignUp = (props) => {
       <TextInput
         style={signUpStyle.formTextInputStyle}
         onChangeText={(value) => setUserName(value)}
-        placeholder={email ? email.split('@')[0] : "Username"}
+        placeholder={email ? email.split("@")[0] : "Username"}
       ></TextInput>
       <TextInput
         style={signUpStyle.formTextInputStyle}
@@ -73,13 +67,23 @@ const SignUp = (props) => {
         placeholder={"Password"}
       ></TextInput>
       <View style={signUpStyle.formPickerStyle}>
-        <Picker onValueChange={(itemValue, itemIndex) => {
-          setGender(itemValue)
-        }}
+        <Picker
+          onValueChange={(itemValue, itemIndex) => {
+            setGender(itemValue);
+          }}
           selectedValue={gender}
-          style={{ left: -8, color: gender == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
+          style={{
+            left: -8,
+            color: gender == "" ? "#8e8e8e" : void 0,
+            borderWidth: 0,
+            backgroundColor: "rgba(1,1,1,0)",
+          }}
         >
-          <Picker.Item value="" label="Select Your Gender" enabled={false}></Picker.Item>
+          <Picker.Item
+            value=""
+            label="Select Your Gender"
+            enabled={false}
+          ></Picker.Item>
           <Picker.Item value="M" label="Male"></Picker.Item>
           <Picker.Item value="F" label="Female"></Picker.Item>
           <Picker.Item value="L" label="Lesbian"></Picker.Item>
@@ -93,7 +97,9 @@ const SignUp = (props) => {
         value={dob}
         keyboardType={"numbers-and-punctuation"}
         maxLength={10}
-        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+          marginBottom: 2,
+        })}
         onChangeText={(value) => {
           if (value.length == 2 || value.length == 5) value = value + "/";
           setdob(value);
@@ -113,8 +119,7 @@ const SignUp = (props) => {
               type: "warning",
               duration: 2000,
             });
-          }
-          else if (username.length < 6)
+          } else if (username.length < 6)
             toast.show("Username must contain at least 6 characters", {
               type: "warning",
               duration: 2000,
@@ -171,18 +176,18 @@ export const signUpStyle = StyleSheet.create({
     marginTop: 2,
     height: 45,
     borderRadius: 4,
-    borderColor: 'lightgray',
-    backgroundColor: '#ebedf0',
-    paddingLeft: 8
+    borderColor: "lightgray",
+    backgroundColor: "#ebedf0",
+    paddingLeft: 8,
   },
   formPickerStyle: {
     borderWidth: 1,
     marginTop: 2,
     height: 45,
     borderRadius: 4,
-    borderColor: 'lightgray',
-    backgroundColor: '#ebedf0',
-    justifyContent: 'center',
-  }
+    borderColor: "lightgray",
+    backgroundColor: "#ebedf0",
+    justifyContent: "center",
+  },
 });
 export default SignUp;

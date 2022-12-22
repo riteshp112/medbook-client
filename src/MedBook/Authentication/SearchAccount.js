@@ -20,18 +20,18 @@ const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
     };
   }
   setModalVisible(true);
-  const { response } = await medFetch({
+  const result = await medFetch({
     type: "select",
     table: "testcol",
     condition,
     limit: 1,
   });
   setModalVisible(false);
-  if (response) {
-    if (response.length) {
-      if (response[0].email) {
+  if (result) {
+    if (result.length) {
+      if (result[0].email) {
         toast.show("Sending OTP !", { type: "normal", duration: 4000 });
-        navigation.navigate("otp-screen", { user: response[0] });
+        navigation.navigate("otp-screen", { user: result[0] });
       } else {
         toast.show("There is no email associated with your account.", {
           type: "danger",

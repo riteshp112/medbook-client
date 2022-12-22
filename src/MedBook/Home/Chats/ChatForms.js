@@ -34,9 +34,9 @@ const AddNewChat = (props) => {
       table: "testcol",
       condition: { name: { $regex: "^" + query, $options: "i" } },
       limit: 30,
-    }).then(({ response }) => {
-      setUser(response);
-      response?.map((item) => {
+    }).then((result) => {
+      setUser(result);
+      result?.map((item) => {
         items.push(
           <Picker.Item
             key={item?._id}
@@ -77,9 +77,9 @@ const AddNewChat = (props) => {
         ></TextInput>
         <View style={signUpStyle.formPickerStyle}>
           <Picker
-            selectedValue={user?.[userIndex]?.name }
+            selectedValue={user?.[userIndex]?.name}
             onValueChange={(item, index) => {
-              setUserIndex(index-1);
+              setUserIndex(index - 1);
             }}
             style={{
               left: -8,
@@ -111,9 +111,9 @@ const AddNewChat = (props) => {
           <Button
             disabled={userIndex == -1}
             title="Start Chatting"
-            onPress={() => {
+            onPress={async () => {
               console.log(user, userIndex);
-              medFetch({
+              await medFetch({
                 type: "insert",
                 table: "threads",
                 data: {

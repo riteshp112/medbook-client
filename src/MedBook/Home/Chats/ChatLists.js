@@ -12,7 +12,7 @@ const ChatList = (props) => {
   const user = getUser();
   const [threads, setThreads] = useState([]);
   const [limit, setLimit] = useState(10);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const isFocused = useIsFocused();
 
   useEffect(() => {

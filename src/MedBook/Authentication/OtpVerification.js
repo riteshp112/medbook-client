@@ -9,15 +9,15 @@ import { signUpStyle } from "./SignUp";
 
 const validateOtp = async ({ inputOtp, navigation, user, setModalVisible }) => {
   setModalVisible(true);
-  const { response } = await medFetch({
+  const result = await medFetch({
     type: "select",
     table: "testcol",
     condition: { username: user.username, otp: parseInt(inputOtp) },
     limit: 1,
   });
   setModalVisible(false);
-  if (response) {
-    if (response.length !== 0) {
+  if (result) {
+    if (result.length !== 0) {
       navigation.navigate("new-password-screen", { user: user });
     } else {
       toast.show("Wrong Otp !");
@@ -43,22 +43,24 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
       cc: "",
       bcc: "",
     });
-    medFetch({
+    await medFetch({
       type: "update",
       table: "testcol",
-      condition:{_id: user._id},
+      condition: { _id: user._id },
       changes: { $set: { otp: otp } },
     });
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
       <TextInput
         value={inputOtp}
         onChangeText={(val) => {
           setInputOtp(val);
         }}
-        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+          marginBottom: 2,
+        })}
         placeholder={`Enter the otp send to ${user.email}`}
       ></TextInput>
       <Button

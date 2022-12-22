@@ -29,7 +29,7 @@ const medFetch = async (body) => {
     }
   } catch (err) {
     toast.show(err.message, { type: "danger", duration: 2000 });
-    return {};
+    return [];
   }
 };
 export default medFetch;
