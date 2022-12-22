@@ -9,7 +9,7 @@ const medFetch = async (body) => {
         type: "warning",
         duration: 1500,
       });
-      return {};
+      return [];
     } else {
       let res = await fetch(fetchURL, {
         method: "POST",
@@ -24,7 +24,7 @@ const medFetch = async (body) => {
       if (response.error) {
         toast.show(response.error, { type: "danger", duration: 2000 });
       } else {
-        return response.result;
+        return response.result || [];
       }
     }
   } catch (err) {
