@@ -112,7 +112,6 @@ const AddNewChat = (props) => {
             disabled={userIndex == -1}
             title="Start Chatting"
             onPress={async () => {
-              console.log(user, userIndex);
               await medFetch({
                 type: "insert",
                 table: "threads",

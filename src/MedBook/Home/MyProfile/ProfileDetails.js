@@ -10,7 +10,6 @@ const ProfileDetail = ({ route }) => {
   const [user, setUser] = useState();
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
-  console.log(route);
   useEffect(() => {
     if (username) {
       setLoading(true);
