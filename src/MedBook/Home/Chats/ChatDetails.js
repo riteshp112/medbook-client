@@ -83,6 +83,7 @@ const ChatDetails = ({ route }) => {
           placeholder={"Enter Message..."}
         ></TextInput>
         <TouchableOpacity
+          disabled={!message.trim().length}
           onPress={async () => {
             setMessage("");
             await medFetch({
@@ -92,7 +93,7 @@ const ChatDetails = ({ route }) => {
               changes: {
                 $push: {
                   chatHistory: {
-                    message: message,
+                    message: message.trim(),
                     sender: { username: user?.username },
                   },
                 },
