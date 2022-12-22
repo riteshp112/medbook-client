@@ -28,8 +28,8 @@ const ChatList = (props) => {
           ],
         },
         limit: limit,
-      }).then(({ response } = {}) => {
-        setThreads(response);
+      }).then((result) => {
+        setThreads(result);
         setLoading(false);
       });
     }

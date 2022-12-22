@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useState } from "react";
-import { Button, TextInput, View , StyleSheet} from "react-native";
+import { Button, TextInput, View, StyleSheet } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { signUpStyle } from "./SignUp";
 
@@ -9,7 +9,7 @@ const NewPassword = ({ route, navigation }) => {
   const [password2, setpassword2] = useState("");
   const { user } = route.params;
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
       <TextInput
         placeholder={"Enter New Password"}
         value={password1}
@@ -39,27 +39,28 @@ const NewPassword = ({ route, navigation }) => {
             });
           }
         }}
-        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+          marginBottom: 2,
+        })}
       ></TextInput>
       <Button
         title={" Update Password"}
         onPress={async () => {
           if (password1.length >= 8 && password1 == password2) {
-            const { response } = await medFetch({
+            const result = await medFetch({
               type: "update",
               table: "testcol",
-              condition:{_id: user._id},
+              condition: { _id: user._id },
               changes: { $set: { password: password1 } },
             });
-            if (response?.matched_count) {
-              if (response?.modified_count) {
+            if (result?.matched_count) {
+              if (result?.modified_count) {
                 toast.show("Password Updated Successfully", {
                   type: "success",
                   duration: 2000,
-                })
+                });
                 navigation.navigate("authenticator");
-              }
-              else {
+              } else {
                 toast.show("New password can't be same as old password.", {
                   type: "danger",
                   duration: 2000,

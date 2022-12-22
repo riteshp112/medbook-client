@@ -1,15 +1,15 @@
 import { ActivityIndicator, Image, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { defaultAvatar } from "../../../Images/index"
+import { defaultAvatar } from "../../../Images/index";
 import medFetch from "../../../Actions/medFetchAction";
 import { useIsFocused } from "@react-navigation/native";
 import { getUser } from "../../Authentication/Authenticator";
 
-const ProfileDetail = ({ route, navigation }) => {
+const ProfileDetail = ({ route }) => {
   const { username } = route?.params || {};
   const [user, setUser] = useState();
   const isFocused = useIsFocused();
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   console.log(route);
   useEffect(() => {
     if (username) {
@@ -19,9 +19,9 @@ const ProfileDetail = ({ route, navigation }) => {
         table: "testcol",
         condition: { username: username },
         limit: 1,
-      }).then(({ response }) => {
-        setUser(response[0]);
-        setLoading(false)
+      }).then((result) => {
+        setUser(result[0]);
+        setLoading(false);
       });
     }
     setUser(getUser());
@@ -40,8 +40,8 @@ const ProfileDetail = ({ route, navigation }) => {
               width: 60,
               borderRadius: 30,
               alignSelf: "center",
-              borderWidth:1,
-              borderColor: "black"
+              borderWidth: 1,
+              borderColor: "black",
               // backgroundColor: "lightgray",
             }}
           ></Image>
