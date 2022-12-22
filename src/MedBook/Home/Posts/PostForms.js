@@ -64,6 +64,7 @@ const AddNewPost = ({ navigation }) => {
             onChangeText={(value) => {
               setPost(value);
             }}
+            maxLength={300}
           ></TextInput>
         </View>
         <View
@@ -75,7 +76,7 @@ const AddNewPost = ({ navigation }) => {
         >
           <Button
             title="Post"
-            disabled= {!post.length}
+            disabled={!post.length}
             onPress={() => {
               createPost({
                 use: user?.username || "1234",
