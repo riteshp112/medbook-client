@@ -13,18 +13,22 @@ export const getUser = () => {
 const Authenticator = ({ navigation }) => {
   const isFocused = useIsFocused();
   useEffect(() => {
-    AsyncStorage.getItem("token").then((token) => {
-      if (token) {
-        medFetch({ type: "authenticateUser", token: token }).then((result) => {
-          if (result && result?.length > 0) {
-            user = result[0];
-            navigation.navigate("SideMenu");
-          } else navigation.navigate("login");
-        });
-      } else {
-        navigation.navigate("login");
-      }
-    });
+    if (isFocused) {
+      AsyncStorage.getItem("token").then((token) => {
+        if (token) {
+          medFetch({ type: "authenticateUser", token: token }).then(
+            (result) => {
+              if (result && result?.length > 0) {
+                user = result[0];
+                navigation.navigate("SideMenu");
+              } else navigation.navigate("login");
+            }
+          );
+        } else {
+          navigation.navigate("login");
+        }
+      });
+    }
   }, [isFocused]);
   return <View></View>;
 };
