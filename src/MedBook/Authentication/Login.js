@@ -39,9 +39,10 @@ const Login = (props) => {
     });
     setModalVisible(false);
     if (result && result.length > 0) {
-      AsyncStorage.setItem("locuser", JSON.stringify(result[0])).then(() =>
-        navigation.navigate("authenticator")
-      );
+      medFetch({ type: "loginToken", user: result?.[0] }).then((res) => {
+        localStorage.setItem("token", res[0].token);
+        navigation.navigate("authenticator");
+      });
     } else if (result) {
       toast.show("Invalid Username Or Password", {
         type: "danger",
