@@ -14,11 +14,9 @@ const Authenticator = ({ navigation }) => {
   const isFocused = useIsFocused();
   useEffect(() => {
     AsyncStorage.getItem("token").then((token) => {
-      console.log(JSON.stringify(token));
       if (token) {
         medFetch({ type: "authenticateUser", token: token }).then((result) => {
-          console.log(result);
-          if (result.length > 0) {
+          if (result && result?.length > 0) {
             user = result[0];
             navigation.navigate("SideMenu");
           } else navigation.navigate("login");
