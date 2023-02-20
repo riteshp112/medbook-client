@@ -9,7 +9,6 @@ import {
   share,
   terms,
 } from "../../Images";
-import deviceInfoModule from "react-native-device-info";
 import { version } from "../../../package.json";
 const settingData = [
   {

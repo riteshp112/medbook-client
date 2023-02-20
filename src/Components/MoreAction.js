@@ -45,11 +45,8 @@ const MoreAction = (props) => {
         visible={isModalVisible}
         transparent={true}
         style={{
-          margin: 20,
-          backgroundColor: "white",
           borderRadius: 20,
           padding: 35,
-          alignItems: "center",
           shadowColor: "#000",
           shadowOffset: {
             width: 0,

@@ -15,6 +15,7 @@ const PostList = MedList(() => {
           text="+"
           onPress={() => props?.navigation?.navigate("add-new-post")}
           position="flex-end"
+          
         ></FloatingActionComponent>
       );
     },

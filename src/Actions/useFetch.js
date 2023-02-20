@@ -1,6 +1,8 @@
-// @ts-nocheck
+//@ts-noCheck
 import { fetchURL } from "../config";
 import NetworkUtils from "../Utils/NetworkUtility";
+import { useState, useEffect } from "react";
+
 const medFetch = async (body) => {
   try {
     const isConnected = await NetworkUtils.isNetworkAvailable();
@@ -23,7 +25,7 @@ const medFetch = async (body) => {
       const { response } = res;
       if (response.error) {
         toast.show(response.error, { type: "danger", duration: 2000 });
-        return []
+        return [];
       } else {
         return response.result || [];
       }
@@ -34,3 +36,24 @@ const medFetch = async (body) => {
   }
 };
 export default medFetch;
+
+export const useFetch = (url) => {
+  let isConnected = true;
+  NetworkUtils.isNetworkAvailable().then((res) => {
+    isConnected = res;
+  });
+  if (!isConnected) {
+    toast.show("No Internet! Check Your Connection!", {
+      type: "warning",
+      duration: 1500,
+    });
+    return [];
+  }
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setData(data));
+  }, [url]);
+  return [data];
+};

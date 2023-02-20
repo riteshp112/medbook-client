@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { View, TextInput, Text, Button, Modal } from "react-native";
 import { useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TouchableOpacity } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import React from "react";

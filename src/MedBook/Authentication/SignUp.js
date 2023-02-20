@@ -1,12 +1,20 @@
 // @ts-nocheck
 import moment from "moment";
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View, Button } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Button,
+  Touchable,
+} from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const SignUp = (props) => {
   const [name, setName] = useState("");
@@ -16,6 +24,17 @@ const SignUp = (props) => {
   const [gender, setGender] = useState("");
   const [dob, setdob] = useState("");
   const [email, setEmail] = useState("");
+  const [canResendOtpIn, setCanResendOtpIn] = useState(0);
+
+  const countDownHandler = () => {
+    setCanResendOtpIn((prev) => {
+      if (prev > 0) {
+        setTimeout(countDownHandler, 1000);
+        return prev - 1;
+      }
+      return prev;
+    });
+  };
 
   const saveUser = async () => {
     setLoading(true);
@@ -43,6 +62,7 @@ const SignUp = (props) => {
     }
     setLoading(false);
   };
+
   return (
     <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
       <TextInput
@@ -50,11 +70,34 @@ const SignUp = (props) => {
         placeholder={"Name"}
         onChangeText={(value) => setName(value)}
       ></TextInput>
-      <TextInput
-        style={signUpStyle.formTextInputStyle}
-        placeholder={"Email"}
-        onChangeText={(value) => setEmail(value)}
-      ></TextInput>
+      <View style={{ flexDirection: "row", gap: 4 }}>
+        <TextInput
+          style={{ ...signUpStyle.formTextInputStyle, flex: 1 }}
+          placeholder={"Email"}
+          onChangeText={(value) => setEmail(value)}
+        ></TextInput>
+        <TouchableOpacity
+          disabled={canResendOtpIn != 0}
+          onPress={() => {
+            setCanResendOtpIn(60);
+            countDownHandler();
+          }}
+        >
+          <Text
+            style={{
+              ...signUpStyle.formTextInputStyle,
+              display: "flex",
+              alignItems: "center",
+              padding: 4,
+              color: canResendOtpIn == 0 ? "blue" : "grey",
+            }}
+          >
+            {!canResendOtpIn
+              ? `Send OTP`
+              : `Can Resend in ${canResendOtpIn} sec(s)`}
+          </Text>
+        </TouchableOpacity>
+      </View>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         onChangeText={(value) => setUserName(value)}
@@ -91,6 +134,7 @@ const SignUp = (props) => {
           <Picker.Item value="B" label="Bisexual"></Picker.Item>
           <Picker.Item value="T" label="Transgender"></Picker.Item>
           <Picker.Item value="Q" label="Queer"></Picker.Item>
+          <Picker.Item value="Other" label="Other"></Picker.Item>
         </Picker>
       </View>
       <TextInput

@@ -39,8 +39,15 @@
     "react-native-web": "~0.18.7",
     "react-native-webview": "11.23.0"
   },
+
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "jest":"^23.4.1"
+  },
+  "jest": {
+    "setupFiles": [
+      "./mock.js"
+    ]
   },
   "private": true
 }

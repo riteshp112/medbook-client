@@ -11,11 +11,12 @@ const List = (props) => {
     renderHeader,
     renderFooter,
     increasePerScroll = 5,
+    initialLimit=10,
     floatingAction,
     ...restProps
   } = props;
   const [data, setData] = useState();
-  const [dataLength, setDataLength] = useState(10);
+  const [dataLength, setDataLength] = useState(initialLimit);
   const [isLoading, setIsLoading] = useState();
   const isFocused = useIsFocused();
   useEffect(() => {
