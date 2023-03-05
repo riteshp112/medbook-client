@@ -1,8 +1,9 @@
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import React, { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import medFetch from "../../Actions/medFetchAction";
+import { loadingAnimation } from "../../Images";
 
 let user = void 0;
 
@@ -30,6 +31,13 @@ const Authenticator = ({ navigation }) => {
       });
     }
   }, [isFocused]);
-  return <View></View>;
+  return (
+    <View style={{ flex: 1 }}>
+      <Image
+        style={{ height: "100%", width: "100%" }}
+        source={loadingAnimation}
+      ></Image>
+    </View>
+  );
 };
 export default Authenticator;

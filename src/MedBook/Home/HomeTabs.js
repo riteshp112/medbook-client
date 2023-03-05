@@ -7,7 +7,6 @@ import RecordList from "./Records/RecordLists";
 import React from "react";
 import { getUser } from "../Authentication/Authenticator";
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
 const HomeTabs = () => {
   const user = getUser();
