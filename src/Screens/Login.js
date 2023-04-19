@@ -10,7 +10,7 @@ const Login = props => {
   const [password, setPassword] = useState("");
   const loginPressed = () => {
     let result;
-    medFetch({type:'select',table:'testcol',condition:{username, password },limit:1}).then(data=>data.json()).then(json=>{result=json.response  
+    medFetch({type:'select',table:'testcol',condition:{username, password },limit:1}).then(data=>data.json()).then(json=>{result=json?.response?.result  
     setModalVisible(false)
     if(result.length==0)
       alert("Invalid Username Or Password")

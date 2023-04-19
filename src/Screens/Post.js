@@ -13,8 +13,8 @@ const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
 };
 export const loadPost = (setPostItems, PostItems, use) => {
   let posts = [], newPostItems = [];
-  medFetch({ type: 'select', table: 'post', condition: {}, limit: "" + (PostItems.length + 5) }).then(response => response.json()).then(json => {
-    posts = json.response
+  medFetch({ type: 'select', table: 'post', condition: {}, limit: (PostItems.length + 5) }).then(response => response.json()).then(json => {
+    posts = json.response?.result
     if (posts.length > PostItems.length) {
       for (let item of posts)
         newPostItems.push([<PostItem key={item?._id} item={item} PostItems={PostItems} setPostItems={setPostItems}  currentUser={use}></PostItem>])
