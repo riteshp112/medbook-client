@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { fetchURL } from "../config";
 import NetworkUtils from "../Utils/NetworkUtility";
-const medFetch = async (body) => {
+const medFetch = async (uri, body) => {
   try {
     const isConnected = await NetworkUtils.isNetworkAvailable();
     if (!isConnected) {
@@ -11,7 +11,7 @@ const medFetch = async (body) => {
       });
       return [];
     } else {
-      let res = await fetch(fetchURL, {
+      let res = await fetch(fetchURL + uri, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -19,13 +19,13 @@ const medFetch = async (body) => {
         },
         body: decodeURI(JSON.stringify(body)),
       });
-      res = await res?.json();
-      const { response } = res;
+      const response = await res?.json();
+      console.log(res);
       if (response.error) {
         toast.show(response.error, { type: "danger", duration: 2000 });
-        return []
+        return [];
       } else {
-        return response.result || [];
+        return [response.result] || [];
       }
     }
   } catch (err) {

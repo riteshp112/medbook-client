@@ -13,6 +13,8 @@ import { defaultAvatar, send } from "../../../Images";
 import medFetch from "../../../Actions/medFetchAction";
 import { getUser } from "../../Authentication/Authenticator";
 import { signUpStyle } from "../../Authentication/SignUp";
+import io from "socket.io-client";
+import { socketUrl } from "../../../config";
 
 const ChatDetails = ({ route }) => {
   const { item } = route?.params;
@@ -21,6 +23,19 @@ const ChatDetails = ({ route }) => {
   const [message, setMessage] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const socket = io(socketUrl);
+  console.log("message"+":"+item._id);
+
+  socket.on("message"+":"+item._id, () => {
+    console.log("message"+":"+item._id);
+    setRefresh((prev) => !prev);
+  });
+
+  const sendMessage = () => {
+    socket.emit("message",item._id);
+  };
+
   useEffect(() => {
     setIsLoading(true);
     medFetch({
@@ -99,7 +114,7 @@ const ChatDetails = ({ route }) => {
                 },
               },
             });
-            setRefresh((prev) => !prev);
+            sendMessage();
           }}
           style={{ justifyContent: "center", paddingLeft: 8 }}
         >

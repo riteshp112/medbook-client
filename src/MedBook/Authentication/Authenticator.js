@@ -17,7 +17,7 @@ const Authenticator = ({ navigation }) => {
     if (isFocused) {
       AsyncStorage.getItem("token").then((token) => {
         if (token) {
-          medFetch({ type: "authenticateUser", token: token }).then(
+          medFetch("/user/authenticate/",{ token: token }).then(
             (result) => {
               if (result && result?.length > 0) {
                 user = result[0];

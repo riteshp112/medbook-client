@@ -51,10 +51,10 @@ const SignUp = (props) => {
           duration: 1500,
         });
       else {
-        await medFetch({
+        await medFetch("addUser", {
           type: "insert",
           table: "testcol",
-          data: { name, username, password, gender, dob },
+          userData: { name, username, password, gender, dob },
         });
         toast.show("Sign Up Successful", { type: "success", duration: 1500 });
         props?.navigation.navigate("login");

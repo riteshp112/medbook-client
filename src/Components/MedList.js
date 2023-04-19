@@ -11,7 +11,7 @@ const List = (props) => {
     renderHeader,
     renderFooter,
     increasePerScroll = 5,
-    initialLimit=10,
+    initialLimit = 10,
     floatingAction,
     ...restProps
   } = props;
@@ -22,8 +22,7 @@ const List = (props) => {
   useEffect(() => {
     if (isFocused) {
       setIsLoading(true);
-      medFetch({
-        ...uri,
+      medFetch("/posts", {
         limit: dataLength,
       }).then((data = []) => {
         setIsLoading(false);

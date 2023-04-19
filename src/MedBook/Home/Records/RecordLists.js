@@ -12,21 +12,20 @@ const RecordList = (props) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    (async () => {
-      let records = (await AsyncStorage.getItem("records")) || "[]";
-      records = JSON.parse(records);
-      setRecords(records);
-    })();
+    if (isFocused)
+      AsyncStorage.getItem("records").then((records) =>
+        setRecords(JSON.parse(records || "[]"))
+      );
   }, [isFocused]);
 
   return (
-    <View style={{ flex: 1, justifyContent: "center" , overflow:'hidden'}}>
+    <View style={{ flex: 1, justifyContent: "center", overflow: "hidden" }}>
       <FlatList
         data={records}
         renderItem={(props) => (
           <RecordItem {...props} {...parentProps} func={setRecords} />
         )}
-        keyExtractor={(item)=> item?.date}
+        keyExtractor={(item) => item?.date}
         showsVerticalScrollIndicator={false}
       ></FlatList>
       <DownloadRecords records={records} />

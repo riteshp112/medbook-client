@@ -8,6 +8,7 @@ import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { signUpStyle } from "./SignUp";
 import { validateEmail } from "../../Utils/appUtility";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -30,7 +31,7 @@ const Login = (props) => {
       };
     }
     setModalVisible(true);
-    let result = await medFetch({
+    let result = await medFetch("/users",{
       type: "select",
       table: "testcol",
       condition,
@@ -38,8 +39,8 @@ const Login = (props) => {
     });
     setModalVisible(false);
     if (result && result.length > 0) {
-      medFetch({ type: "loginToken", user: result?.[0] }).then((res) => {
-        localStorage.setItem("token", res[0].token);
+      medFetch("/loginToken", { user: result?.[0] }).then((res) => {
+        AsyncStorage.setItem("token", res[0].token);
         navigation.navigate("authenticator");
       });
     } else if (result) {

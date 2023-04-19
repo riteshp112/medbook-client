@@ -64,8 +64,8 @@ const AddNewRecord = ({ navigation }) => {
           <Button
             title="Add"
             disabled ={!item.type.length || !item.val.length}
-            onPress={() => {
-              addNewRecordAction({ ...item, date: new Date() });
+            onPress={async () => {
+              await addNewRecordAction({ ...item, date: new Date() });
               toast.show("Record Added Successfully", {
                 type: "success",
                 duration: 2000,
