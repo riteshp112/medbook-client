@@ -140,7 +140,6 @@ const SignUp = (props) => {
       </View>
       <DatePicker
         onChange={(value) => {
-          if (value.length == 2 || value.length == 5) value = value + "/";
           setdob(value);
         }}
         value={dob}
