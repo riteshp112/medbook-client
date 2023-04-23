@@ -27,6 +27,7 @@
     "react-grecaptcha": "^1.2.5",
     "react-native": "0.69.6",
     "react-native-csv": "^0.2.0",
+    "react-native-date-picker": "^4.2.12",
     "react-native-device-info": "^10.3.0",
     "react-native-fast-toast": "^3.0.1",
     "react-native-fs": "^2.20.0",
