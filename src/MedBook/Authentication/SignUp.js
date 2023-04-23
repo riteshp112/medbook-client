@@ -15,6 +15,7 @@ import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import DatePicker from "../../Components/DatePicker";
 
 const SignUp = (props) => {
   const [name, setName] = useState("");
@@ -137,19 +138,13 @@ const SignUp = (props) => {
           <Picker.Item value="Other" label="Other"></Picker.Item>
         </Picker>
       </View>
-      <TextInput
-        value={dob}
-        keyboardType={"numbers-and-punctuation"}
-        maxLength={10}
-        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
-          marginBottom: 2,
-        })}
-        onChangeText={(value) => {
-          if (value.length == 2 || value.length == 5) value = value + "/";
+      <DatePicker
+        onChange={(value) => {
           setdob(value);
         }}
-        placeholder={"MM/DD/YYYY"}
-      ></TextInput>
+        value={dob}
+        style={{ ...signUpStyle.formTextInputStyle, marginBottom: 2 }}
+      />
       <Button
         title={"Sign UP"}
         onPress={() => {
