@@ -23,7 +23,7 @@ const SignUp = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
-  const [dob, setdob] = useState("");
+  const [dob, setdob] = useState(new Date());
   const [email, setEmail] = useState("");
   const [canResendOtpIn, setCanResendOtpIn] = useState(0);
 
@@ -143,7 +143,7 @@ const SignUp = (props) => {
           setdob(value);
         }}
         value={dob}
-        style={{ ...signUpStyle.formTextInputStyle, marginBottom: 2 }}
+        style={{ ...signUpStyle.formTextInputStyle, marginBottom: 2 , flex:1}}
       />
       <Button
         title={"Sign UP"}
