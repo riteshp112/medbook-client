@@ -4,16 +4,21 @@ import RNDatePicker from "react-native-date-picker";
 import { calendarIcon } from "../Images";
 
 function DatePickerWeb({
+  value,
   onChange,
   style,
+  textStyle,
+  mode = "date",
   placeholder = "Select Date",
   ...restProps
 }) {
+  const modes = { date: "date", time: "time", datetime: "datetime-local" };
   return (
-    <div style={{ ...style, display: "flex" }}>
+    <div style={{ ...style, ...textStyle, display: "flex" }}>
       <input
-        type="date"
-        onFocus={()=>this.type="date"}
+        value={value}
+        type={modes[mode]}
+        onFocus={() => (this.type = "date")}
         placeholder={placeholder}
         onChange={(event) => {
           onChange(event.target.value);
