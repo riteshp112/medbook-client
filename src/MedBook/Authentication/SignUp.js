@@ -1,20 +1,19 @@
 // @ts-nocheck
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   View,
   Button,
-  Touchable,
+  TouchableOpacity,
 } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { Picker } from "@react-native-picker/picker";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import DatePicker from "../../Components/DatePicker";
 
 const SignUp = (props) => {
@@ -30,7 +29,7 @@ const SignUp = (props) => {
   const countDownHandler = () => {
     setCanResendOtpIn((prev) => {
       if (prev > 0) {
-        setTimeout(countDownHandler, 1000);
+        setTimeout(()=>countDownHandler(), 1000);
         return prev - 1;
       }
       return prev;
@@ -65,7 +64,7 @@ const SignUp = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 ,}}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
@@ -91,6 +90,7 @@ const SignUp = (props) => {
               alignItems: "center",
               padding: 4,
               color: canResendOtpIn == 0 ? "blue" : "grey",
+              textAlignVertical:'center',
             }}
           >
             {!canResendOtpIn
@@ -120,6 +120,7 @@ const SignUp = (props) => {
             left: -8,
             color: gender == "" ? "#8e8e8e" : void 0,
             borderWidth: 0,
+            outline: "none",
             backgroundColor: "rgba(1,1,1,0)",
           }}
         >

@@ -1,21 +1,39 @@
-import React, { createElement, useState } from "react";
-import {
-  Image,
-  Platform,
-  Pressable,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React, { useState } from "react";
+import { Image, Platform, Pressable, Text, View } from "react-native";
 import RNDatePicker from "react-native-date-picker";
 import { calendarIcon } from "../Images";
 
-function DatePickerWeb({ onChange, ...restProps }) {
-  return createElement("input", {
-    type: "date",
-    onChange: (event) => onChange(event.target.value),
-    ...restProps,
-  });
+function DatePickerWeb({
+  value,
+  onChange,
+  style,
+  textStyle,
+  mode = "date",
+  placeholder = "Select Date",
+  ...restProps
+}) {
+  const modes = { date: "date", time: "time", datetime: "datetime-local" };
+  return (
+    <div style={{ ...style, ...textStyle, display: "flex" }}>
+      <input
+        value={value}
+        type={modes[mode]}
+        onFocus={() => (this.type = "date")}
+        placeholder={placeholder}
+        onChange={(event) => {
+          onChange(event.target.value);
+        }}
+        style={{
+          outline: "none",
+          border: "none",
+          backgroundColor: "transparent",
+          width: "100%",
+          alignSelf: "center",
+        }}
+        {...restProps}
+      />
+    </div>
+  );
 }
 
 function DatePickerNative({
@@ -25,13 +43,13 @@ function DatePickerNative({
   textStyle,
   mode = "date",
   iconStyle,
-  icon=calendarIcon
+  icon = calendarIcon,
 }) {
   const [open, setOpen] = useState(false);
   const displayValue =
     (value?.getDate() > 9 ? value?.getDate() : "0" + value?.getDate()) +
     "/" +
-    (value?.getMonth > 9 ? value?.getMonth() : "0" + value?.getMonth()) +
+    (value?.getMonth()+1 > 9 ? value?.getMonth()+1 : "0" + (value?.getMonth()+1)) +
     "/" +
     value?.getFullYear();
   return (
@@ -44,7 +62,7 @@ function DatePickerNative({
           <Image
             source={icon}
             resizeMode="contain"
-            style={{ height: 32, width: 32,...iconStyle }}
+            style={{ height: 32, width: 32, ...iconStyle }}
           />
         </Pressable>
       </View>
@@ -54,8 +72,8 @@ function DatePickerNative({
         mode={mode}
         date={value}
         onConfirm={(props) => {
-          setOpen(false);
           onChange && onChange(props);
+          setOpen(false);
         }}
         onCancel={() => {
           setOpen(false);
