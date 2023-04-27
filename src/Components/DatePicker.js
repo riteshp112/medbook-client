@@ -1,4 +1,4 @@
-import React, { createElement, useState } from "react";
+import React, { useState } from "react";
 import { Image, Platform, Pressable, Text, View } from "react-native";
 import RNDatePicker from "react-native-date-picker";
 import { calendarIcon } from "../Images";
