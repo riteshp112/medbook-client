@@ -52,7 +52,7 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 }}>
       <TextInput
         value={inputOtp}
         onChangeText={(val) => {

@@ -7,7 +7,13 @@ const LogoTitle = (props) => {
   return (
     <Image
       source={icon || logo}
-      style={{ width: '100%', height: 80, resizeMode:'stretch', ...iconStyle }}
+      style={{
+        width: "100%",
+        height: 80,
+        paddingHorizontal:8,
+        resizeMode: "stretch",
+        ...iconStyle,
+      }}
     ></Image>
   );
 };

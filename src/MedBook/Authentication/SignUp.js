@@ -65,13 +65,13 @@ const SignUp = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 ,}}>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
         onChangeText={(value) => setName(value)}
       ></TextInput>
-      <View style={{ flexDirection: "row", gap: 4 }}>
+      <View style={{ flexDirection: "row", gap: 8 }}>
         <TextInput
           style={{ ...signUpStyle.formTextInputStyle, flex: 1 }}
           placeholder={"Email"}
@@ -143,7 +143,7 @@ const SignUp = (props) => {
           setdob(value);
         }}
         value={dob}
-        style={{ ...signUpStyle.formTextInputStyle, marginBottom: 2 , flex:1}}
+        style={{ ...signUpStyle.formTextInputStyle}}
       />
       <Button
         title={"Sign UP"}

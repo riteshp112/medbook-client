@@ -47,7 +47,7 @@ const SearchAccount = (props) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff' }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff',gap:4 }}>
       <TextInput
         value={email}
         onChangeText={(value) => setEmail(value)}

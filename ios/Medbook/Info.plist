@@ -25,7 +25,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.riteshp112.Medbook</string>
+          <string>com.riteshp112.medbook</string>
         </array>
       </dict>
     </array>
