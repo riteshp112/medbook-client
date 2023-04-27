@@ -9,7 +9,7 @@ const NewPassword = ({ route, navigation }) => {
   const [password2, setpassword2] = useState("");
   const { user } = route.params;
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 }}>
       <TextInput
         placeholder={"Enter New Password"}
         value={password1}

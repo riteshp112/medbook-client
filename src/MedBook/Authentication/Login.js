@@ -8,6 +8,7 @@ import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { signUpStyle } from "./SignUp";
 import { validateEmail } from "../../Utils/appUtility";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,7 +40,7 @@ const Login = (props) => {
     setModalVisible(false);
     if (result && result.length > 0) {
       medFetch({ type: "loginToken", user: result?.[0] }).then((res) => {
-        localStorage.setItem("token", res[0].token);
+        AsyncStorage.setItem("token", res[0].token);
         navigation.navigate("authenticator");
       });
     } else if (result) {
@@ -50,7 +51,7 @@ const Login = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff" }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 }}>
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}

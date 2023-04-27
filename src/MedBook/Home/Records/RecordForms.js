@@ -9,7 +9,7 @@ import { signUpStyle } from "../../Authentication/SignUp";
 const AddNewRecord = ({ navigation }) => {
   const [item, setItem] = useState({
     type: "",
-    val: ""
+    val: "",
   });
   return (
     <View
@@ -27,20 +27,20 @@ const AddNewRecord = ({ navigation }) => {
           alignSelf: "center",
         }}
       >
-        <View
-          style={signUpStyle.formPickerStyle}>
+        <View style={signUpStyle.formPickerStyle}>
           <Picker
             onValueChange={(itemValue) => {
               setItem({ ...item, type: itemValue });
             }}
             selectedValue={item?.type}
-            style={{ left: -8, color: item.type == "" ? '#8e8e8e' : void 0, borderWidth: 0, backgroundColor: 'rgba(1,1,1,0)' }}
+            style={{
+              left: -8,
+              color: item.type == "" ? "#8e8e8e" : void 0,
+              borderWidth: 0,
+              backgroundColor: "rgba(1,1,1,0)",
+            }}
           >
-            <Picker.Item
-              label="Choose Record Type"
-              value=""
-              enabled={false}
-            />
+            <Picker.Item label="Choose Record Type" value="" enabled={false} />
             <Picker.Item label="Blood Sugar Level" value="Blood Sugar Level" />
             <Picker.Item label="Blood Pressure" value="Blood Pressure" />
             <Picker.Item label="Temperature" value="Temperature" />
@@ -63,9 +63,9 @@ const AddNewRecord = ({ navigation }) => {
         >
           <Button
             title="Add"
-            disabled ={!item.type.length || !item.val.length}
-            onPress={() => {
-              addNewRecordAction({ ...item, date: new Date() });
+            disabled={!item.type.length || !item.val.length}
+            onPress={async () => {
+              await addNewRecordAction({ ...item, date: new Date() });
               toast.show("Record Added Successfully", {
                 type: "success",
                 duration: 2000,

@@ -14,5 +14,5 @@ export const requestAndReport = require("./requestAndReport.png");
 export const share = require("./share.png");
 export const terms = require("./terms.png");
 export const threeDots = require("./threeDots.png");
-export const loadingAnimation = require("./loadingAnimation.gif")
-
+export const loadingAnimation = require("./loadingAnimation.gif");
+export const calendarIcon = require("./calendarIcon.png");
