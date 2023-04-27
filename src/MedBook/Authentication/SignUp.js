@@ -65,7 +65,7 @@ const SignUp = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 ,}}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
@@ -120,6 +120,7 @@ const SignUp = (props) => {
             left: -8,
             color: gender == "" ? "#8e8e8e" : void 0,
             borderWidth: 0,
+            outline: "none",
             backgroundColor: "rgba(1,1,1,0)",
           }}
         >
