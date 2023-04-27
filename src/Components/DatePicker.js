@@ -49,7 +49,7 @@ function DatePickerNative({
   const displayValue =
     (value?.getDate() > 9 ? value?.getDate() : "0" + value?.getDate()) +
     "/" +
-    (value?.getMonth > 9 ? value?.getMonth() : "0" + value?.getMonth()) +
+    (value?.getMonth() > 9 ? value?.getMonth() : "0" + value?.getMonth()) +
     "/" +
     value?.getFullYear();
   return (
