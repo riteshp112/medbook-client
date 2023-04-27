@@ -49,7 +49,7 @@ function DatePickerNative({
   const displayValue =
     (value?.getDate() > 9 ? value?.getDate() : "0" + value?.getDate()) +
     "/" +
-    (value?.getMonth() > 9 ? value?.getMonth() : "0" + value?.getMonth()) +
+    (value?.getMonth()+1 > 9 ? value?.getMonth()+1 : "0" + (value?.getMonth()+1)) +
     "/" +
     value?.getFullYear();
   return (
@@ -72,8 +72,8 @@ function DatePickerNative({
         mode={mode}
         date={value}
         onConfirm={(props) => {
-          setOpen(false);
           onChange && onChange(props);
+          setOpen(false);
         }}
         onCancel={() => {
           setOpen(false);
