@@ -9,7 +9,10 @@ import {
   share,
   terms,
 } from "../../Images";
-import { version } from "../../../package.json";
+import mypackage from "../../../package.json";
+
+const { version } = mypackage;
+
 const settingData = [
   {
     title: "Request & Report",

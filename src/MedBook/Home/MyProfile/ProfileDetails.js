@@ -1,9 +1,14 @@
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { defaultAvatar } from "../../../Images/index";
+import {
+  loadingAnimation,
+  loadingIcon,
+  profileBlue,
+} from "../../../Images/index";
 import medFetch from "../../../Actions/medFetchAction";
 import { useIsFocused } from "@react-navigation/native";
 import { getUser } from "../../Authentication/Authenticator";
+import ActivityIndicator from "../../../Components/ActivityIndicator";
 
 const ProfileDetail = ({ route }) => {
   const { username } = route?.params || {};
@@ -28,36 +33,38 @@ const ProfileDetail = ({ route }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
-      {loading ? (
-        <ActivityIndicator></ActivityIndicator>
-      ) : (
-        <View style={{ alignSelf: "center", padding: 20 }}>
-          <Image
-            source={defaultAvatar}
-            style={{
-              height: 60,
-              width: 60,
-              borderRadius: 30,
-              alignSelf: "center",
-              borderWidth: 1,
-              borderColor: "black",
-              // backgroundColor: "lightgray",
-            }}
-          ></Image>
+      <ActivityIndicator
+        containerStyle={{ height: "100%", backgroundColor: "rgba(1,1,0,0.1)" }}
+        modalVisible={loading}
+        loadingIcon={loadingIcon}
+      />
+      <View style={{ padding: 20, flexDirection: "row", width: "100%" }}>
+        <Image
+          source={profileBlue}
+          style={{
+            height: 60,
+            width: 60,
+            borderRadius: 30,
+            alignSelf: "center",
+            borderWidth: 1,
+            borderColor: "lightblue",
+          }}
+        />
+        <View style={{ flex: 1, flexDirection: "column" }}>
           <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            Name: {user?.name}
+            {user?.name}
           </Text>
           <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            Username: {user?.username}
+            {user?.username}
           </Text>
           <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            Gender: {user?.gender}
+            {user?.gender}
           </Text>
           <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            DOB: {user?.dob}
+            {user?.dob}
           </Text>
         </View>
-      )}
+      </View>
     </View>
   );
 };
