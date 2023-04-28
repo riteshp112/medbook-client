@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, Modal, View } from "react-native";
+import { loadingAnimation } from "../Images";
 
 const ActivityIndicator = (props) => {
   const {
@@ -16,7 +17,13 @@ const ActivityIndicator = (props) => {
       transparent={transparent}
       visible={modalVisible}
     >
-      <View style={{ justifyContent: 'center', alignItems: 'center', ...containerStyle }}>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          ...containerStyle,
+        }}
+      >
         <Image
           source={loadingIcon}
           style={{ height: 50, width: 50, ...iconStyle }}
