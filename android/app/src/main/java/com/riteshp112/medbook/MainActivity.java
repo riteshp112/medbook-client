@@ -1,4 +1,4 @@
-package com.riteshp112.medbook;
+package com.riteshp112.Medbook;
 
 import android.os.Build;
 import android.os.Bundle;

@@ -24,7 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.riteshp112.medbook"
+      "package": "com.riteshp112.Medbook"
     },
     "web": {
       "favicon": "./assets/favicon.png"
