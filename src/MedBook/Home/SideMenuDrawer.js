@@ -11,7 +11,14 @@ const Drawer = createDrawerNavigator();
 
 const SideBar = () => {
   return (
-    <Drawer.Navigator initialRouteName={"Home"} screenOptions={{drawerActiveTintColor:'gray',headerShadowVisible:true,drawerType:'front', }}>
+    <Drawer.Navigator
+      initialRouteName={"Home"}
+      screenOptions={{
+        drawerActiveTintColor: "gray",
+        headerShadowVisible: true,
+        drawerType: "front",
+      }}
+    >
       <Drawer.Screen name={"Home"} component={HomeTabs} />
       <Drawer.Screen name={"Posts"} component={PostList} />
       <Drawer.Screen name={"Chats"} component={ChatList} />
