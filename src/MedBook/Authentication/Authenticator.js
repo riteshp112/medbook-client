@@ -36,7 +36,7 @@ const Authenticator = ({ navigation }) => {
       <Image
         style={{ height: "100%", width: "100%" }}
         source={loadingAnimation}
-      ></Image>
+      />
     </View>
   );
 };

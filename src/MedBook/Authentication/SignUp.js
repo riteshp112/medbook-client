@@ -29,7 +29,7 @@ const SignUp = (props) => {
   const countDownHandler = () => {
     setCanResendOtpIn((prev) => {
       if (prev > 0) {
-        setTimeout(()=>countDownHandler(), 1000);
+        setTimeout(() => countDownHandler(), 1000);
         return prev - 1;
       }
       return prev;
@@ -69,13 +69,13 @@ const SignUp = (props) => {
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
         onChangeText={(value) => setName(value)}
-      ></TextInput>
+      />{" "}
       <View style={{ flexDirection: "row", gap: 8 }}>
         <TextInput
           style={{ ...signUpStyle.formTextInputStyle, flex: 1 }}
           placeholder={"Email"}
           onChangeText={(value) => setEmail(value)}
-        ></TextInput>
+        />{" "}
         <TouchableOpacity
           disabled={canResendOtpIn != 0}
           onPress={() => {
@@ -90,7 +90,7 @@ const SignUp = (props) => {
               alignItems: "center",
               padding: 4,
               color: canResendOtpIn == 0 ? "blue" : "grey",
-              textAlignVertical:'center',
+              textAlignVertical: "center",
             }}
           >
             {!canResendOtpIn
@@ -103,13 +103,13 @@ const SignUp = (props) => {
         style={signUpStyle.formTextInputStyle}
         onChangeText={(value) => setUserName(value)}
         placeholder={email ? email.split("@")[0] : "Username"}
-      ></TextInput>
+      />
       <TextInput
         style={signUpStyle.formTextInputStyle}
         secureTextEntry={true}
         onChangeText={(value) => setPassword(value)}
         placeholder={"Password"}
-      ></TextInput>
+      />
       <View style={signUpStyle.formPickerStyle}>
         <Picker
           onValueChange={(itemValue, itemIndex) => {
@@ -124,19 +124,15 @@ const SignUp = (props) => {
             backgroundColor: "rgba(1,1,1,0)",
           }}
         >
-          <Picker.Item
-            value=""
-            label="Select Your Gender"
-            enabled={false}
-          ></Picker.Item>
-          <Picker.Item value="M" label="Male"></Picker.Item>
-          <Picker.Item value="F" label="Female"></Picker.Item>
-          <Picker.Item value="L" label="Lesbian"></Picker.Item>
-          <Picker.Item value="G" label="Gay"></Picker.Item>
-          <Picker.Item value="B" label="Bisexual"></Picker.Item>
-          <Picker.Item value="T" label="Transgender"></Picker.Item>
-          <Picker.Item value="Q" label="Queer"></Picker.Item>
-          <Picker.Item value="Other" label="Other"></Picker.Item>
+          <Picker.Item value="" label="Select Your Gender" enabled={false} />
+          <Picker.Item value="M" label="Male" />
+          <Picker.Item value="F" label="Female" />
+          <Picker.Item value="L" label="Lesbian" />
+          <Picker.Item value="G" label="Gay" />
+          <Picker.Item value="B" label="Bisexual" />
+          <Picker.Item value="T" label="Transgender" />
+          <Picker.Item value="Q" label="Queer" />
+          <Picker.Item value="Other" label="Other" />
         </Picker>
       </View>
       <DatePicker
@@ -144,7 +140,7 @@ const SignUp = (props) => {
           setdob(value);
         }}
         value={dob}
-        style={{ ...signUpStyle.formTextInputStyle}}
+        style={{ ...signUpStyle.formTextInputStyle }}
       />
       <Button
         title={"Sign UP"}
@@ -181,7 +177,7 @@ const SignUp = (props) => {
             });
           else saveUser();
         }}
-      ></Button>
+      />
       <View
         style={{
           flexDirection: "row",
@@ -193,7 +189,7 @@ const SignUp = (props) => {
         <Button
           title={"Login"}
           onPress={() => props?.navigation.navigate("login")}
-        ></Button>
+        />
       </View>
       <ActivityIndicator
         containerStyle={{ height: "100%", backgroundColor: "rgba(1,1,0,0.1)" }}

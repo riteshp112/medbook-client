@@ -5,18 +5,16 @@ import RecordList from "./RecordLists";
 import React from "react";
 const Stack = createNativeStackNavigator();
 
-const RecordScreens = () => {
-  return (
-    <Stack.Group>
-      <Stack.Screen name="record-item" component={RecordItem} />
-      <Stack.Screen
-        name="add-new-record"
-        component={AddNewRecord}
-        options={{ presentation: "transparentModal",headerShown:false }}
-      />
-      <Stack.Screen name="record-list" component={RecordList} />
-    </Stack.Group>
-  );
-};
+const RecordScreens = (
+  <Stack.Group>
+    <Stack.Screen name="record-item" component={RecordItem} />
+    <Stack.Screen
+      name="add-new-record"
+      component={AddNewRecord}
+      options={{ presentation: "transparentModal", headerShown: false }}
+    />
+    <Stack.Screen name="record-list" component={RecordList} />
+  </Stack.Group>
+);
 
 export default RecordScreens;

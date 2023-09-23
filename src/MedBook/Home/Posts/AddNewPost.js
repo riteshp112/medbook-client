@@ -1,11 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
-import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
+
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState("");
   const user = getUser();
+  // const Toast = useToast()
   return (
     <View
       style={{
@@ -94,5 +95,4 @@ const AddNewPost = ({ navigation }) => {
     </View>
   );
 };
-
 export default AddNewPost;
