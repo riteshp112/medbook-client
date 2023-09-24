@@ -1,25 +1,37 @@
 // @ts-nocheck
 import PostItem from "./PostItem";
 import React from "react";
-import MedList from "../../../Components/MedList";
+import List from "../../../Components/MedList";
 import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 
-const PostList = MedList(() => {
-  return {
-    uri: { type: "select", table: "post", condition: {} },
-    renderItem: (props) => <PostItem {...props} />,
-    floatingAction: (props) => {
-      return (
-        <FloatingActionComponent
-          {...props}
-          text="+"
-          onPress={() => props?.navigation?.navigate("add-new-post")}
-          position="flex-end"
-          
-        ></FloatingActionComponent>
-      );
-    },
+const PostList = (props) => {
+  const { navigation } = props;
+  const addPost = () => {
+    navigation?.navigate("add-new-post");
   };
-});
+  const scrollToTop = ({ list }) => {
+    list.scrollToIndex({ index: 0, animated: true });
+  };
 
+  return (
+    <List
+      {...props}
+      uri=""
+      uriParams={{ type: "select", table: "post", condition: {} }}
+      RenderItem={PostItem}
+      floatingActions={[
+        {
+          text: "+",
+          onPress: addPost,
+          position: "flex-start",
+        },
+        {
+          text: "^",
+          onPress: scrollToTop,
+          position: "flex-end",
+        },
+      ]}
+    />
+  );
+};
 export default PostList;

@@ -1,11 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
-import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
+import { CustomRenders } from "../../../Components/FormEditors";
+const ImageInput = CustomRenders.imageInput;
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState("");
+  const [image, setImage] = useState();
   const user = getUser();
+  // const Toast = useToast()
   return (
     <View
       style={{
@@ -20,6 +23,7 @@ const AddNewPost = ({ navigation }) => {
           borderRadius: 4,
           width: "95%",
           alignSelf: "center",
+          gap: 4,
         }}
       >
         <Text
@@ -48,23 +52,32 @@ const AddNewPost = ({ navigation }) => {
         </Text>
         <View
           style={{
-            backgroundColor: "#fff2f2",
-            borderWidth: 1,
+            backgroundColor: "lightskyblue",
             borderRadius: 4,
             width: "95%",
             alignSelf: "center",
           }}
         >
           <TextInput
+            placeholder="Got something? Just Open Up!...."
             multiline={true}
             textAlignVertical={"top"}
-            style={{ height: 150 }}
+            style={{ height: 60, padding: 4 }}
             onChangeText={(value) => {
               setPost(value);
             }}
             maxLength={300}
-          ></TextInput>
+          />
         </View>
+        <ImageInput
+          placeholder={"Upload Image"}
+          formField=""
+          handleChange={() => {
+            return (imageId) => {
+              setImage(imageId);
+            };
+          }}
+        />
         <View
           style={{
             paddingTop: 8,
@@ -78,7 +91,8 @@ const AddNewPost = ({ navigation }) => {
             onPress={() => {
               createPost({
                 use: user?.username || "1234",
-                post: post,
+                post,
+                image,
               });
               setPost("");
               toast.show("Post Added Successfully", {
@@ -87,12 +101,11 @@ const AddNewPost = ({ navigation }) => {
               });
               navigation.goBack();
             }}
-          ></Button>
+          />
           <Button title="Cancel" onPress={() => navigation.goBack()} />
         </View>
       </View>
     </View>
   );
 };
-
 export default AddNewPost;

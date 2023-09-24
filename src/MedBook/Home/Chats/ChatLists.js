@@ -28,6 +28,7 @@ const ChatList = (props) => {
           ],
         },
         limit: limit,
+        skip: 0,
       }).then((result) => {
         setThreads(result);
         setLoading(false);

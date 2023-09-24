@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
-const FloatingActionComponent = ({ onPress, text, position }) => {
+const FloatingActionComponent = ({ onPress, text, position, ...rest }) => {
   return (
     <View
       style={{
@@ -11,7 +11,7 @@ const FloatingActionComponent = ({ onPress, text, position }) => {
       }}
     >
       <TouchableOpacity
-        onPress={onPress}
+        onPress={() => onPress(rest)}
         style={{
           position: "absolute",
           backgroundColor: "#ffffff",

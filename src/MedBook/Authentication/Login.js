@@ -36,6 +36,7 @@ const Login = (props) => {
       table: "testcol",
       condition,
       limit: 1,
+      skip: 0,
     });
     setModalVisible(false);
     if (result && result.length > 0) {
@@ -51,7 +52,7 @@ const Login = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}

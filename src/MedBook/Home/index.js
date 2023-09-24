@@ -8,17 +8,18 @@ import SideBar from "./SideMenuDrawer";
 
 const Stack = createNativeStackNavigator();
 
-const HomeScreens = () => {
-  return (
-    <Stack.Group 
-    >
-      {PostScreens()}
-      {ChatScreens()}
-      {RecordScreens()}
-      {ProfileScreens()}
-      <Stack.Screen name ="SideMenu" component={SideBar} options={{header:()=>null,}}/>
-    </Stack.Group>
-  );
-};
+const HomeScreens = (
+  <Stack.Group>
+    {PostScreens}
+    {ChatScreens}
+    {RecordScreens}
+    {ProfileScreens}
+    <Stack.Screen
+      name="SideMenu"
+      component={SideBar}
+      options={{ header: () => null }}
+    />
+  </Stack.Group>
+);
 
 export default HomeScreens;

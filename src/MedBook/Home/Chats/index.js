@@ -8,23 +8,21 @@ import ChatDetails from "./ChatDetails";
 
 const Stack = createNativeStackNavigator();
 
-const ChatScreens = () => {
-  return (
-    <Stack.Group>
-      <Stack.Screen name="chat-item" component={ChatItem} />
-      <Stack.Screen
-        name="add-new-chat"
-        component={AddNewChat}
-        options={{ presentation: "transparentModal", headerShown: false }}
-      />
-      <Stack.Screen name="chat-list" component={ChatList} />
-      <Stack.Screen
-        name="Chat-Details"
-        component={ChatDetails}
-        options={{ title: "Chat " }}
-      />
-    </Stack.Group>
-  );
-};
+const ChatScreens = (
+  <Stack.Group>
+    <Stack.Screen name="chat-item" component={ChatItem} />
+    <Stack.Screen
+      name="add-new-chat"
+      component={AddNewChat}
+      options={{ presentation: "transparentModal", headerShown: false }}
+    />
+    <Stack.Screen name="chat-list" component={ChatList} />
+    <Stack.Screen
+      name="Chat-Details"
+      component={ChatDetails}
+      options={{ title: "Chat " }}
+    />
+  </Stack.Group>
+);
 
 export default ChatScreens;

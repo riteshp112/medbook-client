@@ -1,68 +1,75 @@
-// @ts-nocheck
 import { useIsFocused } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, FlatList, View } from "react-native";
 import medFetch from "../Actions/medFetchAction";
+import { useFetch, usePost } from "../Actions/useFetch";
+import FloatingActionComponent from "./FloatingActionComponent";
+
 const List = (props) => {
-  const {
-    renderItem,
+  let {
+    RenderItem,
     uri,
+    uriParams = {},
     containerStyle,
     renderHeader,
     renderFooter,
     increasePerScroll = 5,
-    initialLimit=10,
-    floatingAction,
+    initialLimit = 10,
+    floatingActions = [],
+    reloadEvents,
     ...restProps
   } = props;
-  const [data, setData] = useState();
-  const [dataLength, setDataLength] = useState(initialLimit);
-  const [isLoading, setIsLoading] = useState();
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if (isFocused) {
-      setIsLoading(true);
-      medFetch({
-        ...uri,
-        limit: dataLength,
-      }).then((data = []) => {
-        setIsLoading(false);
-        setData(data);
-      });
-    }
-  }, [dataLength, isFocused]);
+
+  const [limit, setLimit] = useState(initialLimit);
+  const [skip, setSkip] = useState(0);
+  const ref = useRef();
+
+  uriParams = { ...uriParams, limit, skip };
+
+  const { data, loading } = usePost({
+    uri,
+    body: uriParams,
+    reloadParams: [limit, skip],
+  });
+
+  const onEndReached = () => {
+    setLimit((prev) => prev + increasePerScroll);
+    // setSkip(data?.length || 0);
+  };
+  const keyExtractor = (item) => item?._id;
+  const renderItemWithData = (props) => {
+    return <RenderItem {...props} {...restProps} data={data} />;
+  };
+
+  const FloatingAction = () => {
+    return floatingActions?.map((floatingAction) => (
+      <FloatingActionComponent
+        {...props}
+        {...floatingAction}
+        list={ref?.current}
+      />
+    ));
+  };
 
   return (
     <View style={{ flex: 1, justifyContent: "center", ...containerStyle }}>
-      {renderHeader ? renderHeader({ ...props, data }) : void 0}
+      {renderHeader && renderHeader({ ...props, data })}
       <FlatList
+        ref={ref}
         data={data}
-        renderItem={(info) =>
-          renderItem({ ...info, ...props, data, setDataLength })
-        }
-        keyExtractor={(item) => item?._id}
-        onEndReached={() => {
-          setDataLength((prev) => prev + increasePerScroll);
-        }}
+        renderItem={renderItemWithData}
+        keyExtractor={keyExtractor}
+        onEndReached={onEndReached}
         showsVerticalScrollIndicator={false}
+        refreshing={loading}
+        onRefresh={onEndReached}
         {...restProps}
-      ></FlatList>
-      {isLoading && (
-        <ActivityIndicator style={{ alignSelf: "center" }}></ActivityIndicator>
-      )}
-      {renderFooter ? renderFooter({ ...props, data }) : void 0}
-      {floatingAction ? floatingAction({ ...props, data }) : void 0}
+      />
+      {loading && <ActivityIndicator style={{ alignSelf: "center" }} />}
+      {renderFooter && renderFooter({ ...props, data })}
+      {floatingActions.length && <FloatingAction />}
     </View>
   );
 };
 
-const MedList = (props) => {
-  if (typeof props == "function")
-    return (info) => {
-      const newProps = props(info);
-      return <List {...newProps} {...info} />;
-    };
-  return (info) => <List {...props} {...info} />;
-};
-
-export default MedList;
+export default List;

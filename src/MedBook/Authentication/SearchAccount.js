@@ -25,6 +25,7 @@ const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
     table: "testcol",
     condition,
     limit: 1,
+    skip: 0,
   });
   setModalVisible(false);
   if (result) {
@@ -47,30 +48,33 @@ const SearchAccount = (props) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: '#ffffff',gap:4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
       <TextInput
         value={email}
         onChangeText={(value) => setEmail(value)}
-        style={StyleSheet.compose(signUpStyle.formTextInputStyle, { marginBottom: 2 })}
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+          marginBottom: 2,
+        })}
         placeholder={"Enter Your Email Or Username To Find Your Account"}
       ></TextInput>
       <Recaptcha
         Footer={({ onPress }) => {
-          return (
-            <Button
-              title={"Send Otp"}
-              onPress={onPress}
-            />
-          )
+          return <Button title={"Send Otp"} onPress={onPress} />;
         }}
-        onSucess={() => { verifyAndSendOtp({ email, setModalVisible, ...props }) }}
+        onSucess={() => {
+          verifyAndSendOtp({ email, setModalVisible, ...props });
+        }}
         onFail={() => {
-          toast.show("Captch Verification Failed", { type: 'danger', duration: 15000 })
-        }} />
+          toast.show("Captch Verification Failed", {
+            type: "danger",
+            duration: 15000,
+          });
+        }}
+      />
       <ActivityIndicator
         modalVisible={modalVisible}
         loadingIcon={loadingIcon}
-        containerStyle={{ backgroundColor: 'rgba(1,1,1,0.1)', flex: 1 }}
+        containerStyle={{ backgroundColor: "rgba(1,1,1,0.1)", flex: 1 }}
       />
     </View>
   );
