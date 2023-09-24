@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -8,15 +8,12 @@
  * @flow strict-local
  */
 
-'use strict';
-
-const React = require('react');
-const StyleSheet = require('../../StyleSheet/StyleSheet');
-
-import RCTProgressViewNativeComponent from './RCTProgressViewNativeComponent';
 import type {ImageSource} from '../../Image/ImageSource';
-import type {ColorValue} from '../../StyleSheet/StyleSheet';
 import type {ViewProps} from '../View/ViewPropTypes';
+
+import StyleSheet, {type ColorValue} from '../../StyleSheet/StyleSheet';
+import RCTProgressViewNativeComponent from './RCTProgressViewNativeComponent';
+import * as React from 'react';
 
 type Props = $ReadOnly<{|
   ...ViewProps,
@@ -74,4 +71,5 @@ const styles = StyleSheet.create({
 
 const ProgressViewIOSWithRef = React.forwardRef(ProgressViewIOS);
 
-module.exports = (ProgressViewIOSWithRef: typeof RCTProgressViewNativeComponent);
+module.exports =
+  (ProgressViewIOSWithRef: typeof RCTProgressViewNativeComponent);

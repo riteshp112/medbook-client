@@ -1,5 +1,5 @@
 /**
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
@@ -7,8 +7,6 @@
  * @format
  * @flow strict
  */
-
-'use strict';
 
 import invariant from 'invariant';
 
@@ -28,7 +26,11 @@ export function createStringifySafeWithLimits(limits: {|
     maxArrayLimit = Number.POSITIVE_INFINITY,
     maxObjectKeysLimit = Number.POSITIVE_INFINITY,
   } = limits;
-  const stack = [];
+  const stack: Array<
+    string | {+[string]: mixed} | {'...(truncated keys)...': number},
+  > = [];
+  /* $FlowFixMe[missing-this-annot] The 'this' type annotation(s) required by
+   * Flow's LTI update could not be added via codemod */
   function replacer(key: string, value: mixed): mixed {
     while (stack.length && this !== stack[0]) {
       stack.shift();
@@ -45,7 +47,10 @@ export function createStringifySafeWithLimits(limits: {|
       return value;
     }
 
-    let retval = value;
+    let retval:
+      | string
+      | {+[string]: mixed}
+      | $TEMPORARY$object<{'...(truncated keys)...': number}> = value;
     if (Array.isArray(value)) {
       if (stack.length >= maxDepth) {
         retval = `[ ... array with ${value.length} values ... ]`;
@@ -64,7 +69,7 @@ export function createStringifySafeWithLimits(limits: {|
         retval = `{ ... object with ${keys.length} keys ... }`;
       } else if (keys.length > maxObjectKeysLimit) {
         // Return a sample of the keys.
-        retval = {};
+        retval = ({}: {[string]: mixed});
         for (let k of keys.slice(0, maxObjectKeysLimit)) {
           retval[k] = value[k];
         }
@@ -101,7 +106,7 @@ export function createStringifySafeWithLimits(limits: {|
       } catch (e) {
         if (typeof arg.toString === 'function') {
           try {
-            // $FlowFixMe: toString shouldn't take any arguments in general.
+            // $FlowFixMe[incompatible-use] : toString shouldn't take any arguments in general.
             return arg.toString();
           } catch (E) {}
         }
