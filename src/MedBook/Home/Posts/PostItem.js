@@ -13,6 +13,7 @@ import { comment, dislike, like, send, threeDots } from "../../../Images";
 import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
 import MoreAction from "../../../Components/MoreAction";
+import { downloadUrl } from "../../../config";
 
 const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
   const user = getUser();
@@ -31,6 +32,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
       ))) ||
     [];
 
+  const [imgHeight, setImgHeight] = useState({});
   return (
     <View
       style={{
@@ -62,6 +64,28 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
         ></MoreAction>
       </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
+      <Image
+        source={{ uri: downloadUrl + "/" + item.image }}
+        resizeMode="contain"
+        onLayout={(event) => {
+          let { width: totalWidth } = event.nativeEvent.layout;
+          Image.getSize(
+            downloadUrl + "/" + item.image,
+            (width, height) => {
+              const widthToHeight = width / height;
+              const newHeight = totalWidth / widthToHeight;
+              setImgHeight({ height: newHeight });
+            },
+            (err) => {}
+          );
+        }}
+        style={{
+          ...imgHeight,
+          alignSelf: "center",
+          width: "100%",
+          // height:'100%'
+        }}
+      />
       <View
         style={{
           flexDirection: "row",

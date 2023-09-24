@@ -43,6 +43,7 @@ const SignUp = (props) => {
       table: "testcol",
       condition: { username },
       limit: 1,
+      skip: 0,
     });
     if (result) {
       if (result?.length != 0)

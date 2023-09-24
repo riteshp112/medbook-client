@@ -23,6 +23,7 @@ const ProfileDetail = ({ route }) => {
         table: "testcol",
         condition: { username: username },
         limit: 1,
+        skip: 0,
       }).then((result) => {
         setUser(result[0]);
         setLoading(false);

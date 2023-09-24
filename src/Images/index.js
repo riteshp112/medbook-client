@@ -20,3 +20,4 @@ export const tabChatBlue = require("./tabChatBlue.png");
 export const profileBlue = require("./profileBlue.png");
 export const addFileBlue = require("./addFileBlue.png");
 export const record = require("./record.png");
+export const addIcon = require("./addIcon.png");

@@ -1,11 +1,13 @@
 import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import QueryString from "qs";
-import React from "react";
-import { View } from "react-native";
+import React, { useState } from "react";
+import { Button, Image, TouchableOpacity, View } from "react-native";
 import { TextInput } from "react-native";
 import DatePicker from "./DatePicker";
-
+import { docPicker } from "../Actions/upload";
+import { addIcon } from "../Images";
+import { downloadUrl } from "../config";
 const DateInput = (props) => {
   const { handleChange, field: formField, values, style } = props;
   return (
@@ -51,7 +53,7 @@ const OptionInput = (props) => {
     values,
     suggestionField,
     valueField,
-    getOptionsFromResponse = getOptionsFromResponseDefault,
+    afterFetch = getOptionsFromResponseDefault,
     style,
   } = props;
   const { uri, queryParams } = props;
@@ -63,7 +65,7 @@ const OptionInput = (props) => {
         paramsSerializer: QueryString.stringify,
       })
       .then((res) => {
-        options = getOptionsFromResponse(res);
+        options = afterFetch(res);
       })
       .catch((err) => {
         console.log(err);
@@ -91,8 +93,37 @@ const OptionInput = (props) => {
   );
 };
 
+const ImageInput = ({ handleChange, formField, placeholder }) => {
+  const [file, setFile] = useState();
+
+  const onUploadPressed = async () => {
+    const { _id: fileId } = await docPicker();
+    setFile(fileId);
+    handleChange(formField)(fileId);
+  };
+  return (
+    <View style={{ width: "95%", alignSelf: "center" }}>
+      <TouchableOpacity onPress={onUploadPressed}>
+        <Image
+          source={file ? { uri: downloadUrl + "/" + file } : addIcon}
+          resizeMode="contain"
+          style={{
+            width: "100%",
+            alignSelf: "center",
+            height: 150,
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: "lightskyblue",
+          }}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
+
 export const CustomRenders = {
   dateInput: DateInput,
   textInput: FormTextInput,
   optionInput: OptionInput,
+  imageInput: ImageInput,
 };

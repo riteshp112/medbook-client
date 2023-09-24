@@ -12,4 +12,10 @@ mailURL = "http://127.0.0.1:5000/sendMail"; //local
 // mailURL = "https://medbook-server.azurewebsites.net/sendMail";
 mailURL = "https://meddbook-server.onrender.com/sendMail";
 
-export { fetchURL, mailURL };
+let uploadUrl = "http://127.0.0.1/upload";
+uploadUrl = "https://meddbook-server.onrender.com/upload";
+
+let downloadUrl = "http://127.0.0.1/retrieve";
+downloadUrl = "https://meddbook-server.onrender.com/retrieve";
+
+export { fetchURL, mailURL, uploadUrl, downloadUrl };

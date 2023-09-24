@@ -34,6 +34,7 @@ const AddNewChat = (props) => {
       table: "testcol",
       condition: { name: { $regex: "^" + query, $options: "i" } },
       limit: 30,
+      skip: 0,
     }).then((result) => {
       setUser(result);
       result?.map((item) => {

@@ -34,7 +34,7 @@ const List = (props) => {
 
   const onEndReached = () => {
     setLimit((prev) => prev + increasePerScroll);
-    setSkip(data?.length || 0);
+    // setSkip(data?.length || 0);
   };
   const keyExtractor = (item) => item?._id;
   const renderItemWithData = (props) => {

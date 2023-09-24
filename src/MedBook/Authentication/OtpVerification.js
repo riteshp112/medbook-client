@@ -14,6 +14,7 @@ const validateOtp = async ({ inputOtp, navigation, user, setModalVisible }) => {
     table: "testcol",
     condition: { username: user.username, otp: parseInt(inputOtp) },
     limit: 1,
+    skip: 0,
   });
   setModalVisible(false);
   if (result) {
@@ -52,7 +53,7 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff",gap:4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
       <TextInput
         value={inputOtp}
         onChangeText={(val) => {
