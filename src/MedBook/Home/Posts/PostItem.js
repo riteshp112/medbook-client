@@ -37,9 +37,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
     <View
       style={{
         padding: 10,
-        borderBottomWidth: 1,
         backgroundColor: "#ffffff",
-        borderBottomColor: "skyblue",
       }}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>

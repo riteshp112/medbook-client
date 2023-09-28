@@ -8,7 +8,7 @@ import FloatingActionComponent from "./FloatingActionComponent";
 const List = (props) => {
   let {
     RenderItem,
-    uri,
+    uri = "",
     uriParams = {},
     containerStyle,
     renderHeader,
