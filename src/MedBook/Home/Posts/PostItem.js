@@ -59,11 +59,11 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
             { label: "Delete Post" },
             { label: "Report Post" },
           ]}
-        ></MoreAction>
+        />
       </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
       <Image
-        source={{ uri: downloadUrl + "/" + item.image }}
+        source={{ uri: downloadUrl + "/" + item?.image }}
         resizeMode="contain"
         onLayout={(event) => {
           let { width: totalWidth } = event.nativeEvent.layout;
@@ -81,7 +81,6 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           ...imgHeight,
           alignSelf: "center",
           width: "100%",
-          // height:'100%'
         }}
       />
       <View

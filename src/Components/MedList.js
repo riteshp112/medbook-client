@@ -13,28 +13,27 @@ const List = (props) => {
     containerStyle,
     renderHeader,
     renderFooter,
-    increasePerScroll = 5,
-    initialLimit = 10,
+    limit = 10,
     floatingActions = [],
     reloadEvents,
     ...restProps
   } = props;
 
-  const [limit, setLimit] = useState(initialLimit);
   const [skip, setSkip] = useState(0);
+  const [initialData, setInitialData] = useState([]);
   const ref = useRef();
 
   uriParams = { ...uriParams, limit, skip };
-
-  const { data, loading } = usePost({
+  const { data = [], loading } = usePost({
     uri,
     body: uriParams,
-    reloadParams: [limit, skip],
+    reloadParams: [skip],
+    initialData,
   });
 
   const onEndReached = () => {
-    setLimit((prev) => prev + increasePerScroll);
-    // setSkip(data?.length || 0);
+    setSkip(data.length);
+    setInitialData(data);
   };
   const keyExtractor = (item) => item?._id;
   const renderItemWithData = (props) => {
@@ -51,9 +50,14 @@ const List = (props) => {
     ));
   };
 
+  const ItemSeparatorComponent = () => {
+    return (
+      <View style={{ width: "100%", height: 1, backgroundColor: "skyblue" }} />
+    );
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", ...containerStyle }}>
-      {renderHeader && renderHeader({ ...props, data })}
       <FlatList
         ref={ref}
         data={data}
@@ -63,10 +67,16 @@ const List = (props) => {
         showsVerticalScrollIndicator={false}
         refreshing={loading}
         onRefresh={onEndReached}
+        onEndReachedThreshold={limit / 2}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        ListHeaderComponent={(props) =>
+          renderHeader && renderHeader({ ...props, data })
+        }
+        ListFooterComponent={(props) =>
+          renderHeader && renderFooter({ ...props, data })
+        }
         {...restProps}
       />
-      {loading && <ActivityIndicator style={{ alignSelf: "center" }} />}
-      {renderFooter && renderFooter({ ...props, data })}
       {floatingActions.length && <FloatingAction />}
     </View>
   );
