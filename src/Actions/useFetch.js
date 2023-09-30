@@ -72,7 +72,13 @@ export const useFetch = ({ uri, params }) => {
   return { data, loading };
 };
 
-export const usePost = ({ uri, body, initialData = [], reloadParams = [] }) => {
+export const usePost = ({
+  uri,
+  body,
+  initialData = [],
+  reloadParams = [],
+  afterFetch = (data) => data,
+}) => {
   internetCheck();
   const [data, setData] = useState(initialData);
   const [loading, setLoading] = useState(true);
@@ -86,8 +92,10 @@ export const usePost = ({ uri, body, initialData = [], reloadParams = [] }) => {
       body: decodeURI(JSON.stringify(body)),
     })
       .then((res) => res.json())
-      .then((data) => {
-        setData((prev) => prev.concat(data?.response?.result));
+      .then(({ response = {} }) => {
+        const { result } = response;
+        const data = afterFetch(result);
+        setData((prev) => prev.concat(data));
         setLoading(false);
       })
       .catch((err) => {

@@ -1,18 +1,15 @@
+import React from "react";
 import { View, Text, Image } from "react-native";
 import moment from "moment";
 import { TouchableOpacity } from "react-native";
 import { deleteIcon } from "../../../Images";
 import { deleteRecordAction } from "../../../Actions/recordActions";
 export const RecordItem = ({ item, index, func }) => {
-  
   return (
     <View
       style={{
-        backgroundColor: "#ffffff",
         padding: 10,
         height: 110,
-        borderBottomWidth: 1,
-        borderBottomColor: "skyblue",
         flexDirection: "row",
       }}
     >

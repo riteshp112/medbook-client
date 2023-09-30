@@ -15,7 +15,9 @@ const PostScreens = (
       options={{
         presentation: "transparentModal",
         title: "Add new post",
-        contentStyle: {},
+        contentStyle: {
+          justifyContent: "flex-end",
+        },
         headerShown: false,
       }}
     />

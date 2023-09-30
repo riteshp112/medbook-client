@@ -1,8 +1,6 @@
-import { useIsFocused } from "@react-navigation/native";
-import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, FlatList, View } from "react-native";
-import medFetch from "../Actions/medFetchAction";
-import { useFetch, usePost } from "../Actions/useFetch";
+import React, { useRef, useState } from "react";
+import { FlatList, View } from "react-native";
+import { usePost } from "../Actions/useFetch";
 import FloatingActionComponent from "./FloatingActionComponent";
 
 const List = (props) => {
@@ -16,6 +14,9 @@ const List = (props) => {
     limit = 10,
     floatingActions = [],
     reloadEvents,
+    afterFetch,
+    hideRowSeparator,
+    fullScreen = true,
     ...restProps
   } = props;
 
@@ -28,6 +29,7 @@ const List = (props) => {
     uri,
     body: uriParams,
     reloadParams: [skip],
+    afterFetch,
     initialData,
   });
 
@@ -52,12 +54,21 @@ const List = (props) => {
 
   const ItemSeparatorComponent = () => {
     return (
-      <View style={{ width: "100%", height: 1, backgroundColor: "skyblue" }} />
+      <View
+        style={{ width: "100%", height: 1, backgroundColor: "lightskyblue" }}
+      />
     );
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "center", ...containerStyle }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "#ffffff",
+        ...containerStyle,
+      }}
+    >
       <FlatList
         ref={ref}
         data={data}
@@ -68,16 +79,25 @@ const List = (props) => {
         refreshing={loading}
         onRefresh={onEndReached}
         onEndReachedThreshold={limit / 2}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-        ListHeaderComponent={(props) =>
-          renderHeader && renderHeader({ ...props, data })
+        ItemSeparatorComponent={
+          !hideRowSeparator ? ItemSeparatorComponent : void 0
         }
-        ListFooterComponent={(props) =>
-          renderHeader && renderFooter({ ...props, data })
+        contentContainerStyle={{ flexGrow: fullScreen ? 1 : void 0 }}
+        ListFooterComponentStyle={{ flex: 1, justifyContent: "flex-end" }}
+        ListHeaderComponentStyle={{ flex: 1, justifyContent: "flex-start" }}
+        ListHeaderComponent={
+          renderHeader
+            ? (props) => renderHeader({ ...props, ...restProps, data })
+            : void 0
+        }
+        ListFooterComponent={
+          renderFooter
+            ? (props) => renderFooter({ ...props, ...restProps, data })
+            : void 0
         }
         {...restProps}
       />
-      {floatingActions.length && <FloatingAction />}
+      {floatingActions.length > 0 && <FloatingAction />}
     </View>
   );
 };

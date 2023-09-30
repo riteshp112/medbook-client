@@ -102,22 +102,20 @@ const ImageInput = ({ handleChange, formField, placeholder }) => {
     handleChange(formField)(fileId);
   };
   return (
-    <View style={{ width: "95%", alignSelf: "center" }}>
-      <TouchableOpacity onPress={onUploadPressed}>
-        <Image
-          source={file ? { uri: downloadUrl + "/" + file } : addIcon}
-          resizeMode="contain"
-          style={{
-            width: "100%",
-            alignSelf: "center",
-            height: 150,
-            borderRadius: 4,
-            borderWidth: 1,
-            borderColor: "lightskyblue",
-          }}
-        />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={onUploadPressed}>
+      <Image
+        source={file ? { uri: downloadUrl + "/" + file } : addIcon}
+        resizeMode="contain"
+        style={{
+          width: "100%",
+          alignSelf: "center",
+          height: 150,
+          borderRadius: 4,
+          borderWidth: 1,
+          borderColor: "lightskyblue",
+        }}
+      />
+    </TouchableOpacity>
   );
 };
 

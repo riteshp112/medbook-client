@@ -1,5 +1,5 @@
 import { Picker } from "@react-native-picker/picker";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Button,
@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
-import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
 import { signUpStyle } from "../../Authentication/SignUp";
 
@@ -54,79 +53,74 @@ const AddNewChat = (props) => {
   return (
     <View
       style={{
-        flex: 1,
-        justifyContent: "center",
-        backgroundColor: "rgba(28,53,32,0.09)",
+        borderTopColor: "lightgray",
+        borderTopWidth: 1,
+        borderTopLeftRadius: 8,
+        borderTopRightRadius: 8,
+        borderStyle: "solid",
+        backgroundColor: "#ffffff",
+        padding:8
       }}
     >
+      <TextInput
+        style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
+          marginBottom: 2,
+        })}
+        onChangeText={(itemValue) => {
+          setQuery(itemValue);
+        }}
+        placeholder={"Search Friends"}
+      ></TextInput>
+      <View style={signUpStyle.formPickerStyle}>
+        <Picker
+          selectedValue={user?.[userIndex]?.name}
+          onValueChange={(item, index) => {
+            setUserIndex(index - 1);
+          }}
+          style={{
+            left: -8,
+            color: userIndex == -1 ? "#8e8e8e" : void 0,
+            borderWidth: 0,
+            backgroundColor: "rgba(1,1,1,0)",
+          }}
+        >
+          {pickerItems}
+        </Picker>
+      </View>
+      {loading ? (
+        <ActivityIndicator
+          style={{ position: "absolute", alignSelf: "center" }}
+        ></ActivityIndicator>
+      ) : (
+        void 0
+      )}
       <View
         style={{
-          backgroundColor: "#ffffff",
-          borderRadius: 4,
-          width: "95%",
+          paddingTop: 8,
+          flexDirection: "row",
+          alignItems: "center",
+          width: "100%",
+          justifyContent: "space-evenly",
           alignSelf: "center",
         }}
       >
-        <TextInput
-          style={StyleSheet.compose(signUpStyle.formTextInputStyle, {
-            marginBottom: 2,
-          })}
-          onChangeText={(itemValue) => {
-            setQuery(itemValue);
+        <Button
+          disabled={userIndex == -1}
+          title="Start Chatting"
+          onPress={async () => {
+            await medFetch({
+              type: "insert",
+              table: "threads",
+              data: {
+                sender: sender,
+                receiver: user?.[userIndex],
+                chatHistory: [],
+              },
+            });
+            props?.navigation?.goBack();
           }}
-          placeholder={"Search Friends"}
-        ></TextInput>
-        <View style={signUpStyle.formPickerStyle}>
-          <Picker
-            selectedValue={user?.[userIndex]?.name}
-            onValueChange={(item, index) => {
-              setUserIndex(index - 1);
-            }}
-            style={{
-              left: -8,
-              color: userIndex == -1 ? "#8e8e8e" : void 0,
-              borderWidth: 0,
-              backgroundColor: "rgba(1,1,1,0)",
-            }}
-          >
-            {pickerItems}
-          </Picker>
-        </View>
-        {loading ? (
-          <ActivityIndicator
-            style={{ position: "absolute", alignSelf: "center" }}
-          ></ActivityIndicator>
-        ) : (
-          void 0
-        )}
-        <View
-          style={{
-            paddingTop: 8,
-            flexDirection: "row",
-            alignItems: "center",
-            width: "100%",
-            justifyContent: "space-evenly",
-            alignSelf: "center",
-          }}
-        >
-          <Button
-            disabled={userIndex == -1}
-            title="Start Chatting"
-            onPress={async () => {
-              await medFetch({
-                type: "insert",
-                table: "threads",
-                data: {
-                  sender: sender,
-                  receiver: user?.[userIndex],
-                  chatHistory: [],
-                },
-              });
-              props?.navigation?.goBack();
-            }}
-          />
-          <Button title="Cancel" onPress={() => props?.navigation?.goBack()} />
-        </View>
+        />
+        <Button title="Cancel" onPress={() => props?.navigation?.goBack()} />
       </View>
     </View>
   );
