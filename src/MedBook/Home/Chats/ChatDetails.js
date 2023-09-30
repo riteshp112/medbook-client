@@ -29,10 +29,8 @@ const ChatDetails = ({ route }) => {
     autoConnect: false,
   });
 
-  socket.on("connect", () => {
-    socket.on("connect", function () {
-      socket.emit("join_thread", { threadId: item._id });
-    });
+  socket.on("connect", function () {
+    socket.emit("join_thread", { threadId: item._id });
   });
 
   socket.on("reload_chat", function (data) {
