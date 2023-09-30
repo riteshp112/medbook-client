@@ -44,6 +44,10 @@ const ChatDetails = ({ route }) => {
   });
 
   useEffect(() => {
+    socket.connect();
+  }, []);
+
+  useEffect(() => {
     setIsLoading(true);
     medFetch({
       type: "select",
