@@ -60,6 +60,3 @@ yarn-error.log
 .expo/
 web-build/
 dist/
-
-package-lock.json
-yarn.lock
