@@ -1,21 +1,21 @@
-let fetchURL = "http://127.0.0.1:5000/invoke"; //local
-// fetchURL="http://10.0.2.2:5000/invoke";// local emulator
-// fetchURL = "https://riteshp112.pythonanywhere.com/invoke"; //live
-// fetchURL='http://127.0.0.1:2020/invoke'//local-node
-// fetchURL = "https://medbook1.herokuapp.com/invoke"
-// fetchURL='https://medbook-server.azurewebsites.net/invoke'
-fetchURL = "https://meddbook-server.onrender.com/invoke";
+let fetchURL = "https://meddbook-server.onrender.com/invoke";
+let mailURL = "https://meddbook-server.onrender.com/sendMail";
+let uploadUrl = "https://meddbook-server.onrender.com/upload";
+let downloadUrl = "https://meddbook-server.onrender.com/retrieve";
+let socketURL = "https://meddbook-server.onrender.com";
 
-let mailURL = "https://riteshp112.pythonanywhere.com/sendMail"; // live
-mailURL = "http://127.0.0.1:5000/sendMail"; //local
-// mailURL = "https://medbook1.herokuapp.com/sendMail"
-// mailURL = "https://medbook-server.azurewebsites.net/sendMail";
-mailURL = "https://meddbook-server.onrender.com/sendMail";
+if (__DEV__) {
+  fetchURL = "http://127.0.0.1:5000/invoke";
+  mailURL = "http://127.0.0.1:5000/sendMail";
+  uploadUrl = "http://127.0.0.1/upload";
+  downloadUrl = "http://127.0.0.1/retrieve";
+  socketURL = "http://127.0.0.1:5000";
+}
 
-let uploadUrl = "http://127.0.0.1/upload";
-uploadUrl = "https://meddbook-server.onrender.com/upload";
-
-let downloadUrl = "http://127.0.0.1/retrieve";
-downloadUrl = "https://meddbook-server.onrender.com/retrieve";
-
-export { fetchURL, mailURL, uploadUrl, downloadUrl };
+export default {
+  fetchURL,
+  mailURL,
+  uploadUrl,
+  downloadUrl,
+  socketURL,
+};
