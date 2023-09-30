@@ -24,7 +24,12 @@ const ChatDetails = ({ route }) => {
   const [refresh, setRefresh] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const socket = io(socketURL, { reconnection: false });
+  const socket = io(socketURL, {
+    reconnection: false,
+    reconnectionAttempts: 1,
+    reconnectionDelay: 5000,
+    reconnectionDelayMax: 10000000,
+  });
 
   socket.on("connect", () => {
     socket.on("connect", function () {
