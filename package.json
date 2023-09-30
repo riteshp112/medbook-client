@@ -54,6 +54,5 @@
       "./mock.js"
     ]
   },
-  "packageManager": "yarn@3.2.4",
   "private": true
 }
