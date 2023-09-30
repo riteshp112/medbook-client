@@ -12,10 +12,4 @@ if (__DEV__) {
   socketURL = "http://127.0.0.1:5000";
 }
 
-export default {
-  fetchURL,
-  mailURL,
-  uploadUrl,
-  downloadUrl,
-  socketURL,
-};
+export { fetchURL, mailURL, uploadUrl, downloadUrl, socketURL };
