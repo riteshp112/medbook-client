@@ -62,27 +62,31 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
         />
       </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
-      <Image
-        source={{ uri: downloadUrl + "/" + item?.image }}
-        resizeMode="contain"
-        onLayout={(event) => {
-          let { width: totalWidth } = event.nativeEvent.layout;
-          Image.getSize(
-            downloadUrl + "/" + item.image,
-            (width, height) => {
-              const widthToHeight = width / height;
-              const newHeight = totalWidth / widthToHeight;
-              setImgHeight({ height: newHeight });
-            },
-            (err) => {}
-          );
-        }}
-        style={{
-          ...imgHeight,
-          alignSelf: "center",
-          width: "100%",
-        }}
-      />
+      {item.image ? (
+        <Image
+          source={{ uri: downloadUrl + "/" + item?.image }}
+          resizeMode="contain"
+          onLayout={(event) => {
+            let { width: totalWidth } = event.nativeEvent.layout;
+            Image.getSize(
+              downloadUrl + "/" + item.image,
+              (width, height) => {
+                const widthToHeight = width / height;
+                const newHeight = totalWidth / widthToHeight;
+                setImgHeight({ height: newHeight });
+              },
+              (err) => {}
+            );
+          }}
+          style={{
+            ...imgHeight,
+            alignSelf: "center",
+            width: "100%",
+          }}
+        />
+      ) : (
+        void 0
+      )}
       <View
         style={{
           flexDirection: "row",
