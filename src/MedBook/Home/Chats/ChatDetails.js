@@ -34,7 +34,6 @@ const ChatDetails = ({ route }) => {
   });
 
   socket.on("reload_chat", function (data) {
-    console.log(data);
     setRefresh((prev) => !prev);
   });
 
