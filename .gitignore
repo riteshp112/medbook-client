@@ -234,4 +234,3 @@ node_modules/pngjs/lib/png.js
 node_modules/pngjs/lib/sync-inflate.js
 node_modules/pngjs/lib/sync-reader.js
 package-lock.json
-package.json
