@@ -29,6 +29,7 @@ const ChatDetails = ({ route }) => {
     reconnectionAttempts: 1,
     reconnectionDelay: 5000,
     reconnectionDelayMax: 10000000,
+    autoConnect: false,
   });
 
   socket.on("connect", () => {
