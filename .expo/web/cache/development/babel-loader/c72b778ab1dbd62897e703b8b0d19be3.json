@@ -1,1 +1,0 @@
-{"ast":null,"code":"export var fetchURL = 'https://medbook1.herokuapp.com/invoke';","map":{"version":3,"sources":["/home/ritesh/medbook/medbook-client/medbook2/medbook/src/config.js"],"names":["fetchURL"],"mappings":"AACA,OAAO,IAAMA,QAAQ,GAAC,uCAAf","sourcesContent":["\nexport const fetchURL='https://medbook1.herokuapp.com/invoke'"]},"metadata":{},"sourceType":"module"}
