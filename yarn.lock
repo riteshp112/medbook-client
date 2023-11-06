@@ -5131,6 +5131,11 @@
     "path-browserify" "^1.0.0"
     "url-parse" "^1.5.9"
 
+"expo-av@^13.6.0":
+  "integrity" "sha512-42dDX53uao+IxuecNRcAvLuO7CiF9lriCufDfw2sSIGKRYox6m2RXYFstVpDSv2gzsuScGk7fwT23EUrUXbk8A=="
+  "resolved" "https://registry.npmjs.org/expo-av/-/expo-av-13.6.0.tgz"
+  "version" "13.6.0"
+
 "expo-constants@~14.2.0", "expo-constants@~14.2.1":
   "integrity" "sha512-DD5u4QmBds2U7uYo409apV7nX+XjudARcgqe7S9aRFJ/6kyftmuxvk1DpaU4X42Av8z/tfKwEpuxl+vl7HHx/Q=="
   "resolved" "https://registry.npmjs.org/expo-constants/-/expo-constants-14.2.1.tgz"

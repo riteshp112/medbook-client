@@ -29,11 +29,13 @@ export const docPicker = async () => {
       const file = await fetch(res.uri);
       console.log(file);
       const blob = await file.blob();
-      // console.log(blob)
+      console.log(blob)
       const newFile = new File([blob], res.name);
       res.file = newFile;
     }
-    const fileId = await upload(res.file);
+    console.log(res);
+
+    const fileId = await upload(res?.output?.[0]);
     const { output, ...rest } = res;
     return { ...rest, _id: fileId };
   }

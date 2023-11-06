@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "babel-loader": "^9.1.0",
     "expo": "^48.0.0",
+    "expo-av": "^13.6.0",
     "expo-document-picker": "~11.2.2",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",

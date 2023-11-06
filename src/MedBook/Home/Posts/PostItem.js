@@ -1,19 +1,19 @@
 // @ts-nocheck
+import React, { useState } from "react";
 import {
-  View,
-  Text,
   Image,
+  ScrollView,
+  Text,
   TextInput,
   TouchableOpacity,
-  ScrollView,
+  View,
 } from "react-native";
-import { useState } from "react";
 import medFetch from "../../../Actions/medFetchAction";
-import { comment, dislike, like, send, threeDots } from "../../../Images";
-import React from "react";
-import { getUser } from "../../Authentication/Authenticator";
 import MoreAction from "../../../Components/MoreAction";
+import { VideoPlayer } from "../../../Components/VideoPlayer";
+import { comment, dislike, like, send } from "../../../Images";
 import { downloadUrl } from "../../../config";
+import { getUser } from "../../Authentication/Authenticator";
 
 const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
   const user = getUser();
@@ -64,13 +64,13 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
         ></MoreAction>
       </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
-      <Image
-        source={{ uri: downloadUrl + "/" + item.image }}
+      {item?.image?.type?.split('/')?.[0]=='video'?<VideoPlayer url={downloadUrl + "/" + item.image?._id}/>:<Image
+        source={{ uri: downloadUrl + "/" + item.image?._id }}
         resizeMode="contain"
         onLayout={(event) => {
           let { width: totalWidth } = event.nativeEvent.layout;
           Image.getSize(
-            downloadUrl + "/" + item.image,
+            downloadUrl + "/" + item?.image?._id,
             (width, height) => {
               const widthToHeight = width / height;
               const newHeight = totalWidth / widthToHeight;
@@ -85,7 +85,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           width: "100%",
           // height:'100%'
         }}
-      />
+      />}
       <View
         style={{
           flexDirection: "row",

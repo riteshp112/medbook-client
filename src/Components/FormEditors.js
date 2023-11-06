@@ -2,12 +2,11 @@ import { Picker } from "@react-native-picker/picker";
 import axios from "axios";
 import QueryString from "qs";
 import React, { useState } from "react";
-import { Button, Image, TouchableOpacity, View } from "react-native";
-import { TextInput } from "react-native";
-import DatePicker from "./DatePicker";
+import { Image, TextInput, TouchableOpacity, View } from "react-native";
 import { docPicker } from "../Actions/upload";
 import { addIcon } from "../Images";
 import { downloadUrl } from "../config";
+import DatePicker from "./DatePicker";
 const DateInput = (props) => {
   const { handleChange, field: formField, values, style } = props;
   return (
@@ -97,15 +96,18 @@ const ImageInput = ({ handleChange, formField, placeholder }) => {
   const [file, setFile] = useState();
 
   const onUploadPressed = async () => {
-    const { _id: fileId } = await docPicker();
-    setFile(fileId);
-    handleChange(formField)(fileId);
+    const file = await docPicker();
+    const {_id,assets: assets} = file;
+
+    console.log(_id,assets);
+    setFile({_id,type:assets?.[0]?.mimeType});
+    handleChange(formField)({_id,type:assets?.[0]?.mimeType});
   };
   return (
     <View style={{ width: "95%", alignSelf: "center" }}>
       <TouchableOpacity onPress={onUploadPressed}>
         <Image
-          source={file ? { uri: downloadUrl + "/" + file } : addIcon}
+          source={file ? { uri: downloadUrl + "/" + file?._id } : addIcon}
           resizeMode="contain"
           style={{
             width: "100%",

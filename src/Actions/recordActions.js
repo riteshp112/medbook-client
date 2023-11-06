@@ -1,6 +1,6 @@
 // @ts-nocheck
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { PermissionsAndroid } from "react-native";
+import * as RN  from "react-native";
 import { jsonToCSV } from "react-native-csv";
 
 export const addNewRecordAction = async (item) => {
@@ -20,7 +20,7 @@ export const deleteRecordAction = async (index, func) => {
 
 const requestFilesPermission = async () => {
   try {
-    await PermissionsAndroid.request(
+    await RN?.PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
     );
   } catch (err) {
