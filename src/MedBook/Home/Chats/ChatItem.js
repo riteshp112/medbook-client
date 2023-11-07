@@ -18,8 +18,7 @@ const ChatComponent = ({ item }) => {
           {width:200,padding:8,borderRadius:8},
         ]}
       >
-        {item.message}
-
+        {item?.message}
       </Text>
       
     </View>

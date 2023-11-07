@@ -104,7 +104,6 @@ const ImageInput = ({ handleChange, formField, placeholder }) => {
     handleChange(formField)({_id,type:assets?.[0]?.mimeType});
   };
   return (
-    <View style={{ width: "95%", alignSelf: "center" }}>
       <TouchableOpacity onPress={onUploadPressed}>
         <Image
           source={file ? { uri: downloadUrl + "/" + file?._id } : addIcon}
@@ -119,7 +118,6 @@ const ImageInput = ({ handleChange, formField, placeholder }) => {
           }}
         />
       </TouchableOpacity>
-    </View>
   );
 };
 

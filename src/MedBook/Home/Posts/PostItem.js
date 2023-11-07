@@ -37,9 +37,6 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
     <View
       style={{
         padding: 10,
-        borderBottomWidth: 1,
-        backgroundColor: "#ffffff",
-        borderBottomColor: "skyblue",
       }}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -61,7 +58,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
             { label: "Delete Post" },
             { label: "Report Post" },
           ]}
-        ></MoreAction>
+        />
       </View>
       <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
       {item?.image?.type?.split('/')?.[0]=='video'?<VideoPlayer url={downloadUrl + "/" + item.image?._id}/>:<Image

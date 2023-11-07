@@ -5,7 +5,7 @@ export default function App() {
   return (
     <React.Fragment>
       <MainApp />
-      <Toast ref={(ref) => global['toast'] = ref} />
+      <Toast ref={(ref) => (global["toast"] = ref)} />
     </React.Fragment>
   );
 }

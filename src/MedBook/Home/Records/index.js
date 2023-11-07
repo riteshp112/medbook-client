@@ -11,7 +11,13 @@ const RecordScreens = (
     <Stack.Screen
       name="add-new-record"
       component={AddNewRecord}
-      options={{ presentation: "transparentModal", headerShown: false }}
+      options={{
+        presentation: "transparentModal",
+        headerShown: false,
+        contentStyle: {
+          justifyContent: "flex-end",
+        },
+      }}
     />
     <Stack.Screen name="record-list" component={RecordList} />
   </Stack.Group>

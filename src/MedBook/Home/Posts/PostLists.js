@@ -2,7 +2,6 @@
 import PostItem from "./PostItem";
 import React from "react";
 import List from "../../../Components/MedList";
-import FloatingActionComponent from "../../../Components/FloatingActionComponent";
 
 const PostList = (props) => {
   const { navigation } = props;
@@ -16,7 +15,6 @@ const PostList = (props) => {
   return (
     <List
       {...props}
-      uri=""
       uriParams={{ type: "select", table: "post", condition: {} }}
       RenderItem={PostItem}
       floatingActions={[
