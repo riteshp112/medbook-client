@@ -53,6 +53,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           </Text>
         </TouchableOpacity>
         <MoreAction
+          item={item}
           actions={[
             { label: "Edit Post" },
             { label: "Delete Post" },
