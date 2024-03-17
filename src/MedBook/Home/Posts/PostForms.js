@@ -1,7 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
-import React from "react";
 import { getUser } from "../../Authentication/Authenticator";
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState("");
@@ -16,7 +15,7 @@ const AddNewPost = ({ navigation }) => {
     >
       <View
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor:colors.background,
           borderRadius: 4,
           width: "95%",
           alignSelf: "center",

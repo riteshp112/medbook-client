@@ -19,7 +19,7 @@ const AddNewRecord = ({ navigation }) => {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
         borderStyle: "solid",
-        backgroundColor: "#ffffff",
+        backgroundColor:colors.background,
         padding:8
       }}
     >

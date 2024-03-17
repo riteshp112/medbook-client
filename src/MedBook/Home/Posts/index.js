@@ -8,7 +8,6 @@ const Stack = createNativeStackNavigator();
 
 const PostScreens = (
   <Stack.Group>
-    <Stack.Screen name="post-item" component={PostItem} />
     <Stack.Screen
       name="add-new-post"
       component={AddNewPost}

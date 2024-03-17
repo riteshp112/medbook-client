@@ -22,8 +22,6 @@ const upload = async (file) => {
 
 export const docPicker = async () => {
   const res = await getDocumentAsync();
-  console.log(res);
-
   if (res.type != "cancel") {
     if (Platform.OS != "web") {
       try {
@@ -34,16 +32,6 @@ export const docPicker = async () => {
             name: "file",
           },
         ];
-
-        // const file = await fetch(res.assets[0].uri);
-        // const blob = await fires.assetsle.blob();
-        // console.log("blob",JSON.stringify(blob))
-        // const newFile = new File([blob], res.assets[0].name, {
-        //   type: res.assets[0].mimeType,
-        // });
-        // console.log("newFile", JSON.stringify(newFile));
-        // res.output = [];
-        // res.output.push(newFile);
       } catch (err) {
         console.log(err);
       }

@@ -1,11 +1,11 @@
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import {
-  ActivityIndicator,
-  Button,
-  StyleSheet,
-  TextInput,
-  View,
+    ActivityIndicator,
+    Button,
+    StyleSheet,
+    TextInput,
+    View,
 } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
 import { getUser } from "../../Authentication/Authenticator";
@@ -58,7 +58,7 @@ const AddNewChat = (props) => {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
         borderStyle: "solid",
-        backgroundColor: "#ffffff",
+        backgroundColor:colors.background,
         padding:8
       }}
     >

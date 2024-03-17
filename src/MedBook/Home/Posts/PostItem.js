@@ -1,7 +1,8 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Image,
+  Platform,
   ScrollView,
   Text,
   TextInput,
@@ -15,6 +16,7 @@ import { comment, dislike, like, send } from "../../../Images";
 import { downloadUrl } from "../../../config";
 import { getUser } from "../../Authentication/Authenticator";
 import Hyperlink from "react-native-hyperlink";
+import { useTheme } from "@react-navigation/native";
 
 const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
   const user = getUser();
@@ -34,10 +36,26 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
     [];
 
   const [imgHeight, setImgHeight] = useState({});
+  const { colors } = useTheme();
+
+  const [textShown, setTextShown] = useState(false); //To show ur remaining Text
+  const [lengthMore, setLengthMore] = useState(false); //to show the "Read more & Less Line"
+  const toggleNumberOfLines = () => {
+    //To toggle the show text or hide it
+    setTextShown(!textShown);
+  };
+
+  const onTextLayout = useCallback((e) => {
+    setLengthMore(e.nativeEvent.lines.length >= 15); //to check the text is more than 4 lines or not
+    console.log(e);
+  }, []);
+
   return (
     <View
       style={{
         padding: 10,
+        flexDirection: "column",
+        gap: 4,
       }}
     >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
@@ -62,19 +80,37 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           ]}
         />
       </View>
-      <Hyperlink
+      <Text
         linkStyle={{
           color: "blue",
+          textDecorationLine: "none",
         }}
-        linkDefault={true}
+        dataDetectorType="all"
+        selectable
+        textBreakStrategy="balanced"
+        android_hyphenationFrequency="full"
+        accessible
+        numberOfLines={textShown || !lengthMore ? undefined : 15}
+        style={{ fontSize: 15, paddingBottom: 16, color: colors.text }}
+        onTextLayout={onTextLayout}
+        onLayout={(e) => {
+          console.log(e);
+          if (Platform.OS == "web") {
+            setLengthMore(e.nativeEvent.target.innerText.length >= 600);
+          }
+        }}
       >
+        {item?.post}
+      </Text>
+
+      {lengthMore ? (
         <Text
-          dataDetectorType="all"
-          style={{ fontSize: 15, paddingBottom: 16 }}
+          onPress={toggleNumberOfLines}
+          style={{ lineHeight: 21, marginTop: 10 }}
         >
-          {item?.post}
+          {textShown ? "Read less..." : "Read more..."}
         </Text>
-      </Hyperlink>
+      ) : null}
       {item?.image?.type?.split("/")?.[0] == "video" ? (
         <VideoPlayer url={downloadUrl + "/" + item.image?._id} />
       ) : (
@@ -109,7 +145,7 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           flexDirection: "row",
           flex: 1,
           alignItems: "center",
-          justifyContent: "center",
+          justifyContent: "space-around",
           marginTop: 10,
         }}
       >
@@ -135,6 +171,13 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center",
+              paddingTop: 4,
+              paddingBottom: 4,
+              paddingLeft: 10,
+              paddingRight: 10,
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderRadius: 4,
             }}
           >
             <Image source={like} style={{ height: 15, width: 15 }}></Image>
@@ -154,6 +197,13 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center",
+              paddingTop: 4,
+              paddingBottom: 4,
+              paddingLeft: 10,
+              paddingRight: 10,
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderRadius: 4,
             }}
           >
             <Image source={comment} style={{ height: 20, width: 20 }}></Image>
@@ -185,6 +235,13 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
               justifyContent: "center",
               alignContent: "center",
               alignItems: "center",
+              paddingTop: 4,
+              paddingBottom: 4,
+              paddingLeft: 10,
+              paddingRight: 10,
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderRadius: 4,
             }}
           >
             <Image source={dislike} style={{ width: 15, height: 15 }}></Image>
@@ -192,56 +249,77 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           </View>
         </TouchableOpacity>
       </View>
-      {showComments ? (
-        <View>
-          <View style={{ maxHeight: 80 }}>
-            <ScrollView style={{ flexGrow: 0 }} nestedScrollEnabled={true}>
-              {commentComponent}
-            </ScrollView>
-          </View>
-          <View style={{ flexDirection: "row", flex: 1 }}>
+      {showComments && (
+        <View style={{ flex: 1, flexDirection: "column", gap: 8 }}>
+          <ScrollView
+            style={{ flexGrow: 0, maxHeight: 180, paddingLeft: 16 }}
+            nestedScrollEnabled={true}
+          >
+            {commentComponent}
+          </ScrollView>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: colors.background,
+              borderColor: colors.border,
+              borderWidth: 1,
+              paddingRight: 8,
+              paddingLeft: 8,
+              borderRadius: 16,
+              flexDirection: "row",
+              alignItems: "center",
+              minHeight: 30,
+              maxHeight: 60,
+              paddingTop: 4,
+              paddingBottom: 4,
+            }}
+          >
             <TextInput
+              placeholder="Add a comment"
               multiline={true}
               value={newComment}
               style={{
-                borderWidth: 2,
                 flex: 1,
-                minHeight: 30,
-                borderColor: "#3867d6",
               }}
               onChangeText={(value) => {
                 setNewComment(value);
               }}
-            ></TextInput>
+            />
             <TouchableOpacity
+              style={{
+                backgroundColor: "lightblue",
+                padding: 4,
+                borderRadius: 32,
+              }}
+              disabled={!newComment.trim()}
               onPress={async () => {
-                newComment &&
-                  (await medFetch({
-                    type: "update",
-                    table: "post",
-                    condition: { _id: item._id },
-                    changes: {
-                      $push: {
-                        comments: {
-                          comment: newComment,
-                          user: user?.username,
-                        },
+                await medFetch({
+                  type: "update",
+                  table: "post",
+                  condition: { _id: item._id },
+                  changes: {
+                    $push: {
+                      comments: {
+                        comment: newComment,
+                        user: user?.username,
                       },
                     },
-                  }));
+                  },
+                });
                 setNewComment("");
                 setPostLength && setPostLength((prev) => prev + 1);
               }}
-              style={{ alignSelf: "center" }}
             >
-              <View style={{ paddingLeft: 10 }}>
-                <Image source={send} style={{ height: 25, width: 25 }}></Image>
-              </View>
+              <Image
+                source={send}
+                style={{
+                  height: 25,
+                  width: 25,
+                }}
+              />
             </TouchableOpacity>
           </View>
         </View>
-      ) : (
-        void 0
       )}
     </View>
   );

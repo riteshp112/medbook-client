@@ -1,7 +1,9 @@
+import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 const FloatingActionComponent = ({ onPress, text, position, ...rest }) => {
+  const { colors } = useTheme();
   return (
     <View
       style={{
@@ -14,7 +16,7 @@ const FloatingActionComponent = ({ onPress, text, position, ...rest }) => {
         onPress={() => onPress(rest)}
         style={{
           position: "absolute",
-          backgroundColor: "#ffffff",
+          backgroundColor: colors.background,
           width: 50,
           height: 50,
           alignItems: "center",
@@ -22,10 +24,10 @@ const FloatingActionComponent = ({ onPress, text, position, ...rest }) => {
           borderRadius: 25,
           bottom: 10,
           borderWidth: 1,
-          borderColor: "lightgray",
+          borderColor: colors.border,
         }}
       >
-        <Text style={{ fontSize: 20 }}>{text}</Text>
+        <Text style={{ fontSize: 20, color: colors.text }}>{text}</Text>
       </TouchableOpacity>
     </View>
   );

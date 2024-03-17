@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import {
   NavigationContainer,
@@ -10,15 +10,21 @@ import AuthenticationScreens from "./Authentication";
 import HomeScreens from "./Home";
 const Stack = createNativeStackNavigator();
 
+export const ThemeContext = React.createContext();
+
 const MainApp = () => {
+  const [theme, setTheme] = useState(true);
+  const themeData = { theme, setTheme };
   return (
-    <NavigationContainer theme={DefaultTheme}>
-      <StatusBar backgroundColor={"lightgray"} />
-      <Stack.Navigator>
-        {AuthenticationScreens}
-        {HomeScreens}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeContext.Provider value={themeData}>
+      <NavigationContainer theme={theme ? DefaultTheme : DarkTheme}>
+        <StatusBar backgroundColor={"lightgray"} />
+        <Stack.Navigator>
+          {AuthenticationScreens}
+          {HomeScreens}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeContext.Provider>
   );
 };
 export default MainApp;

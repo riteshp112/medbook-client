@@ -1,14 +1,12 @@
 // @ts-nocheck
-import { View, TextInput, Text, Button, Modal } from "react-native";
-import { useState } from "react";
-import { TouchableOpacity } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState } from "react";
+import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
-import React from "react";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
-import { signUpStyle } from "./SignUp";
 import { validateEmail } from "../../Utils/appUtility";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { signUpStyle } from "./SignUp";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -52,7 +50,7 @@ const Login = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}

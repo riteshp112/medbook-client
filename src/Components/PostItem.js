@@ -1,13 +1,10 @@
-import { View, Text, Image } from "react-native";
-import { TouchableOpacity } from "react-native";
-import { TextInput } from "react-native";
-import { ScrollView } from "react-native";
 import { useState } from "react";
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import medFetch from "../Actions/fetch";
 // import CrossPlatformIcon from 'react-native-cross-platform-icons';
-import { loadPost } from "../Screens/Post";
-import { comment, dislike, like, send } from "../Icons";
 import React from "react";
+import { comment, dislike, like, send } from "../Icons";
+import { loadPost } from "../Screens/Post";
 const PostItem = (props) => {
   const { item, PostItems, setPostItems, setModalVisible } = props;
   const [newComment, setNewComment] = useState("");

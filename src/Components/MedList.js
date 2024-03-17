@@ -2,8 +2,10 @@ import React, { useRef, useState } from "react";
 import { FlatList, View } from "react-native";
 import { usePost } from "../Actions/useFetch";
 import FloatingActionComponent from "./FloatingActionComponent";
+import { useTheme } from "@react-navigation/native";
 
 const List = (props) => {
+  const { colors } = useTheme();
   let {
     RenderItem,
     uri = "",
@@ -43,11 +45,12 @@ const List = (props) => {
   };
 
   const FloatingAction = () => {
-    return floatingActions?.map((floatingAction) => (
+    return floatingActions?.map((floatingAction, index) => (
       <FloatingActionComponent
         {...props}
         {...floatingAction}
         list={ref?.current}
+        key={index}
       />
     ));
   };
@@ -65,7 +68,7 @@ const List = (props) => {
       style={{
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.background,
         ...containerStyle,
       }}
     >

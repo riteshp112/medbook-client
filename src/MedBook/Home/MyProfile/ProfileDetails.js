@@ -1,20 +1,19 @@
-import { Image, Text, View } from "react-native";
+import { useIsFocused, useTheme } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
-import {
-  loadingAnimation,
-  loadingIcon,
-  profileBlue,
-} from "../../../Images/index";
+import { Image, Text, View } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
-import { useIsFocused } from "@react-navigation/native";
-import { getUser } from "../../Authentication/Authenticator";
 import ActivityIndicator from "../../../Components/ActivityIndicator";
+import { loadingIcon, profileBlue } from "../../../Images/index";
+import { getUser } from "../../Authentication/Authenticator";
 
-const ProfileDetail = ({ route }) => {
-  const { username } = route?.params || {};
+const ProfileDetail = (props) => {
+  const { route = {} } = props;
+  const { params = {} } = route;
+  const { username } = params;
   const [user, setUser] = useState();
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
+  const { colors } = useTheme();
   useEffect(() => {
     if (username) {
       setLoading(true);
@@ -33,38 +32,54 @@ const ProfileDetail = ({ route }) => {
   }, [isFocused]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#ffffff" }}>
+    <View
+      style={{
+        padding: 16,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 8,
+        backgroundColor: colors.background,
+        marginRight:10,
+        borderRadius: 4,
+        marginLeft:10,
+      }}
+    >
       <ActivityIndicator
-        containerStyle={{ height: "100%", backgroundColor: "rgba(1,1,0,0.1)" }}
+        containerStyle={{
+          height: "100%",
+          backgroundColor: "rgba(1,1,0,0.1)",
+        }}
         modalVisible={loading}
         loadingIcon={loadingIcon}
       />
-      <View style={{ padding: 20, flexDirection: "row", width: "100%" }}>
-        <Image
-          source={profileBlue}
+      <Image
+        source={profileBlue}
+        style={{
+          height: 40,
+          width: 40,
+          borderRadius: 20,
+          borderWidth: 1,
+          borderColor: "lightblue",
+        }}
+      />
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <Text
           style={{
-            height: 60,
-            width: 60,
-            borderRadius: 30,
-            alignSelf: "center",
-            borderWidth: 1,
-            borderColor: "lightblue",
+            fontSize: 18,
+            color: colors.primary,
           }}
-        />
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            {user?.name}
-          </Text>
-          <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            {user?.username}
-          </Text>
-          <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            {user?.gender}
-          </Text>
-          <Text style={{ fontSize: 18, paddingTop: 8, paddingLeft: 16 }}>
-            {user?.dob}
-          </Text>
-        </View>
+        >
+          {user?.name}
+        </Text>
+        <Text
+          dataDetectorType="email"
+          style={{
+            fontSize: 14,
+            color: "gray",
+          }}
+        >
+          {user?.email}
+        </Text>
       </View>
     </View>
   );

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, TextInput, View } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import sendMailAction from "../../Actions/sendMailAction";
 import ActivityIndicator from "../../Components/ActivityIndicator";
@@ -53,7 +53,7 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
       <TextInput
         value={inputOtp}
         onChangeText={(val) => {

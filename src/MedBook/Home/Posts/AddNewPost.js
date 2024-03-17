@@ -3,11 +3,13 @@ import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
 import { CustomRenders } from "../../../Components/FormEditors";
 import { getUser } from "../../Authentication/Authenticator";
+import { useTheme } from "@react-navigation/native";
 const ImageInput = CustomRenders.imageInput;
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState("");
   const [image, setImage] = useState();
   const user = getUser();
+  const { colors } = useTheme();
   // const Toast = useToast()
   return (
     <View
@@ -17,7 +19,7 @@ const AddNewPost = ({ navigation }) => {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
         borderStyle: "solid",
-        backgroundColor: "#ffffff",
+        backgroundColor: colors.background,
         padding: 8,
       }}
     >
@@ -53,15 +55,16 @@ const AddNewPost = ({ navigation }) => {
           multiline={true}
           textAlignVertical={"top"}
           style={{
-            height: 60,
+            minHeight: 60,
             padding: 4,
             backgroundColor: "lightskyblue",
             borderRadius: 4,
+            maxHeight: 400,
           }}
           onChangeText={(value) => {
             setPost(value);
           }}
-          maxLength={300}
+          maxLength={10000}
         />
         <ImageInput
           placeholder={"Upload Image"}

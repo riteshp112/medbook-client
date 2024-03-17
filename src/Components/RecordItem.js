@@ -1,6 +1,5 @@
-import { View, Text,Image } from 'react-native';
 import moment from 'moment';
-import { TouchableOpacity } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { deleteIcon } from '../Icons';
 // import CrossPlatformIcon from 'react-native-cross-platform-icons';
 export const RecordItem = (props) => {

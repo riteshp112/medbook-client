@@ -1,6 +1,6 @@
 // @ts-nocheck
-import React, { useRef, useState } from "react";
-import { Button, TextInput, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Button, StyleSheet, TextInput, View } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
@@ -48,7 +48,7 @@ const SearchAccount = (props) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
       <TextInput
         value={email}
         onChangeText={(value) => setEmail(value)}

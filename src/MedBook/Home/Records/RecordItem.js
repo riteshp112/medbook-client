@@ -4,7 +4,9 @@ import moment from "moment";
 import { TouchableOpacity } from "react-native";
 import { deleteIcon } from "../../../Images";
 import { deleteRecordAction } from "../../../Actions/recordActions";
+import { useTheme } from "@react-navigation/native";
 export const RecordItem = ({ item, index, func }) => {
+  const { colors } = useTheme();
   return (
     <View
       style={{
@@ -14,9 +16,9 @@ export const RecordItem = ({ item, index, func }) => {
       }}
     >
       <View style={{ alignSelf: "flex-start", flex: 1 }}>
-        <Text style={{ fontSize: 25 }}>{item.type}</Text>
-        <Text style={{ fontSize: 25 }}>{item.val}</Text>
-        <Text style={{ fontSize: 15 }}>
+        <Text style={{ fontSize: 25, color: colors.text }}>{item.type}</Text>
+        <Text style={{ fontSize: 25, color: colors.text }}>{item.val}</Text>
+        <Text style={{ fontSize: 15, color: colors.text }}>
           {moment(item?.date).format("DD-MMM-YYYY hh:mm:ss A")}
         </Text>
       </View>

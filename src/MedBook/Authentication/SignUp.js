@@ -1,20 +1,19 @@
 // @ts-nocheck
+import { Picker } from "@react-native-picker/picker";
 import moment from "moment";
 import React, { useState } from "react";
 import {
+  Button,
   StyleSheet,
   Text,
   TextInput,
-  View,
-  Button,
-  TouchableOpacity,
+  View
 } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
-import { Picker } from "@react-native-picker/picker";
 import ActivityIndicator from "../../Components/ActivityIndicator";
+import DatePicker from "../../Components/DatePicker";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
-import DatePicker from "../../Components/DatePicker";
 
 const SignUp = (props) => {
   const [name, setName] = useState("");
@@ -65,7 +64,7 @@ const SignUp = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor: "#ffffff", gap: 4 }}>
+    <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}

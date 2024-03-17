@@ -97,7 +97,8 @@ const ImageInput = ({ handleChange, formField, placeholder }) => {
 
   const onUploadPressed = async () => {
     const file = await docPicker();
-    const {_id,assets: assets} = file;
+    const {_id,assets: assets,canceled,loading} = file;
+    if(canceled) return;
     setFile({_id,type:assets?.[0]?.mimeType});
     handleChange(formField)({_id,type:assets?.[0]?.mimeType});
   };
