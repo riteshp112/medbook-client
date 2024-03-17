@@ -80,28 +80,32 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           ]}
         />
       </View>
-      <Text
+      <Hyperlink
         linkStyle={{
           color: "blue",
           textDecorationLine: "none",
         }}
-        dataDetectorType="all"
-        selectable
-        textBreakStrategy="balanced"
-        android_hyphenationFrequency="full"
-        accessible
-        numberOfLines={textShown || !lengthMore ? undefined : 15}
-        style={{ fontSize: 15, paddingBottom: 16, color: colors.text }}
-        onTextLayout={onTextLayout}
-        onLayout={(e) => {
-          console.log(e);
-          if (Platform.OS == "web") {
-            setLengthMore(e.nativeEvent.target.innerText.length >= 600);
-          }
-        }}
+        linkDefault={true}
       >
-        {item?.post}
-      </Text>
+        <Text
+          dataDetectorType="all"
+          selectable
+          textBreakStrategy="balanced"
+          android_hyphenationFrequency="full"
+          accessible
+          numberOfLines={textShown || !lengthMore ? undefined : 15}
+          style={{ fontSize: 15, paddingBottom: 16, color: colors.text }}
+          onTextLayout={onTextLayout}
+          onLayout={(e) => {
+            console.log(e);
+            if (Platform.OS == "web") {
+              setLengthMore(e.nativeEvent.target.innerText.length >= 600);
+            }
+          }}
+        >
+          {item?.post}
+        </Text>
+      </Hyperlink>
 
       {lengthMore ? (
         <Text
