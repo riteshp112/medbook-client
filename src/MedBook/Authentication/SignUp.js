@@ -22,7 +22,7 @@ const SignUp = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
-  const [dob, setdob] = useState(new Date());
+  const [dob, setdob] = useState();
   const [email, setEmail] = useState("");
   const [canResendOtpIn, setCanResendOtpIn] = useState(0);
 
@@ -55,7 +55,7 @@ const SignUp = (props) => {
         await medFetch({
           type: "insert",
           table: "testcol",
-          data: { name, username, password, gender, dob },
+          data: { name, username, password, gender, dob, email },
         });
         toast.show("Sign Up Successful", { type: "success", duration: 1500 });
         props?.navigation.navigate("login");
@@ -69,41 +69,27 @@ const SignUp = (props) => {
       <TextInput
         style={signUpStyle.formTextInputStyle}
         placeholder={"Name"}
+        value={name}
         onChangeText={(value) => setName(value)}
-      />{" "}
-      <View style={{ flexDirection: "row", gap: 8 }}>
-        <TextInput
-          style={{ ...signUpStyle.formTextInputStyle, flex: 1 }}
-          placeholder={"Email"}
-          onChangeText={(value) => setEmail(value)}
-        />{" "}
-        <TouchableOpacity
-          disabled={canResendOtpIn != 0}
-          onPress={() => {
-            setCanResendOtpIn(60);
-            countDownHandler();
-          }}
-        >
-          <Text
-            style={{
-              ...signUpStyle.formTextInputStyle,
-              display: "flex",
-              alignItems: "center",
-              padding: 4,
-              color: canResendOtpIn == 0 ? "blue" : "grey",
-              textAlignVertical: "center",
-            }}
-          >
-            {!canResendOtpIn
-              ? `Send OTP`
-              : `Can Resend in ${canResendOtpIn} sec(s)`}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      />
+
+      <TextInput
+        style={{ ...signUpStyle.formTextInputStyle }}
+        placeholder={"Email"}
+        value={email}
+        keyboardType={"email-address"}
+        type="email"
+        onChangeText={(value) => {
+          setEmail(value);
+          setUserName(value.split("@")[0]);
+        }}
+      />
+
       <TextInput
         style={signUpStyle.formTextInputStyle}
         onChangeText={(value) => setUserName(value)}
-        placeholder={email ? email.split("@")[0] : "Username"}
+        placeholder={"Username"}
+        value={username}
       />
       <TextInput
         style={signUpStyle.formTextInputStyle}
@@ -113,7 +99,7 @@ const SignUp = (props) => {
       />
       <View style={signUpStyle.formPickerStyle}>
         <Picker
-          onValueChange={(itemValue, itemIndex) => {
+          onValueChange={(itemValue) => {
             setGender(itemValue);
           }}
           selectedValue={gender}
@@ -142,6 +128,7 @@ const SignUp = (props) => {
         }}
         value={dob}
         style={{ ...signUpStyle.formTextInputStyle }}
+        placeholder={"DOB"}
       />
       <Button
         title={"Sign UP"}
@@ -216,6 +203,8 @@ export const signUpStyle = StyleSheet.create({
     borderColor: "lightgray",
     backgroundColor: "#ebedf0",
     paddingLeft: 8,
+    paddingRight: 8,
+    border: "1px solid lightgray",
   },
   formPickerStyle: {
     borderWidth: 1,

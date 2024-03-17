@@ -4,12 +4,12 @@ let uploadUrl = "https://meddbook-server.onrender.com/upload";
 let downloadUrl = "https://meddbook-server.onrender.com/retrieve";
 let socketURL = "https://meddbook-server.onrender.com";
 
-if (__DEV__ && false) {
-  fetchURL = "http://127.0.0.1:5000/invoke";
-  mailURL = "http://127.0.0.1:5000/sendMail";
-  uploadUrl = "http://127.0.0.1/upload";
-  downloadUrl = "http://127.0.0.1/retrieve";
-  socketURL = "http://127.0.0.1:5000";
-}
+// if (__DEV__ && false) {
+//   fetchURL = "http://127.0.0.1:5000/invoke";
+//   mailURL = "http://127.0.0.1:5000/sendMail";
+//   uploadUrl = "http://127.0.0.1/upload";
+//   downloadUrl = "http://127.0.0.1/retrieve";
+//   socketURL = "http://127.0.0.1:5000";
+// }
 
 export { fetchURL, mailURL, uploadUrl, downloadUrl, socketURL };

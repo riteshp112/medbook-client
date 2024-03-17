@@ -1,4 +1,5 @@
-import React from "react";
+import moment from "moment";
+import React, { useState } from "react";
 
 export default ({
   value,
@@ -10,11 +11,18 @@ export default ({
   ...restProps
 }) => {
   const modes = { date: "date", time: "time", datetime: "datetime-local" };
+  const [type, setType] = useState("text");
   return (
     <div style={{ ...style, ...textStyle, display: "flex" }}>
       <input
-        value={value}
-        type={modes[mode]}
+        value={
+          type == "text" ? value && moment(value).format("DD/MM/YYYY") : value
+        }
+        type={type}
+        onFocus={function () {
+          setType(modes[mode]);
+        }}
+        id="date"
         placeholder={placeholder}
         onChange={(event) => {
           onChange(event.target.value);
@@ -25,6 +33,7 @@ export default ({
           backgroundColor: "transparent",
           width: "100%",
           alignSelf: "center",
+          paddingLeft: type == "text" && value ? 4 : 0,
         }}
         {...restProps}
       />

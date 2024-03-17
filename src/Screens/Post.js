@@ -23,7 +23,6 @@ export const loadPost = (setPostItems,setModalVisible,PostItems,use) => {
 const Post = (props) => {
   const [PostItems, setPostItems] = useState([])
   const [modalVisible, setModalVisible] = useState(true);
-  console.log(props)
   if (PostItems.length == 0)
     loadPost(setPostItems, setModalVisible, PostItems,props?.user);
   return (

@@ -16,7 +16,7 @@ const MoreAction = (props) => {
         }}
         key={index}
         style={{
-          padding:10,
+          padding: 10,
           borderBottomWidth: 1,
           borderBottomColor: "lightgrey",
         }}
@@ -44,19 +44,21 @@ const MoreAction = (props) => {
         </TouchableOpacity>
       }
     >
-            <Popover.Backdrop />
-
+      <Popover.Backdrop />
       <Popover.Content>
-        <View style={{
-          backgroundColor:'white',
-          borderRadius:10,
-          borderColor:'lightgrey',
-          borderWidth:1,
-          shadowColor: "#000",
-          overflow:'hidden'
-        }}>{componentsToRender}</View>
-        
-        </Popover.Content>
+        <View
+          style={{
+            backgroundColor: "white",
+            borderRadius: 10,
+            borderColor: "lightgrey",
+            borderWidth: 1,
+            shadowColor: "#000",
+            overflow: "hidden",
+          }}
+        >
+          {componentsToRender}
+        </View>
+      </Popover.Content>
     </Popover>
   );
 };

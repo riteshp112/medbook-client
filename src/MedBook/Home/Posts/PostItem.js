@@ -14,6 +14,7 @@ import { VideoPlayer } from "../../../Components/VideoPlayer";
 import { comment, dislike, like, send } from "../../../Images";
 import { downloadUrl } from "../../../config";
 import { getUser } from "../../Authentication/Authenticator";
+import Hyperlink from "react-native-hyperlink";
 
 const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
   const user = getUser();
@@ -61,29 +62,48 @@ const PostItem = ({ item, navigation, setDataLength: setPostLength }) => {
           ]}
         />
       </View>
-      <Text style={{ fontSize: 15, paddingBottom: 16 }}>{item?.post}</Text>
-      {item?.image?.type?.split('/')?.[0]=='video'?<VideoPlayer url={downloadUrl + "/" + item.image?._id}/>:<Image
-        source={{ uri: downloadUrl + "/" + item.image?._id }}
-        resizeMode="contain"
-        onLayout={(event) => {
-          let { width: totalWidth } = event.nativeEvent.layout;
-          Image.getSize(
-            downloadUrl + "/" + item?.image?._id,
-            (width, height) => {
-              const widthToHeight = width / height;
-              const newHeight = totalWidth / widthToHeight;
-              setImgHeight({ height: newHeight });
-            },
-            (err) => {}
-          );
+      <Hyperlink
+        linkStyle={{
+          color: "blue",
         }}
-        style={{
-          ...imgHeight,
-          alignSelf: "center",
-          width: "100%",
-          // height:'100%'
-        }}
-      />}
+        linkDefault={true}
+      >
+        <Text
+          dataDetectorType="all"
+          style={{ fontSize: 15, paddingBottom: 16 }}
+        >
+          {item?.post}
+        </Text>
+      </Hyperlink>
+      {item?.image?.type?.split("/")?.[0] == "video" ? (
+        <VideoPlayer url={downloadUrl + "/" + item.image?._id} />
+      ) : (
+        item.image && (
+          <Image
+            source={{
+              uri: downloadUrl + "/" + item.image?._id,
+            }}
+            resizeMode="contain"
+            onLayout={(event) => {
+              let { width: totalWidth } = event.nativeEvent.layout;
+              Image.getSize(
+                downloadUrl + "/" + item?.image?._id,
+                (width, height) => {
+                  const widthToHeight = width / height;
+                  const newHeight = totalWidth / widthToHeight;
+                  setImgHeight({ height: newHeight });
+                },
+                console.log
+              );
+            }}
+            style={{
+              ...imgHeight,
+              alignSelf: "center",
+              width: "100%",
+            }}
+          />
+        )
+      )}
       <View
         style={{
           flexDirection: "row",
