@@ -21,8 +21,8 @@ const AddNewRecord = ({ navigation }) => {
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
         borderStyle: "solid",
-        backgroundColor:colors.background,
-        padding:8
+        backgroundColor: colors.background,
+        padding: 8,
       }}
     >
       <View style={signUpStyle.formPickerStyle}>
@@ -36,7 +36,7 @@ const AddNewRecord = ({ navigation }) => {
             color: item.type == "" ? "#8e8e8e" : void 0,
             borderWidth: 0,
             backgroundColor: "rgba(1,1,1,0)",
-            outline:'none'
+            outline: "none",
           }}
         >
           <Picker.Item label="Choose Record Type" value="" enabled={false} />

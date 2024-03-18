@@ -7,6 +7,7 @@ import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
 import { signUpStyle } from "./SignUp";
+import { useTheme } from "@react-navigation/native";
 // import {useToast } from "react-native-fast-toast";
 const Login = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
