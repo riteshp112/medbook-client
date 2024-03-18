@@ -22,7 +22,6 @@ const Drawer = createDrawerNavigator();
 
 const SideBar = () => {
   const { theme, setTheme } = React.useContext(ThemeContext);
-  const { colors } = useTheme();
   return (
     <Drawer.Navigator
       initialRouteName={"Home"}

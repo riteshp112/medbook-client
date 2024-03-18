@@ -7,6 +7,7 @@ import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
 import Recaptcha from "./Recaptch";
 import { signUpStyle } from "./SignUp";
+import { useTheme } from "@react-navigation/native";
 
 const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
   let condition;
@@ -47,6 +48,7 @@ const verifyAndSendOtp = async ({ email, navigation, setModalVisible }) => {
 const SearchAccount = (props) => {
   const [email, setEmail] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const { colors } = useTheme();
   return (
     <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
       <TextInput

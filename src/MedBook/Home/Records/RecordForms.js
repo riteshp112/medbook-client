@@ -4,6 +4,7 @@ import { Button, TextInput, View } from "react-native";
 import medFetch from "../../../Actions/medFetchAction";
 import { getUser } from "../../Authentication/Authenticator";
 import { signUpStyle } from "../../Authentication/SignUp";
+import { useTheme } from "@react-navigation/native";
 
 const AddNewRecord = ({ navigation }) => {
   const [item, setItem] = useState({
@@ -11,6 +12,7 @@ const AddNewRecord = ({ navigation }) => {
     val: "",
   });
   const user = getUser();
+  const { colors } = useTheme();
   return (
     <View
       style={{

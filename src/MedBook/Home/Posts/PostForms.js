@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 import { createPost } from "../../../Actions/createPostAction";
 import { getUser } from "../../Authentication/Authenticator";
+import { useTheme } from "@react-navigation/native";
 const AddNewPost = ({ navigation }) => {
   const [post, setPost] = useState("");
   const user = getUser();
+  const { colors } = useTheme();
   return (
     <View
       style={{

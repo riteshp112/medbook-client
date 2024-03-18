@@ -6,6 +6,7 @@ import sendMailAction from "../../Actions/sendMailAction";
 import ActivityIndicator from "../../Components/ActivityIndicator";
 import { loadingIcon } from "../../Images";
 import { signUpStyle } from "./SignUp";
+import { useTheme } from "@react-navigation/native";
 
 const validateOtp = async ({ inputOtp, navigation, user, setModalVisible }) => {
   setModalVisible(true);
@@ -32,6 +33,7 @@ const OtpVerification = ({ route, navigation, ...resprops }) => {
   const otp = parseInt(Math.random() * 1000000);
   const name = "User";
   const [modalVisible, setModalVisible] = useState(false);
+  const { colors } = useTheme();
   useEffect(() => {
     sendMailAction({
       subject: "Otp For Account Verification",

@@ -13,6 +13,7 @@ const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { navigation } = props;
+  const { colors } = useTheme();
   // const Toast =useToast()
   const loginPressed = async () => {
     // @ts-ignore
@@ -50,7 +51,14 @@ const Login = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>
+    <View
+      style={{
+        flex: 1,
+        padding: 8,
+        backgroundColor: colors.background,
+        gap: 4,
+      }}
+    >
       <TextInput
         onChangeText={(value) => setUserName(value)}
         placeholder={"Username or Email"}

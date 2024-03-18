@@ -14,6 +14,7 @@ import ActivityIndicator from "../../Components/ActivityIndicator";
 import DatePicker from "../../Components/DatePicker";
 import { loadingIcon } from "../../Images";
 import { validateEmail } from "../../Utils/appUtility";
+import { useTheme } from "@react-navigation/native";
 
 const SignUp = (props) => {
   const [name, setName] = useState("");
@@ -62,6 +63,8 @@ const SignUp = (props) => {
     }
     setLoading(false);
   };
+
+  const { colors } = useTheme();
 
   return (
     <View style={{ flex: 1, padding: 8, backgroundColor:colors.background, gap: 4 }}>

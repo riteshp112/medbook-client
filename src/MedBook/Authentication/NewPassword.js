@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
 import medFetch from "../../Actions/medFetchAction";
 import { signUpStyle } from "./SignUp";
+import { useTheme } from "@react-navigation/native";
 
 const NewPassword = ({ route, navigation }) => {
   const [password1, setpassword1] = useState("");
   const [password2, setpassword2] = useState("");
   const { user } = route.params;
+  const { colors } = useTheme();
   return (
     <View
       style={{

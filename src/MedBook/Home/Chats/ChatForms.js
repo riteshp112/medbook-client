@@ -10,6 +10,7 @@ import {
 import medFetch from "../../../Actions/medFetchAction";
 import { getUser } from "../../Authentication/Authenticator";
 import { signUpStyle } from "../../Authentication/SignUp";
+import { useTheme } from "@react-navigation/native";
 
 const AddNewChat = (props) => {
   const [query, setQuery] = useState("");
@@ -18,6 +19,7 @@ const AddNewChat = (props) => {
   const [user, setUser] = useState();
   const [userIndex, setUserIndex] = useState(-1);
   const sender = getUser();
+  const { colors } = useTheme();
 
   useEffect(() => {
     const items = [
